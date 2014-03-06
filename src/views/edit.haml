@@ -1,0 +1,73 @@
+%form{action: absolute_uri(user['uid'].first, :edit), method: :POST}
+  %table
+    %tr
+      %th 氏名(英語)
+      %td
+        氏:
+        - input_userattr user, 'sn', required: true
+      %td
+        名:
+        - input_userattr user, 'givenName', required: true
+    %tr
+      %th 氏名(日本語)
+      %td
+        氏:
+        - input_userattr user, 'sn;lang-ja', required: true
+      %td
+        名:
+        - input_userattr user, 'givenName;lang-ja', required: true
+    %tr
+      %th よみがな
+      %td
+        氏:
+        - input_userattr user, 'sn;lang-ja;phonetic', required: true
+      %td
+        名:
+        - input_userattr user, 'givenName;lang-ja;phonetic', required: true
+    %tr
+      %th あー
+      %td
+        別名:
+        - input_userattr user, 'alias'
+      %td
+        役職:
+        - input_userattr user, 'title'
+    %tr
+      %th 電話番号
+      %td
+        携帯:
+        - input_userattr user, 'mobile', type: :tel, required: true
+      %td
+        固定:
+        - input_userattr user, 'homePhone', type: :tel
+    %tr
+      %th{rowspan: 2} 住所
+      %td
+        郵便番号:
+        - input_userattr user, 'postalCode', required: true
+      %td
+        下宿:
+        - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true'
+    %tr
+      %td{colspan: 2}
+        - input_userattr user, 'postalAddress', required: true
+    %tr
+      %th 所属
+      %td
+        部局:
+        - input_userattr user, 'kmcUniversityDepartent', required: true
+      %td
+        回生:
+        - input_userattr user, 'kmcUniversityStatus', required: true
+    %tr
+      %th あれそれ
+      %td
+        入学年:
+        - input_userattr user, 'kmcUniversityMatric', required: true
+      %td
+        代:
+        - input_userattr user, 'kmcGeneration', required: true
+  %input{type: :hidden, name: 'uid', value: user['uid'].first}
+  Password:
+  %input{type: :password, name: 'password'}
+  %input{type: :submit}

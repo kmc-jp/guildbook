@@ -1,0 +1,25 @@
+%table
+  %tr
+    %th ログイン名
+    %td= user['uid'].first
+    %th UID
+    %td= user['uidNumber'].first
+  %tr
+    %th 氏名(en)
+    %td #{user['givenName'].first} #{user['sn'].first}
+    %th 氏名(ja)
+    %td #{user['givenName;lang-ja'].first} #{user['sn;lang-ja'].first}
+  %tr
+    %th メールアドレス
+    %td{colspan: 3}
+      %a{href: "mailto:#{user['mail'].first}"}= user['mail'].first
+  %tr
+    %th 携帯電話
+    %td= user['mobile'].first
+    %th 固定電話
+    %td= user['homePhone'].first
+  %tr
+    %th 住所
+    %td{colspan: 3} #{user['postalCode'].first} #{user['postalAddress'].first}
+
+%a{href: absolute_uri(user['uid'].first, 'edit')} edit

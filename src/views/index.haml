@@ -1,0 +1,13 @@
+%table
+  %thead
+    %tr
+      %th ログイン名
+      %th 氏名
+      %th 電話番号
+  %tbody
+    - users.each do |user|
+      %tr
+        %td
+          %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
+        %td #{user['cn;lang-ja'].first} (#{user['cn'].first})
+        %td #{user['mobile'].first}

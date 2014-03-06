@@ -1,0 +1,6 @@
+development:
+  base_uri: 'http://localhost:8080/'
+  ldap_host: ldap.box2.kmc.gr.jp
+  ldap_port: 636
+  ldap_tls: true
+  ldap_base: ou=users,dc=box2,dc=kmc,dc=gr,dc=jp
