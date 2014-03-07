@@ -23,10 +23,11 @@ module GuildBook
       URI.join(settings.base_uri, path.join('/'))
     end
 
-    def get_users
+    def get_users(filter = nil)
       ldap_conn do |conn|
+        uidFilter = Net::LDAP::Filter.present('uid')
         conn.search(base: settings.ldap_base,
-                    filter: Net::LDAP::Filter.eq('uid', '*'),
+                    filter: filter ? filter & uidFilter : uidFilter,
                     attributes: ['*'])
       end.collect(&:fix_encoding!)
     end
@@ -40,7 +41,8 @@ module GuildBook
     end
 
     get '/' do
-      haml :index, locals: {users: get_users.sort_by {|u| u['uid'].first }}
+      users = get_users(~Net::LDAP::Filter.present('shadowExpire'))
+      haml :index, locals: {users: users.sort_by {|u| u['uid'].first }}
     end
 
     get '/:uid' do |uid|
