@@ -1,3 +1,3 @@
-# Native library dependency
-- libldap-dev
-- libsasl2-dev
+# guildbook
+
+LDAP-based address book interface
