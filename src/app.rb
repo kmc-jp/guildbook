@@ -71,6 +71,8 @@ module GuildBook
           conn.replace_attribute(dn, attr, params[attr])
         end
       end
+
+      redirect absolute_uri(uid)
     end
 
     private
