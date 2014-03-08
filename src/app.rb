@@ -24,7 +24,7 @@ module GuildBook
     register Sinatra::AssetPipeline
 
     def absolute_uri(*path)
-      URI.join(settings.base_uri, path.join('/'))
+      url(path.join('/'))
     end
 
     def get_users(filter = nil)
