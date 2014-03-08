@@ -3,6 +3,7 @@ require 'uri'
 require 'sinatra/base'
 require 'sinatra/config_file'
 require 'sinatra/reloader'
+require 'sinatra/asset_pipeline'
 
 require 'net/ldap'
 require 'net/ldap/dn'
@@ -18,6 +19,9 @@ module GuildBook
 
     register Sinatra::ConfigFile
     config_file '../config/guildbook*.yml'
+
+    set :assets_prefix, %w(src/assets vendor/assets)
+    register Sinatra::AssetPipeline
 
     def absolute_uri(*path)
       URI.join(settings.base_uri, path.join('/'))
