@@ -8,8 +8,15 @@
     %script{type: 'text/javascript', src: '/assets/bootstrap.js'}
     %title めいぼ
   %body
-    %nav
-      %ul
-        %li
-          %a{href: absolute_uri()} 一覧
-    %main!= yield
+    %nav.navbar.navbar-inverse.navbar-static-top
+      %div.container
+        %div.navbar-header
+          -# FIXME: href直書きしてるの直したい
+          %a.navbar-brand{href: 'https://inside.kmc.gr.jp/'} 内部トップ
+          %ul.nav.navbar-nav
+            %li
+              %a{href: absolute_uri()} 一覧
+    %div.container-fluid
+      %div.row
+        %div.col-xs-8.col-xs-offset-2
+          = yield
