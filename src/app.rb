@@ -12,6 +12,8 @@ require_relative 'ldap_ext'
 require 'haml'
 require_relative 'view_helpers'
 
+require 'sass'
+require 'compass'
 require 'bootstrap-sass'
 
 module GuildBook
@@ -21,7 +23,7 @@ module GuildBook
     register Sinatra::ConfigFile
     config_file '../config/guildbook*.yml'
 
-    set :assets_prefix, %w(src/assets vendor/assets)
+    set :assets_prefix, ['src/assets', 'vendor/assets', Compass::Frameworks['bootstrap'].templates_directory + '/../vendor/assets']
     register Sinatra::AssetPipeline
 
     def absolute_uri(*path)
