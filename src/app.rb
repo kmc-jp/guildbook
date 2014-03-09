@@ -12,6 +12,7 @@ require_relative 'ldap_ext'
 require 'haml'
 require_relative 'view_helpers'
 
+require 'bootstrap-sass'
 
 module GuildBook
   class App < Sinatra::Base
