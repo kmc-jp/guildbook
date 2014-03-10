@@ -1,5 +1,3 @@
-require 'uri'
-
 require 'sinatra/base'
 require 'sinatra/config_file'
 require 'sinatra/reloader'
@@ -30,8 +28,8 @@ module GuildBook
       url(path.join('/'))
     end
 
-    def get_users(filter = nil)
-      ldap_conn do |conn|
+    def find_users(filter = nil)
+      Net::LDAP.open_uri(settings.ldap) do |conn|
         uidFilter = Net::LDAP::Filter.present('uid')
         conn.search(filter: filter ? filter & uidFilter : uidFilter,
                     attributes: ['*'])
@@ -39,14 +37,27 @@ module GuildBook
     end
 
     def get_user(uid)
-      ldap_conn do |conn|
+      Net::LDAP.open_uri(settings.ldap) do |conn|
         conn.search(filter: Net::LDAP::Filter.eq('uid', uid),
                     attributes: ['*']).first or raise Sinatra::NotFound
       end.fix_encoding!
     end
 
+    def edit_user(uid, password, attrs)
+      attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
+
+      Net::LDAP.open_uri(settings.ldap) do |conn|
+        dn = Net::LDAP::DN.new('uid', uid, conn.base)
+
+        conn.bind(method: :simple, username: dn, password: password)
+        EDITABLE_ATTRS.each do |n|
+          conn.replace_attribute(dn, n, attrs[n])
+        end
+      end
+    end
+
     get '/' do
-      users = get_users(~Net::LDAP::Filter.present('shadowExpire'))
+      users = find_users(~Net::LDAP::Filter.present('shadowExpire'))
       haml :index, locals: {users: users.sort_by {|u| u['uid'].first }}
     end
 
@@ -58,44 +69,21 @@ module GuildBook
       haml :edit, locals: {user: get_user(uid)}
     end
 
+    EDITABLE_ATTRS = %w[
+      cn
+      sn sn;lang-ja sn;lang-ja;phonetic
+      givenName givenName;lang-ja givenName;lang-ja;phonetic
+      kmcUnivesityDepartment kmcUniversityStatus kmcUniversityMatric
+      alias title kmcGeneration description
+      postalCode postalAddress
+      mobile homePhone
+    ]
+
     post '/:uid/edit' do |uid|
-      attrs = %w[
-        cn
-        sn sn;lang-ja sn;lang-ja;phonetic
-        givenName givenName;lang-ja givenName;lang-ja;phonetic
-        kmcUnivesityDepartment kmcUniversityStatus kmcUniversityMatric
-        alias title kmcGeneration description
-        postalCode postalAddress
-        mobile homePhone
-      ]
-
-      params['cn'] = "#{params['givenName']} #{params['sn']}"
-
-      ldap_conn do |conn|
-        dn = Net::LDAP::DN.new('uid', params['uid'], conn.base)
-
-        conn.bind(method: :simple, username: dn, password: params['password'])
-        attrs.each do |attr|
-          conn.replace_attribute(dn, attr, params[attr])
-        end
-      end
+      edit_user(uid, params['password'], params)
 
       redirect absolute_uri(uid)
     end
 
-    private
-
-    def ldap_conn(opt = {}, &block)
-      ldap_uri = URI.parse(settings.ldap)
-
-      opt = {
-        host: ldap_uri.host,
-        port: ldap_uri.port,
-        base: ldap_uri.dn,
-        encryption: ldap_uri.is_a?(URI::LDAPS) ? :simple_tls : :plaintext
-      }.merge(opt)
-
-      Net::LDAP.open(opt, &block)
-    end
   end
 end
