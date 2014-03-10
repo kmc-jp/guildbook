@@ -33,16 +33,14 @@ module GuildBook
     def get_users(filter = nil)
       ldap_conn do |conn|
         uidFilter = Net::LDAP::Filter.present('uid')
-        conn.search(base: settings.ldap_base,
-                    filter: filter ? filter & uidFilter : uidFilter,
+        conn.search(filter: filter ? filter & uidFilter : uidFilter,
                     attributes: ['*'])
       end.collect(&:fix_encoding!)
     end
 
     def get_user(uid)
       ldap_conn do |conn|
-        conn.search(base: settings.ldap_base,
-                    filter: Net::LDAP::Filter.eq('uid', uid),
+        conn.search(filter: Net::LDAP::Filter.eq('uid', uid),
                     attributes: ['*']).first or raise Sinatra::NotFound
       end.fix_encoding!
     end
@@ -73,9 +71,10 @@ module GuildBook
 
       params['cn'] = "#{params['givenName']} #{params['sn']}"
 
-      dn = Net::LDAP::DN.new('uid', params['uid'], settings.ldap_base)
-      auth = {method: :simple, username: dn, password: params['password']}
-      ldap_conn(auth) do |conn|
+      ldap_conn do |conn|
+        dn = Net::LDAP::DN.new('uid', params['uid'], conn.base)
+
+        conn.bind(method: :simple, username: dn, password: params['password'])
         attrs.each do |attr|
           conn.replace_attribute(dn, attr, params[attr])
         end
@@ -86,13 +85,15 @@ module GuildBook
 
     private
 
-    def ldap_conn(auth = nil, &block)
+    def ldap_conn(opt = {}, &block)
+      ldap_uri = URI.parse(settings.ldap)
+
       opt = {
-        host: settings.ldap_host,
-        port: settings.ldap_port,
-        encryption: settings.ldap_tls ? :simple_tls : :plaintext,
-        auth: auth
-      }
+        host: ldap_uri.host,
+        port: ldap_uri.port,
+        base: ldap_uri.dn,
+        encryption: ldap_uri.is_a?(URI::LDAPS) ? :simple_tls : :plaintext
+      }.merge(opt)
 
       Net::LDAP.open(opt, &block)
     end
