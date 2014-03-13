@@ -9,4 +9,4 @@ gem 'sass'
 gem 'compass'
 gem 'bootstrap-sass'
 
-gem 'net-ldap', git: 'git://github.com/ruby-ldap/ruby-net-ldap.git'
+gem 'net-ldap', github: 'ruby-ldap/ruby-net-ldap'
