@@ -8,13 +8,11 @@ module GuildBook
       @uri = uri
     end
 
-    def find_users(query = nil, active = true)
+    def find(query = nil, active = true)
       filter = Net::LDAP::Filter.present('uid')
 
       if query
-        filter &= SEARCH_ATTRS.collect {|attr|
-          Net::LDAP::Filter.contains(attr, query)
-        }.inject {|filters, filter| filters | filter }
+        filter &= SEARCH_ATTRS.collect {|attr| Net::LDAP::Filter.contains(attr, query) }.inject(:|)
       end
 
       if active
@@ -26,14 +24,14 @@ module GuildBook
       end.collect(&:fix_encoding!)
     end
 
-    def get_user(uid)
+    def get(uid)
       Net::LDAP.open_uri(@uri) do |conn|
         conn.search(filter: Net::LDAP::Filter.eq('uid', uid),
                     attributes: ['*']).first or raise Sinatra::NotFound
       end.fix_encoding!
     end
 
-    def edit_user(uid, password, attrs)
+    def edit(uid, password, attrs)
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
 
       Net::LDAP.open_uri(@uri) do |conn|

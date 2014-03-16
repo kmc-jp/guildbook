@@ -27,20 +27,19 @@ module GuildBook
     end
 
     get '/' do
-      users = user_repo.find_users(params['q'])
-      haml :index, locals: {users: users.sort_by {|u| u['uid'].first }}
+      haml :index, locals: {users: user_repo.find(params['q']).sort_by {|u| u['uid'].first }}
     end
 
     get '/:uid' do |uid|
-      haml :detail, locals: {user: user_repo.get_user(uid)}
+      haml :detail, locals: {user: user_repo.get(uid)}
     end
 
     get '/:uid/edit' do |uid|
-      haml :edit, locals: {user: user_repo.get_user(uid)}
+      haml :edit, locals: {user: user_repo.get(uid)}
     end
 
     post '/:uid/edit' do |uid|
-      user_repo.edit_user(uid, params['password'], params)
+      user_repo.edit(uid, params['password'], params)
 
       redirect absolute_uri(uid)
     end
