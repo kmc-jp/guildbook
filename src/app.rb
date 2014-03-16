@@ -56,8 +56,22 @@ module GuildBook
       end
     end
 
+    SEARCH_ATTRS = %w[
+      uid
+      sn sn;lang-ja x-kmc-PhoneticSurname
+      givenName givenName;lang-ja x-kmc-PhoneticGivenName
+    ]
+
     get '/' do
-      users = find_users(~Net::LDAP::Filter.present('shadowExpire'))
+      filter = ~Net::LDAP::Filter.present('shadowExpire')
+      if query = params['q']
+        filter &= SEARCH_ATTRS.collect {|attr|
+          Net::LDAP::Filter.contains(attr, query)
+        }.inject {|filters, filter|
+          filters | filter
+        }
+      end
+      users = find_users(filter)
       haml :index, locals: {users: users.sort_by {|u| u['uid'].first }}
     end
 
