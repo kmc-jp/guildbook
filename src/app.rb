@@ -71,10 +71,10 @@ module GuildBook
 
     EDITABLE_ATTRS = %w[
       cn
-      sn sn;lang-ja sn;lang-ja;phonetic
-      givenName givenName;lang-ja givenName;lang-ja;phonetic
-      kmcUnivesityDepartment kmcUniversityStatus kmcUniversityMatric
-      alias title kmcGeneration description
+      sn sn;lang-ja x-kmc-PhoneticSurname
+      givenName givenName;lang-ja x-kmc-PhoneticGivenName
+      x-kmc-UnivesityDepartment x-kmc-UniversityStatus x-kmc-UniversityMatricYear
+      alias title x-kmc-Generation description
       postalCode postalAddress
       mobile homePhone
     ]

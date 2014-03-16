@@ -25,9 +25,9 @@
         よみがな
         %span.form-required *
       %td
-        - input_userattr user, 'sn;lang-ja;phonetic', required: true, placeholder: 'えちぜん'
+        - input_userattr user, 'x-kmc-PhoneticSurname', required: true, placeholder: 'えちぜん'
       %td
-        - input_userattr user, 'givenName;lang-ja;phonetic', required: true, placeholder: 'こうすけ'
+        - input_userattr user, 'x-kmc-PhoneticGivenName', required: true, placeholder: 'こうすけ'
     %tr
       %th 別名
       %td{colspan: 2}
@@ -56,17 +56,17 @@
           - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
           %span.input-group-addon
             %label
-              - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true', class: ''
+              - input_userattr user, 'x-kmc-Rodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true', class: ''
               下宿
     %tr
       %th
         所属
         %span.form-required *在学者のみ記入
       %td
-        - input_userattr user, 'kmcUniversityDepartent', placeholder: '工学部情報学科'
+        - input_userattr user, 'x-kmc-UniversityDepartent', placeholder: '工学部情報学科'
       %td
         %div.input-group
-          - input_userattr user, 'kmcUniversityStatus', type: :number, placeholder: '1, M2, D3, 教授'
+          - input_userattr user, 'x-kmc-UniversityStatus', type: :number, placeholder: '1, M2, D3, 教授'
           %span.input-group-addon 回生
     %tr
       %th
@@ -75,12 +75,12 @@
       %td
         %div.input-group
           %span.input-group-addon 西暦
-          - input_userattr user, 'kmcUniversityMatric', required: true, type: :number, placeholder: '2013'
+          - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number, placeholder: '2013'
           %span.input-group-addon 年度入学
       %td
         %div.input-group
           %span.input-group-addon 第
-          - input_userattr user, 'kmcGeneration', required: true, placeholder: '37'
+          - input_userattr user, 'x-kmc-Generation', required: true, placeholder: '37'
           %span.input-group-addon 代
     %tr
       %th

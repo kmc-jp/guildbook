@@ -8,13 +8,13 @@
     %th 氏名(en)
     %td #{user['givenName'].first} #{user['sn'].first}
     %th 氏名(ja)
-    %td #{user['givenName;lang-ja'].first} #{user['sn;lang-ja'].first}
+    %td #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
   %tr
     %th メールアドレス
     %td{colspan: 3}
       %a{href: "mailto:#{user['mail'].first}"}= user['mail'].first
   %tr
-    %th 携帯電話
+    %th 電話番号
     %td= user['mobile'].first
     %th 固定電話
     %td= user['homePhone'].first
