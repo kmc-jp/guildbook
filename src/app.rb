@@ -27,15 +27,15 @@ module GuildBook
     end
 
     get '/' do
-      haml :index, locals: {users: user_repo.find(params['q']).sort_by {|u| u['uid'].first }}
+      haml :index, locals: template_variables.merge(users: user_repo.find(params['q']).sort_by {|u| u['uid'].first })
     end
 
     get '/:uid' do |uid|
-      haml :detail, locals: {user: user_repo.get(uid)}
+      haml :detail, locals: template_variables.merge(user: user_repo.get(uid))
     end
 
     get '/:uid/edit' do |uid|
-      haml :edit, locals: {user: user_repo.get(uid)}
+      haml :edit, locals: template_variables.merge(user: user_repo.get(uid))
     end
 
     post '/:uid/edit' do |uid|
@@ -50,5 +50,12 @@ module GuildBook
       UserRepo.new(settings.ldap)
     end
 
+    def remote_user
+      request.env['REMOTE_USER']
+    end
+
+    def template_variables
+      {remote_user: remote_user}
+    end
   end
 end
