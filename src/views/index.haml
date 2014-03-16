@@ -13,5 +13,7 @@
       %tr
         %td
           %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
-        %td #{user['cn;lang-ja'].first} (#{user['cn'].first})
-        %td #{user['mobile'].first}
+        %td
+          #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
+        %td
+          %a{href: "tel:#{user['mobile'].first}"} #{user['mobile'].first}
