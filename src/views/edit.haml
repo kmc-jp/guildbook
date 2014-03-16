@@ -39,7 +39,7 @@
         - input_userattr user, 'postalCode', required: true, placeholder: '〒'
       %td
         %label
-          - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true'
+          - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true', class: ''
           下宿
     %tr
       %td{colspan: 2}
