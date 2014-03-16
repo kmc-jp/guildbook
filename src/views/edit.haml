@@ -1,75 +1,95 @@
 %form{action: absolute_uri(user['uid'].first, :edit), method: :POST}
   %table.table.table-striped
     %tr
-      %th 氏名(英語)
+      %th ログイン名
+      %td #{user['uid'].first}
+      %td (UID: #{user['uidNumber'].first})
+    %tr
+      %th
+        氏名(英語)
+        %span.form-required *
       %td
         - input_userattr user, 'sn', required: true, placeholder: 'ECHIZEN'
       %td
         - input_userattr user, 'givenName', required: true, placeholder: 'Kousuke'
     %tr
-      %th 氏名(日本語)
+      %th
+        氏名(日本語)
+        %span.form-required *
       %td
         - input_userattr user, 'sn;lang-ja', required: true, placeholder: '越前'
       %td
         - input_userattr user, 'givenName;lang-ja', required: true, placeholder: '康介'
     %tr
-      %th よみがな
+      %th
+        よみがな
+        %span.form-required *
       %td
         - input_userattr user, 'sn;lang-ja;phonetic', required: true, placeholder: 'えちぜん'
       %td
         - input_userattr user, 'givenName;lang-ja;phonetic', required: true, placeholder: 'こうすけ'
     %tr
-      %th ハンドル
+      %th 別名
       %td{colspan: 2}
         - input_userattr user, 'alias', placeholder: 'コンバット越前'
     %tr
       %th 役職
       %td{colspan: 2}
-        - input_userattr user, 'title', placeholder: '会長'
+        - input_userattr user, 'title', placeholder: '会長, 会計'
     %tr
-      %th 電話番号
-      %td
-        %div.input-group
-          %span.input-group-addon 携帯
-          - input_userattr user, 'mobile', type: :tel, required: true, placeholder: '090-XXXX-YYYY'
-      %td
-        %div.input-group
-          %span.input-group-addon 固定
-          - input_userattr user, 'homePhone', type: :tel, placeholder: '075-ZZZZ-WWWW'
+      %th
+        電話番号
+        %span.form-required *
+      %td{colspan: 2}
+        - input_userattr user, 'mobile', type: :tel, required: true, placeholder: '090-XXXX-YYYY'
     %tr
-      %th{rowspan: 2} 住所
-      %td
+      %th{rowspan: 2}
+        住所
+        %span.form-required *
+      %td{colspan: 2}
         %div.input-group
           %span.input-group-addon 〒
           - input_userattr user, 'postalCode', required: true, placeholder: '606-8205'
-      %td
-        %label
-          - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true', class: ''
-          下宿
     %tr
       %td{colspan: 2}
-        - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
+        %div.input-group
+          - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
+          %span.input-group-addon
+            %label
+              - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true', class: ''
+              下宿
     %tr
-      %th 所属
+      %th
+        所属
+        %span.form-required *在学者のみ記入
       %td
-        - input_userattr user, 'kmcUniversityDepartent', required: true, placeholder: '工学部情報学科'
+        - input_userattr user, 'kmcUniversityDepartent', placeholder: '工学部情報学科'
       %td
         %div.input-group
-          - input_userattr user, 'kmcUniversityStatus', required: true, type: :number, placeholder: '1'
+          - input_userattr user, 'kmcUniversityStatus', type: :number, placeholder: '1, M2, D3, 教授'
           %span.input-group-addon 回生
     %tr
-      %th 入学年
-      %td{colspan: 2}
+      %th
+        入学年
+        %span.form-required *
+      %td
         %div.input-group
           %span.input-group-addon 西暦
           - input_userattr user, 'kmcUniversityMatric', required: true, type: :number, placeholder: '2013'
-          %span.input-group-addon 年入学
+          %span.input-group-addon 年度入学
+      %td
+        %div.input-group
+          %span.input-group-addon 第
+          - input_userattr user, 'kmcGeneration', required: true, placeholder: '37'
+          %span.input-group-addon 代
     %tr
-      %th 代
+      %th
+        備考
       %td{colspan: 2}
-        - input_userattr user, 'kmcGeneration', required: true, placeholder: '37'
+        - input_userattr user, 'description'
   %input{type: :hidden, name: 'uid', value: user['uid'].first}
   %div.form-group
-    %label{for: 'password'} Password:
-    %input{type: :password, name: 'password'}
+    %label
+      Password:
+      %input{type: :password, name: 'password'}
   %input.btn.btn-primary.btn-lg.btn-block{type: :submit, value: '保存'}
