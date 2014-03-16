@@ -3,71 +3,73 @@
     %tr
       %th 氏名(英語)
       %td
-        氏:
-        - input_userattr user, 'sn', required: true
+        - input_userattr user, 'sn', required: true, placeholder: 'ECHIZEN'
       %td
-        名:
-        - input_userattr user, 'givenName', required: true
+        - input_userattr user, 'givenName', required: true, placeholder: 'Kousuke'
     %tr
       %th 氏名(日本語)
       %td
-        氏:
-        - input_userattr user, 'sn;lang-ja', required: true
+        - input_userattr user, 'sn;lang-ja', required: true, placeholder: '越前'
       %td
-        名:
-        - input_userattr user, 'givenName;lang-ja', required: true
+        - input_userattr user, 'givenName;lang-ja', required: true, placeholder: '康介'
     %tr
       %th よみがな
       %td
-        氏:
-        - input_userattr user, 'sn;lang-ja;phonetic', required: true
+        - input_userattr user, 'sn;lang-ja;phonetic', required: true, placeholder: 'えちぜん'
       %td
-        名:
-        - input_userattr user, 'givenName;lang-ja;phonetic', required: true
+        - input_userattr user, 'givenName;lang-ja;phonetic', required: true, placeholder: 'こうすけ'
     %tr
-      %th あー
-      %td
-        別名:
-        - input_userattr user, 'alias'
-      %td
-        役職:
-        - input_userattr user, 'title'
+      %th ハンドル
+      %td{colspan: 2}
+        - input_userattr user, 'alias', placeholder: 'コンバット越前'
+    %tr
+      %th 役職
+      %td{colspan: 2}
+        - input_userattr user, 'title', placeholder: '会長'
     %tr
       %th 電話番号
       %td
-        携帯:
-        - input_userattr user, 'mobile', type: :tel, required: true
+        %div.input-group
+          %span.input-group-addon 携帯
+          - input_userattr user, 'mobile', type: :tel, required: true, placeholder: '090-XXXX-YYYY'
       %td
-        固定:
-        - input_userattr user, 'homePhone', type: :tel
+        %div.input-group
+          %span.input-group-addon 固定
+          - input_userattr user, 'homePhone', type: :tel, placeholder: '075-ZZZZ-WWWW'
     %tr
       %th{rowspan: 2} 住所
       %td
-        郵便番号:
-        - input_userattr user, 'postalCode', required: true
+        %div.input-group
+          %span.input-group-addon 〒
+          - input_userattr user, 'postalCode', required: true, placeholder: '606-8205'
       %td
-        下宿:
-        - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true'
+        %label
+          - input_userattr user, 'kmcRodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true', class: ''
+          下宿
     %tr
       %td{colspan: 2}
-        - input_userattr user, 'postalAddress', required: true
+        - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
     %tr
       %th 所属
       %td
-        部局:
-        - input_userattr user, 'kmcUniversityDepartent', required: true
+        - input_userattr user, 'kmcUniversityDepartent', required: true, placeholder: '工学部情報学科'
       %td
-        回生:
-        - input_userattr user, 'kmcUniversityStatus', required: true
+        %div.input-group
+          - input_userattr user, 'kmcUniversityStatus', required: true, type: :number, placeholder: '1'
+          %span.input-group-addon 回生
     %tr
-      %th あれそれ
-      %td
-        入学年:
-        - input_userattr user, 'kmcUniversityMatric', required: true
-      %td
-        代:
-        - input_userattr user, 'kmcGeneration', required: true
+      %th 入学年
+      %td{colspan: 2}
+        %div.input-group
+          %span.input-group-addon 西暦
+          - input_userattr user, 'kmcUniversityMatric', required: true, type: :number, placeholder: '2013'
+          %span.input-group-addon 年入学
+    %tr
+      %th 代
+      %td{colspan: 2}
+        - input_userattr user, 'kmcGeneration', required: true, placeholder: '37'
   %input{type: :hidden, name: 'uid', value: user['uid'].first}
-  Password:
-  %input{type: :password, name: 'password'}
-  %input{type: :submit}
+  %div.form-group
+    %label{for: 'password'} Password:
+    %input{type: :password, name: 'password'}
+  %input.btn.btn-primary.btn-lg.btn-block{type: :submit, value: '保存'}
