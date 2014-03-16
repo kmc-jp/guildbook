@@ -60,6 +60,7 @@
       %td{colspan: 2}
         - input_userattr user, 'kmcGeneration', required: true, placeholder: '37'
   %input{type: :hidden, name: 'uid', value: user['uid'].first}
-  Password:
-  %input{type: :password, name: 'password'}
-  %input{type: :submit}
+  %div.form-group
+    %label{for: 'password'} Password:
+    %input{type: :password, name: 'password'}
+  %input.btn.btn-primary.btn-lg.btn-block{type: :submit, value: '保存'}
