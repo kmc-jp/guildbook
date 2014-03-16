@@ -19,7 +19,7 @@ module GuildBook
     register Sinatra::ConfigFile
     config_file '../config/guildbook*.yml'
 
-    set :assets_prefix, %W[src/assets vendor/assets #{Compass::Frameworks['bootstrap'].path}/vendor/assets]
+    set :assets_prefix, %W[src/assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
     register Sinatra::AssetPipeline
 
     def absolute_uri(*path)
