@@ -23,7 +23,7 @@ module GuildBook
     register Sinatra::AssetPipeline
 
     get '/' do
-      haml :index, locals: {users: user_repo.find(params['q']).sort_by {|u| u['uid'].first }}
+      haml :index, locals: {users: user_repo.find(params['q'], params['all']).sort_by {|u| u['uid'].first }}
     end
 
     get '/:uid' do |uid|

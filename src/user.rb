@@ -8,14 +8,14 @@ module GuildBook
       @uri = uri
     end
 
-    def find(query = nil, active = true)
+    def find(query = nil, include_inactive = true)
       filter = Net::LDAP::Filter.present('uid')
 
       if query
         filter &= SEARCH_ATTRS.collect {|attr| Net::LDAP::Filter.contains(attr, query) }.inject(:|)
       end
 
-      if active
+      unless include_inactive
         filter &= ~Net::LDAP::Filter.present('shadowExpire')
       end
 
