@@ -12,6 +12,11 @@
     %nav.navbar.navbar-inverse.navbar-fixed-top
       %div.container
         %div.navbar-header
+          %button.navbar-toggle{data: {toggle: 'collapse', target: '.collapse.navbar-collapse'}}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
           %a.navbar-brand{href: brand['uri']}= brand['name']
         %div.collapse.navbar-collapse
           %ul.nav.navbar-nav
