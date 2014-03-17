@@ -11,14 +11,15 @@
       %div.container
         %div.navbar-header
           %a.navbar-brand{href: brand['uri']}= brand['name']
+        %div.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li
               %a{href: absolute_uri()} 一覧
+          %form.navbar-form.navbar-right{action: absolute_uri(), role: 'search'}
+            %input.form-control{type: :search, name: 'q'}
+            %input.btn.btn-primary{type: :submit, value: '検索'}
     - if remote_user
       %a{href: absolute_uri(remote_user)}= remote_user
-    %form{action: absolute_uri()}
-      %input{type: :search, name: 'q'}
-      %input{type: :submit}
     %div.container-fluid
       %div.row
         %div.col-xs-8.col-xs-offset-2
