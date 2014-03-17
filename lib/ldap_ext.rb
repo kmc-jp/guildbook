@@ -14,13 +14,14 @@ end
 
 class Net::LDAP
   def self.open_uri(uri, opt = {}, &block)
-    uri = URI.parse(uri) unless uri.is_a?(URI)
+    uri = URI.parse(uri.to_s) unless uri.kind_of?(URI)
+    raise URI::BadURIError.new('Specified URI is not an LDAP URI') unless uri.kind_of?(URI::LDAP)
 
     opt = {
       host: uri.host,
       port: uri.port,
       base: uri.dn,
-      encryption: uri.is_a?(URI::LDAPS) ? :simple_tls : :plaintext
+      encryption: uri.kind_of?(URI::LDAPS) ? :simple_tls : :plaintext
     }.merge(opt)
 
     open(opt, &block)
