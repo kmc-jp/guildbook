@@ -46,11 +46,7 @@ module GuildBook
 
     private
 
-    SEARCH_ATTRS = %w[
-      uid
-      sn sn;lang-ja x-kmc-PhoneticSurname
-      givenName givenName;lang-ja x-kmc-PhoneticGivenName
-    ]
+    SEARCH_ATTRS = %w[uid name]
 
     EDITABLE_ATTRS = %w[
       cn
