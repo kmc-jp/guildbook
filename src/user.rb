@@ -33,6 +33,7 @@ module GuildBook
 
     def edit(uid, password, attrs)
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
+      attrs['x-kmc-Lodging'] = attrs['x-kmc-Lodging'] ? 'TRUE' : 'FALSE' # fixme
 
       Net::LDAP.open_uri(@uri) do |conn|
         dn = Net::LDAP::DN.new('uid', uid, conn.base)
@@ -54,7 +55,7 @@ module GuildBook
       givenName givenName;lang-ja x-kmc-PhoneticGivenName
       x-kmc-UnivesityDepartment x-kmc-UniversityStatus x-kmc-UniversityMatricYear
       x-kmc-Alias title x-kmc-Generation description
-      postalCode postalAddress
+      postalCode postalAddress x-kmc-Lodging
       telephoneNumber
     ]
   end
