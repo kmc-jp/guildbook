@@ -11,12 +11,11 @@ module GuildBook
     def find(query = nil, include_inactive = true)
       filter = Net::LDAP::Filter.present('uid')
 
-      if query
-        query = query.strip
+      if query and (query = query.strip) and !query.empty?
         filter &= SEARCH_ATTRS.collect {|attr| Net::LDAP::Filter.contains(attr, query) }.inject(:|)
       end
 
-      unless include_inactive
+      if !include_inactive
         filter &= ~Net::LDAP::Filter.present('shadowExpire')
       end
 
