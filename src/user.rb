@@ -55,7 +55,7 @@ module GuildBook
       x-kmc-UnivesityDepartment x-kmc-UniversityStatus x-kmc-UniversityMatricYear
       alias title x-kmc-Generation description
       postalCode postalAddress
-      mobile homePhone
+      telephoneNumber
     ]
   end
 end
