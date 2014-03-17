@@ -22,20 +22,16 @@ module GuildBook
     set :assets_prefix, %W[src/assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
     register Sinatra::AssetPipeline
 
-    def absolute_uri(*path)
-      url(path.join('/'))
-    end
-
     get '/' do
-      haml :index, locals: template_variables.merge(users: user_repo.find(params['q']).sort_by {|u| u['uid'].first })
+      haml :index, locals: {users: user_repo.find(params['q']).sort_by {|u| u['uid'].first }}
     end
 
     get '/:uid' do |uid|
-      haml :detail, locals: template_variables.merge(user: user_repo.get(uid))
+      haml :detail, locals: {user: user_repo.get(uid)}
     end
 
     get '/:uid/edit' do |uid|
-      haml :edit, locals: template_variables.merge(user: user_repo.get(uid))
+      haml :edit, locals: {user: user_repo.get(uid)}
     end
 
     post '/:uid/edit' do |uid|
@@ -46,6 +42,10 @@ module GuildBook
 
     private
 
+    def absolute_uri(*path)
+      url(path.join('/'))
+    end
+
     def user_repo
       UserRepo.new(settings.ldap)
     end
@@ -54,8 +54,8 @@ module GuildBook
       request.env['REMOTE_USER']
     end
 
-    def template_variables
-      {remote_user: remote_user, brand: settings.brand || {}}
+    def brand
+      settings.brand || {}
     end
   end
 end
