@@ -26,8 +26,10 @@
               %li
                 %a{href: absolute_uri(remote_user)}= remote_user
           %form.navbar-form.navbar-right{action: absolute_uri(), role: 'search'}
-            %input.form-control{type: :search, name: 'q'}
-            %input.btn.btn-primary{type: :submit, value: '検索'}
+            %div.input-group
+              %input.form-control{type: :search, name: 'q'}
+              %span.input-group-btn
+                %button.btn.btn-default.btn-primary{type: :submit, value: '検索'} 検索
     %div.container-fluid
       %div.row
         %div.col-xs-8.col-xs-offset-2
