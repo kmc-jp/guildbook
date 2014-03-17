@@ -15,11 +15,12 @@
           %ul.nav.navbar-nav
             %li
               %a{href: absolute_uri()} 一覧
+            - if remote_user
+              %li
+                %a{href: absolute_uri(remote_user)}= remote_user
           %form.navbar-form.navbar-right{action: absolute_uri(), role: 'search'}
             %input.form-control{type: :search, name: 'q'}
             %input.btn.btn-primary{type: :submit, value: '検索'}
-    - if remote_user
-      %a{href: absolute_uri(remote_user)}= remote_user
     %div.container-fluid
       %div.row
         %div.col-xs-8.col-xs-offset-2
