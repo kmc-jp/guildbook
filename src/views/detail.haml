@@ -22,4 +22,4 @@
     %th 住所
     %td{colspan: 3} #{user['postalCode'].first} #{user['postalAddress'].first}
 
-%a{href: absolute_uri(user['uid'].first, 'edit')} edit
+%a.btn.btn-primary.btn-block.btn-lg{href: absolute_uri(user['uid'].first, 'edit')} 編集
