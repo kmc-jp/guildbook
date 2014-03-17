@@ -10,8 +10,7 @@
     %nav.navbar.navbar-inverse.navbar-static-top
       %div.container
         %div.navbar-header
-          -# FIXME: href直書きしてるの直したい
-          %a.navbar-brand{href: 'https://inside.kmc.gr.jp/'} 内部トップ
+          %a.navbar-brand{href: brand['uri']}= brand['name']
           %ul.nav.navbar-nav
             %li
               %a{href: absolute_uri()} 一覧

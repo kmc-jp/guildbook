@@ -55,7 +55,7 @@ module GuildBook
     end
 
     def template_variables
-      {remote_user: remote_user}
+      {remote_user: remote_user, brand: settings.brand || {}}
     end
   end
 end
