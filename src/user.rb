@@ -12,6 +12,7 @@ module GuildBook
       filter = Net::LDAP::Filter.present('uid')
 
       if query
+        query = query.strip
         filter &= SEARCH_ATTRS.collect {|attr| Net::LDAP::Filter.contains(attr, query) }.inject(:|)
       end
 
