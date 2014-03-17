@@ -53,7 +53,7 @@ module GuildBook
       sn sn;lang-ja x-kmc-PhoneticSurname
       givenName givenName;lang-ja x-kmc-PhoneticGivenName
       x-kmc-UnivesityDepartment x-kmc-UniversityStatus x-kmc-UniversityMatricYear
-      alias title x-kmc-Generation description
+      x-kmc-Alias title x-kmc-Generation description
       postalCode postalAddress
       telephoneNumber
     ]
