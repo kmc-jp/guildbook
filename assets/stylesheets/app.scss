@@ -8,9 +8,15 @@ body {
   color: #911;
 }
 
-table.table.edit-form {
-  th {
-    min-width: 8em;
+.postal-code {
+  max-width: 18ex;
+}
+
+form.edit-form {
+  div.container-fluid {
+    div.row {
+      margin-bottom: 4px;
+    }
   }
 }
 
