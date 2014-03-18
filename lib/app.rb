@@ -38,7 +38,7 @@ module GuildBook
     end
 
     post '/:uid/edit' do |uid|
-      user_repo.edit(uid, params['password'], params)
+      user_repo.edit(uid, params['$bind_uid'], params['$bind_password'], params)
 
       redirect absolute_uri(uid)
     end

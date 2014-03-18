@@ -31,16 +31,19 @@ module GuildBook
       end.fix_encoding!
     end
 
-    def edit(uid, password, attrs)
+    def edit(uid, bind_uid, bind_password, attrs)
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
       attrs['x-kmc-Lodging'] = attrs['x-kmc-Lodging'] ? 'TRUE' : 'FALSE' # fixme
 
       Net::LDAP.open_uri(@uri) do |conn|
         dn = Net::LDAP::DN.new('uid', uid, conn.base)
+        bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
 
-        conn.bind(method: :simple, username: dn, password: password)
-        EDITABLE_ATTRS.each do |n|
-          conn.replace_attribute(dn, n, attrs[n])
+        conn.bind(method: :simple, username: bind_dn, password: bind_password)
+        attrs.each do |key, value|
+          if EDITABLE_ATTRS.include?(key.split(';').first)
+            conn.replace_attribute(dn, key, value)
+          end
         end
       end
     end
@@ -51,8 +54,7 @@ module GuildBook
 
     EDITABLE_ATTRS = %w[
       cn
-      sn sn;lang-ja x-kmc-PhoneticSurname
-      givenName givenName;lang-ja x-kmc-PhoneticGivenName
+      sn x-kmc-PhoneticSurname givenName x-kmc-PhoneticGivenName
       x-kmc-UnivesityDepartment x-kmc-UniversityStatus x-kmc-UniversityMatricYear
       x-kmc-Alias title x-kmc-Generation description
       postalCode postalAddress x-kmc-Lodging

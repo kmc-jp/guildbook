@@ -87,9 +87,15 @@
         備考
       %td{colspan: 2}
         - input_userattr user, 'description'
-  %input{type: :hidden, name: 'uid', value: user['uid'].first}
-  %div.form-group
+
+  %fieldset.form-group
+    %legend 編集者
+    %label
+      login:
+      %input{name: '$bind_uid', value: remote_user || user['uid'].first}
+
     %label
       Password:
-      %input{type: :password, name: 'password'}
+      %input{type: :password, name: '$bind_password'}
+
   %input.btn.btn-primary.btn-lg.btn-block{type: :submit, value: '保存'}
