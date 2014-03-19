@@ -2,46 +2,46 @@
   %div.container-fluid
     %div.row
       %div.col-sm-2.col-xs-12 ログイン名
-      %div.col-sm-3.col-xs-6 #{user['uid'].first}
-      %div.col-sm-3.col-xs-6 (UID: #{user['uidNumber'].first})
+      %div.col-sm-5.col-xs-6 #{user['uid'].first}
+      %div.col-sm-5.col-xs-6 (UID: #{user['uidNumber'].first})
     %hr
     %div.row
       %div.col-sm-2.col-xs-12
         氏名(英語)
         %span.form-required *
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         - input_userattr user, 'sn', required: true, placeholder: 'ECHIZEN'
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         - input_userattr user, 'givenName', required: true, placeholder: 'Kousuke'
     %div.row
       %div.col-sm-2.col-xs-12
         氏名(日本語)
         %span.form-required *
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         - input_userattr user, 'sn;lang-ja', required: true, placeholder: '越前'
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         - input_userattr user, 'givenName;lang-ja', required: true, placeholder: '康介'
     %div.row
       %div.col-sm-2.col-xs-12
         よみがな
         %span.form-required *
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         - input_userattr user, 'x-kmc-PhoneticSurname', required: true, placeholder: 'えちぜん'
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         - input_userattr user, 'x-kmc-PhoneticGivenName', required: true, placeholder: 'こうすけ'
     %div.row
       %div.col-sm-2.col-xs-12 別名
-      %div.col-sm-3.col-xs-12
+      %div.col-sm-5.col-xs-12
         - input_userattr user, 'x-kmc-Alias', placeholder: 'コンバット越前'
     %div.row
       %div.col-sm-2.col-xs-12 役職
-      %div.col-sm-3.col-xs-12
+      %div.col-sm-5.col-xs-12
         - input_userattr user, 'title', placeholder: '会長, 会計'
     %div.row
       %div.col-sm-2.col-xs-12
         電話番号
         %span.form-required *
-      %div.col-sm-3.col-xs-12
+      %div.col-sm-5.col-xs-12
         - input_userattr user, 'telephoneNumber', type: :tel, required: true, placeholder: '090-XXXX-YYYY', pattern: '\d+-\d+-\d+'
     %div.row
       %div.col-sm-2.col-xs-12
@@ -61,9 +61,9 @@
       %div.col-sm-2.col-xs-12
         所属
         %span.form-required *在学者のみ
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         - input_userattr user, 'x-kmc-UniversityDepartent', placeholder: '工学部情報学科'
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         %div.input-group
           - input_userattr user, 'x-kmc-UniversityStatus', placeholder: '1, M2, D3, 教授'
           %span.input-group-addon 回生
@@ -71,13 +71,13 @@
       %div.col-sm-2.col-xs-12
         入学年
         %span.form-required *
-      %div.col-sm-4.col-xs-6
+      %div.col-sm-5.col-xs-6
         %div.input-group
           %span.input-group-addon 西暦
           - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number,
             placeholder: Date.today.academic_year, min: 1950, max: 2050
           %span.input-group-addon 年度入学
-      %div.col-sm-3.col-xs-6
+      %div.col-sm-5.col-xs-6
         %div.input-group
           %span.input-group-addon 第
           - input_userattr user, 'x-kmc-Generation', required: true, type: :number,
@@ -88,7 +88,6 @@
         備考
       %div.col-sm-10.col-xs-12
         - input_userattr user, 'description'
-
   %fieldset.form-group
     %legend 編集者
     %div.row
