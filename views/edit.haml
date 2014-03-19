@@ -42,7 +42,7 @@
         電話番号
         %span.form-required *
       %div.col-sm-3.col-xs-12
-        - input_userattr user, 'telephoneNumber', type: :tel, required: true, placeholder: '090-XXXX-YYYY'
+        - input_userattr user, 'telephoneNumber', type: :tel, required: true, placeholder: '090-XXXX-YYYY', pattern: '\d+-\d+-\d+'
     %div.row
       %div.col-sm-2.col-xs-12
         住所
@@ -50,7 +50,7 @@
       %div.col-sm-10.col-xs-12
         %span.pull-left.input-group.postal-code
           %span.input-group-addon 〒
-          - input_userattr user, 'postalCode', required: true, placeholder: '606-8205'
+          - input_userattr user, 'postalCode', required: true, placeholder: '606-8205', pattern: '\d{3}-\d{4}'
         %span.input-group
           - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
           %span.input-group-addon
@@ -65,7 +65,7 @@
         - input_userattr user, 'x-kmc-UniversityDepartent', placeholder: '工学部情報学科'
       %div.col-sm-3.col-xs-6
         %div.input-group
-          - input_userattr user, 'x-kmc-UniversityStatus', type: :number, placeholder: '1, M2, D3, 教授'
+          - input_userattr user, 'x-kmc-UniversityStatus', placeholder: '1, M2, D3, 教授'
           %span.input-group-addon 回生
     %div.row
       %div.col-sm-2.col-xs-12
@@ -74,12 +74,14 @@
       %div.col-sm-4.col-xs-6
         %div.input-group
           %span.input-group-addon 西暦
-          - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number, placeholder: '2013'
+          - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number,
+            placeholder: 2013, min: 1950, max: 2050
           %span.input-group-addon 年度入学
       %div.col-sm-3.col-xs-6
         %div.input-group
           %span.input-group-addon 第
-          - input_userattr user, 'x-kmc-Generation', required: true, placeholder: '37'
+          - input_userattr user, 'x-kmc-Generation', required: true, type: :number,
+            placeholder: Date.today.academic_year - 1976, min: 1
           %span.input-group-addon 代
     %div.row
       %div.col-sm-2.col-xs-12

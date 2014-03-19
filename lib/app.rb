@@ -5,6 +5,7 @@ require 'sinatra/asset_pipeline'
 
 require 'haml'
 require_relative 'view_helpers'
+require_relative 'date_ext'
 
 require 'sass'
 require 'compass'
