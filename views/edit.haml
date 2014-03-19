@@ -89,12 +89,14 @@
 
   %fieldset.form-group
     %legend 編集者
-    %label
-      login:
-      %input{name: '$bind_uid', value: remote_user || user['uid'].first}
-
-    %label
-      Password:
-      %input{type: :password, name: '$bind_password'}
+    %div.row
+      %label.col-sm-2.col-xs-4{for: 'bind_uid'}
+        ログイン名
+      %div.col-sm-4.col-xs-8
+        %input.form-control{name: '$bind_uid', id: 'bind_uid', value: remote_user || user['uid'].first}
+      %label.col-sm-2.col-xs-4
+        パスワード
+      %div.col-sm-4.col-xs-8
+        %input.form-control{type: :password, name: '$bind_password'}
 
   %input.btn.btn-primary.btn-lg.btn-block{type: :submit, value: '保存'}
