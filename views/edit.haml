@@ -75,7 +75,7 @@
         %div.input-group
           %span.input-group-addon 西暦
           - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number,
-            placeholder: 2013, min: 1950, max: 2050
+            placeholder: Date.today.academic_year, min: 1950, max: 2050
           %span.input-group-addon 年度入学
       %div.col-sm-3.col-xs-6
         %div.input-group
