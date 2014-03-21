@@ -88,16 +88,17 @@
         備考
       %div.col-sm-10.col-xs-12
         - input_userattr user, 'description'
-  %fieldset.form-group
-    %legend 編集者
-    %div.row
-      %label.col-sm-2.col-xs-4{for: 'bind_uid'}
-        ログイン名
-      %div.col-sm-4.col-xs-8
-        %input.form-control{name: '$bind_uid', id: 'bind_uid', value: remote_user || user['uid'].first}
-      %label.col-sm-2.col-xs-4
-        パスワード
-      %div.col-sm-4.col-xs-8
-        %input.form-control{type: :password, name: '$bind_password'}
-
-  %input.btn.btn-primary.btn-lg.btn-block{type: :submit, value: '保存'}
+    %fieldset.row
+      %legend.col-sm-10.col-sm-offset-1
+        編集者
+      %div.col-sm-10.col-sm-offset-1
+        %div.form-inline
+          %div.form-group
+            %label.sr-only
+              ログイン名
+            %input.form-control{name: '$bind_uid', value: remote_user || user['uid'].first, placeholder: 'combat'}
+          %div.form-group
+            %label.sr-only
+              パスワード
+            %input.form-control{type: :password, name: '$bind_password', placeholder: 'Password'}
+          %input.btn.btn-primary{type: :submit, value: '保存'}
