@@ -93,12 +93,12 @@
         編集者
       %div.col-sm-10.col-sm-offset-1.col-xs-12
         %div.form-inline
-          %div.form-group
+          %span.form-group
             %label.sr-only
               ログイン名
             %input.form-control{name: '$bind_uid', value: remote_user || user['uid'].first, placeholder: 'combat'}
-          %div.form-group
+          %span.form-group
             %label.sr-only
               パスワード
             %input.form-control{type: :password, name: '$bind_password', placeholder: 'Password'}
-          %input.btn.btn-primary{type: :submit, value: '保存'}
+          %input.form-control.btn.btn-primary{type: :submit, value: '保存'}
