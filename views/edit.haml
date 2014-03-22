@@ -71,13 +71,13 @@
       %div.col-sm-2.col-xs-12
         入学年
         %span.form-required *
-      %div.col-sm-5.col-xs-6
+      %div.col-sm-5.col-xs-12
         %div.input-group
           %span.input-group-addon 西暦
           - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number,
             placeholder: Date.today.academic_year, min: 1950, max: 2050
           %span.input-group-addon 年度入学
-      %div.col-sm-5.col-xs-6
+      %div.col-sm-5.col-xs-12
         %div.input-group
           %span.input-group-addon 第
           - input_userattr user, 'x-kmc-Generation', required: true, type: :number,
