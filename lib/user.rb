@@ -39,7 +39,10 @@ module GuildBook
         dn = Net::LDAP::DN.new('uid', uid, conn.base)
         bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
 
-        conn.bind(method: :simple, username: bind_dn, password: bind_password)
+        if !conn.bind(method: :simple, username: bind_dn, password: bind_password)
+          raise BadCredentials, 'incorrect password'
+        end
+
         attrs.each do |key, value|
           if EDITABLE_ATTRS.include?(key.split(';').first)
             conn.replace_attribute(dn, key, value)
@@ -47,6 +50,8 @@ module GuildBook
         end
       end
     end
+
+    class BadCredentials < ::StandardError; end
 
     private
 

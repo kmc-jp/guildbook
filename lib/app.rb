@@ -39,9 +39,16 @@ module GuildBook
     end
 
     post '/:uid/edit' do |uid|
-      user_repo.edit(uid, params['$bind_uid'], params['$bind_password'], params)
-
-      redirect absolute_uri(uid)
+      begin
+        user_repo.edit(uid, params['$bind_uid'], params['$bind_password'], params)
+        redirect absolute_uri(uid)
+      rescue
+        user = user_repo.get(uid)
+        params.each do
+          |k, v| user[k] = [v]
+        end
+        haml :edit, locals: {user: user, error: $!}
+      end
     end
 
     private
