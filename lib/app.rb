@@ -56,8 +56,8 @@ module GuildBook
         redirect absolute_uri(uid)
       rescue
         user = user_repo.get(uid)
-        params.each do
-          |k, v| user[k] = [v]
+        params.each do |k, v|
+          user[k] = [v]
         end
         haml :edit, locals: {user: user, error: $!}
       end
