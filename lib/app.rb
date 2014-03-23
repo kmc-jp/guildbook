@@ -29,10 +29,11 @@ module GuildBook
     get '/' do
       users = user_repo.find(params['q'], params['all'])
 
-      sort_keys = (params['sort'] || 'uid').split(',').map do |key|
+      sort_keys = ((params['sort'] || '').split(',') + ['uid']).map do |key|
         key[0] != '-' ? [key, 1] : [key[1..-1], -1]
       end
-      users = users.sort! do |u, v|
+
+      users.sort! do |u, v|
         sort_keys.inject(0) do |x, (key, ord)|
           x.nonzero? || (u[key] <=> v[key]) * ord
         end
