@@ -27,7 +27,18 @@ module GuildBook
     set :public_folder, "#{File.dirname(__FILE__)}/../public"
 
     get '/' do
-      haml :index, locals: {users: user_repo.find(params['q'], params['all']).sort_by {|u| u['uid'].first }}
+      users = user_repo.find(params['q'], params['all'])
+
+      sort_keys = (params['sort'] || 'uid').split(',').map do |key|
+        key[0] != '-' ? [key, 1] : [key[1..-1], -1]
+      end
+      users = users.sort! do |u, v|
+        sort_keys.inject(0) do |x, (key, ord)|
+          x.nonzero? || (u[key] <=> v[key]) * ord
+        end
+      end
+
+      haml :index, locals: {users: users}
     end
 
     get '/:uid' do |uid|
