@@ -55,7 +55,7 @@
           - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
           %span.input-group-addon
             %label
-              - input_userattr user, 'x-kmc-Rodging', type: :checkbox, value: 'true', checked: user['kmcRodging'].first == 'true', class: ''
+              - input_userattr user, 'x-kmc-Lodging', type: :checkbox, value: 'true', checked: user['x-kmc-Lodging'].first == 'TRUE', class: ''
               下宿
     %div.row
       %div.col-sm-2.col-xs-12
