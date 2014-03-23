@@ -35,7 +35,7 @@ module GuildBook
     end
 
     get '/:uid/edit' do |uid|
-      haml :edit, locals: {user: user_repo.get(uid)}
+      haml :edit, locals: {user: user_repo.get(uid), error: nil}
     end
 
     post '/:uid/edit' do |uid|
