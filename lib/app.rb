@@ -18,7 +18,7 @@ module GuildBook
     set :sessions, true
 
     register Sinatra::ConfigFile
-    config_file "#{File.dirname(__FILE__)}/config/guildbook*.yml"
+    config_file "#{File.dirname(__FILE__)}/../config/guildbook*.yml"
 
     set :assets_prefix, %W[assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
     register Sinatra::AssetPipeline
