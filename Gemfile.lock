@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ruby-ldap/ruby-net-ldap.git
-  revision: bbef82f22494864f5c0e53d4dffb21cead3fc274
+  revision: 210585e458ef809b949c25b1c4592fbd78a1222f
   specs:
     net-ldap (0.5.0)
 
@@ -15,23 +15,23 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    compass (0.12.3)
+    compass (0.12.4)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
-      sass (= 3.2.14)
+      sass (~> 3.2.17)
     execjs (2.0.2)
     fssm (0.2.10)
     haml (4.0.5)
       tilt
     hike (1.2.3)
-    multi_json (1.9.0)
+    multi_json (1.9.2)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.1.1)
-    sass (3.2.14)
+    sass (3.2.17)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -51,7 +51,7 @@ GEM
       rack-test
       sinatra (~> 1.4.0)
       tilt (~> 1.3)
-    sprockets (2.11.0)
+    sprockets (2.12.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
