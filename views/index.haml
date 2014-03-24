@@ -22,7 +22,7 @@
               %td
                 - if !user['telephoneNumber'].empty?
                   %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
-    %div#detail-list.tab-pane
+    %div#detail-list.tab-pane.table-responsive
       %table.table.table-striped.table-condensed
         %thead
           %tr
