@@ -1,39 +1,48 @@
-%table.table.table-striped.table-condensed
-  %thead
-    %tr
-      %th ログイン名
-      %th 氏名
-      %th 電話番号
-  %tbody
-    - users.each do |user|
-      %tr
-        %td
-          %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
-        %td
-          #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
-        %td
-          %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
-%table.table.table-striped.table-condensed
-  %thead
-    %tr
-      %th ログイン名
-      %th 氏名
-      %th 電話番号
-      %th 住所
-      %th 入学年度
-      %th 役職
-  %tbody
-    - users.each do |user|
-      %tr
-        %td
-          %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
-        %td
-          #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
-        %td
-          %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
-        %td
-          #{user['postalAddress'].first}
-        %td
-          #{user['x-kmc-UniversityMatricYear'].first}
-        %td
-          #{user['title'].first}
+%div.tabbable
+  %ul.nav.nav-tabs
+    %li.active
+      %a{href: "#basic-list", data: {toggle: "tab"}} 一覧
+    %li
+      %a{href: "#detail-list", data: {toggle: "tab"}} 一覧(詳細)
+  %div.tab-content
+    %div#basic-list.tab-pane.active
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th ログイン名
+            %th 氏名
+            %th 電話番号
+        %tbody
+          - users.each do |user|
+            %tr
+              %td
+                %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
+              %td
+                #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
+              %td
+                %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+    %div#detail-list.tab-pane
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th ログイン名
+            %th 氏名
+            %th 電話番号
+            %th 住所
+            %th 入学年度
+            %th 役職
+        %tbody
+          - users.each do |user|
+            %tr
+              %td
+                %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
+              %td
+                #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
+              %td
+                %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+              %td
+                #{user['postalAddress'].first}
+              %td
+                #{user['x-kmc-UniversityMatricYear'].first}
+              %td
+                #{user['title'].first}
