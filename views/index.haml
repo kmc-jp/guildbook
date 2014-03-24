@@ -20,7 +20,8 @@
               %td
                 #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
               %td
-                %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+                - if !user['telephoneNumber'].empty?
+                  %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
     %div#detail-list.tab-pane
       %table.table.table-striped.table-condensed
         %thead
@@ -39,7 +40,8 @@
               %td
                 #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
               %td
-                %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+                - if !user['telephoneNumber'].empty?
+                  %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
               %td
                 #{user['postalAddress'].first}
               %td
