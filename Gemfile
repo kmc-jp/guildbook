@@ -8,5 +8,6 @@ gem 'haml'
 gem 'sass'
 gem 'compass'
 gem 'bootstrap-sass'
+gem 'closure-compiler'
 
 gem 'net-ldap', github: 'ruby-ldap/ruby-net-ldap'
