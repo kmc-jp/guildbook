@@ -13,3 +13,27 @@
           #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
         %td
           %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+%table.table.table-striped.table-condensed
+  %thead
+    %tr
+      %th ログイン名
+      %th 氏名
+      %th 電話番号
+      %th 住所
+      %th 入学年度
+      %th 役職
+  %tbody
+    - users.each do |user|
+      %tr
+        %td
+          %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
+        %td
+          #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
+        %td
+          %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+        %td
+          #{user['postalAddress'].first}
+        %td
+          #{user['x-kmc-UniversityMatricYear'].first}
+        %td
+          #{user['title'].first}
