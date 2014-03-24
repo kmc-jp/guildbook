@@ -2,6 +2,8 @@ require 'net/ldap'
 require 'net/ldap/dn'
 require_relative 'ldap_ext'
 
+require_relative 'date_ext'
+
 module GuildBook
   class UserRepo
     def initialize(uri)
@@ -48,6 +50,8 @@ module GuildBook
             conn.replace_attribute(dn, key, value)
           end
         end
+
+        conn.replace_attribute(dn, 'x-kmc-LastModified', DateTime.now.generalized_time)
       end
     end
 
