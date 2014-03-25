@@ -1,0 +1,77 @@
+objectIdentifier kmcLdap 1.3.6.1.4.1.43463.1.2
+objectIdentifier kmcAttributeType kmcLdap:3
+objectIdentifier kmcObjectClass kmcLdap:4
+
+attributeType ( kmcAttributeType:1
+  NAME 'x-kmc-LastModified'
+  DESC 'the time when the information of the associated person is last modified'
+  EQUALITY generalizedTimeMatch
+  ORDERING generalizedTimeOrderingMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.24
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:2
+  NAME 'x-kmc-PhoneticSurname'
+  DESC 'the phonetic surname of the associated person'
+  SUP name
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:3
+  NAME 'x-kmc-PhoneticGivenName'
+  DESC 'the phonetic given name of the associated person'
+  SUP name
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:4
+  NAME 'x-kmc-Generation'
+  DESC 'the generation of the associated person'
+  EQUALITY integerMatch
+  ORDERING integerOrderingMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:5
+  NAME 'x-kmc-Alias'
+  DESC 'the alias names of the associated person'
+  SUP name )
+
+attributeType ( kmcAttributeType:6
+  NAME 'x-kmc-Lodging'
+  DESC 'whether the associated person is lodging'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:7
+  NAME 'x-kmc-UniversityDepartment'
+  DESC 'the department at the university to which the associated person belongs'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:8
+  NAME 'x-kmc-UniversityStatus'
+  DESC 'the status of the associated person in the university'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:9
+  NAME 'x-kmc-UniversityMatricYear'
+  DESC 'the year when the associated person entered the university'
+  EQUALITY integerMatch
+  ORDERING integerOrderingMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+  SINGLE-VALUE )
+
+objectClass ( kmcObjectClass:1
+  NAME 'x-kmc-Person'
+  DESC 'Additional informations for a member of KMC'
+  AUXILIARY
+  MAY ( x-kmc-LastModified $
+        x-kmc-PhoneticSurname $ x-kmc-PhoneticGivenName $
+        x-kmc-Generation $ x-kmc-Alias $ x-kmc-Lodging $
+        x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
+        x-kmc-UniversityMatricYear ) )
