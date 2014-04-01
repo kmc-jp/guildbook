@@ -21,6 +21,8 @@ module GuildBook
     config_file "#{File.dirname(__FILE__)}/../config/guildbook*.yml"
 
     set :assets_prefix, %W[assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
+    set :assets_css_compressor, :sass
+    set :assets_js_compressor, :closure
     register Sinatra::AssetPipeline
 
     set :views, "#{File.dirname(__FILE__)}/../views"
