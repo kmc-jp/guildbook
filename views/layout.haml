@@ -21,16 +21,20 @@
         %div.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li
-              %a{href: absolute_uri()} 一覧
+              %a{href: absolute_uri()}
+                %span.glyphicon.glyphicon-lg.glyphicon-list-alt{title: '一覧'}
+                %span.navbar-text 一覧
             - if remote_user
               %li
-                %a{href: absolute_uri(remote_user)}= remote_user
+                %a{href: absolute_uri(remote_user)}
+                  %span.glyphicon.glyphicon-lg.glyphicon-user{title: remote_user}
+                  %span.navbar-text= remote_user
           %form.form-inline.navbar-form.navbar-right{action: absolute_uri(), role: 'search'}
             %div.input-group
               %input.form-control{type: :search, name: 'q'}
               %span.input-group-btn
-                %button.btn.btn-default.btn-primary{type: :submit, value: '検索'} 検索
+                %button.btn.btn-default.btn-primary{type: :submit} 検索
     %div.container-fluid
       %div.row
-        %div.col-xs-12.col-md-8.col-md-offset-2{role: 'main'}
+        %main.col-xs-12.col-md-8.col-md-offset-2{role: 'main'}
           = yield
