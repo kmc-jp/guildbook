@@ -25,8 +25,12 @@ module GuildBook
     set :assets_prefix, %W[assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
     set :assets_css_compressor, :sass
     set :assets_js_compressor, :closure
-    configure do
-      Sprockets::Helpers.prefix = URI.parse(app_uri).path + '/assets'
+    configure :production do
+      assets_uri = URI.parse(settings.assets_uri)
+      Sprockets::Helpers.protocol = assets_uri.scheme
+      Sprockets::Helpers.asset_host = assets_uri.host
+      Sprockets::Helpers.prefix = assets_uri.path
+      # port is ignored -- needs patch sprockets-helpers
     end
     register Sinatra::AssetPipeline
 
@@ -73,7 +77,7 @@ module GuildBook
     private
 
     def absolute_uri(*path)
-      URI.parse(settings.app_uri + '/' + path.join('/')).to_s
+      uri(path.join('/'))
     end
 
     def user_repo

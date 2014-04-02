@@ -1,5 +1,5 @@
 development:
-  app_uri: 'https://inside.kmc.gr.jp/members'
+  assets_uri: '/members/assets'
   ldap_uri: 'ldaps://ldap.box2.kmc.gr.jp/ou=users,dc=box2,dc=kmc,dc=gr,dc=jp'
   brand:
     name: 'KMC'
