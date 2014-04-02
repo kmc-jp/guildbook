@@ -23,12 +23,12 @@
             %li
               %a{href: absolute_uri()}
                 %span.glyphicon.glyphicon-lg.glyphicon-list-alt{title: '一覧'}
-                %span.navbar-text 一覧
+                %span.navbar-autotext 一覧
             - if remote_user
               %li
                 %a{href: absolute_uri(remote_user)}
                   %span.glyphicon.glyphicon-lg.glyphicon-user{title: remote_user}
-                  %span.navbar-text= remote_user
+                  %span.navbar-autotext= remote_user
           %form.form-inline.navbar-form.navbar-right{action: absolute_uri(), role: 'search'}
             %div.input-group
               %input.form-control{type: :search, name: 'q'}
