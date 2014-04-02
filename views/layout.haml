@@ -6,8 +6,8 @@
     %meta{name: 'viewport', content:'width=device-width,initial-scale=1'}
     %title #{brand['name']}名簿システム
     %script{src: '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'}
-    %script{src: "#{absolute_uri}#{javascript_path('app')}" }
-    %link{rel: 'stylesheet', href: "#{absolute_uri}#{stylesheet_path('app')}" }
+    %script{src: javascript_path('app') }
+    %link{rel: 'stylesheet', href: stylesheet_path('app') }
   %body
     %nav.navbar.navbar-inverse.navbar-fixed-top
       %div.container

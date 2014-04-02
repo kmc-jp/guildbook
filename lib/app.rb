@@ -1,3 +1,5 @@
+require 'uri'
+
 require 'sinatra/base'
 require 'sinatra/config_file'
 require 'sinatra/reloader'
@@ -23,6 +25,9 @@ module GuildBook
     set :assets_prefix, %W[assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
     set :assets_css_compressor, :sass
     set :assets_js_compressor, :closure
+    configure do
+      Sprockets::Helpers.prefix = URI.parse(app_uri).path + '/assets'
+    end
     register Sinatra::AssetPipeline
 
     set :views, "#{File.dirname(__FILE__)}/../views"
@@ -68,11 +73,11 @@ module GuildBook
     private
 
     def absolute_uri(*path)
-      url(path.join('/'))
+      URI.parse(settings.app_uri + '/' + path.join('/')).to_s
     end
 
     def user_repo
-      UserRepo.new(settings.ldap)
+      UserRepo.new(settings.ldap_uri)
     end
 
     def remote_user
