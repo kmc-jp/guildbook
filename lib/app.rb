@@ -89,9 +89,5 @@ module GuildBook
     def remote_user
       request.env['REMOTE_USER']
     end
-
-    def brand
-      settings.brand || {}
-    end
   end
 end

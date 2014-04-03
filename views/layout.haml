@@ -4,7 +4,7 @@
   %head
     %meta{charset: 'utf-8'}
     %meta{name: 'viewport', content:'width=device-width,initial-scale=1'}
-    %title #{brand['name']}名簿システム
+    %title #{settings.brand['name']}名簿システム
     %script{src: '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'}
     %script{src: javascript_path('app') }
     %link{rel: 'stylesheet', href: stylesheet_path('app') }
@@ -17,7 +17,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{href: brand['uri']}= brand['name']
+          %a.navbar-brand{href: settings.brand['uri']}= settings.brand['name']
         %div.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li
