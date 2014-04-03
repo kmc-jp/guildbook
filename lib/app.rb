@@ -63,7 +63,9 @@ module GuildBook
 
     post '/:uid/edit' do |uid|
       begin
-        user_repo.edit(uid, params['$bind_uid'], params['$bind_password'], params)
+        bind_uid = params.delete('$bind_uid')
+        bind_password = params.delete('$bind_password')
+        user_repo.edit(uid, bind_uid, bind_password, params)
         redirect absolute_uri(uid)
       rescue
         user = user_repo.get(uid)
