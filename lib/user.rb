@@ -47,8 +47,14 @@ module GuildBook
 
         attrs.each do |key, value|
           if EDITABLE_ATTRS.include?(key.split(';').first)
-            if !conn.replace_attribute(dn, key, value)
-              raise Error, conn.get_operation_result.message
+            if value.empty?
+              if !conn.delete_attribute(dn ,key) and conn.get_operation_result.code != 16 # no such attribute
+                raise Error, conn.get_operation_result.message
+              end
+            else
+              if !conn.replace_attribute(dn, key, value)
+                raise Error, conn.get_operation_result.message
+              end
             end
           end
         end
