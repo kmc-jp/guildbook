@@ -31,8 +31,8 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rake (10.1.1)
-    sass (3.2.17)
+    rake (10.2.2)
+    sass (3.2.19)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -68,12 +68,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass
-  closure-compiler
+  bootstrap-sass (~> 3.1)
+  closure-compiler (~> 1.1)
   compass
-  haml
+  haml (~> 4.0)
   net-ldap!
-  sass
-  sinatra
+  rack (~> 1.5)
+  rake (~> 10.0)
+  sass (~> 3.2)
+  sinatra (~> 1.4)
   sinatra-asset-pipeline
-  sinatra-contrib
+  sinatra-contrib (~> 1.4)
