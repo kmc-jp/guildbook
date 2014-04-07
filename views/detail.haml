@@ -31,5 +31,10 @@
     %tr
       %th 備考
       %td= user['description'].first
+  %tr
+    %th 最終更新
+    %td
+      - if user['x-kmc-LastModified'].first
+        = DateTime.parse(user['x-kmc-LastModified'].first).strftime('%F %T')
 
 %a.btn.btn-primary.btn-block.btn-lg{href: absolute_uri(user['uid'].first, 'edit')} 編集
