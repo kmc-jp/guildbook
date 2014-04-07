@@ -14,6 +14,7 @@ require 'compass'
 require 'bootstrap-sass'
 
 require_relative 'user'
+require_relative 'utils'
 
 module GuildBook
   class App < Sinatra::Base
@@ -38,13 +39,9 @@ module GuildBook
     set :public_folder, "#{File.dirname(__FILE__)}/../public"
 
     get '/' do
-      users = user_repo.find(params['q'], params['all'])
+      sort_keys = [params['sort'], settings.ui['default_sort_keys']].compact.flat_map(&Utils.method(:parse_sortkeys))
 
-      sort_keys = ((params['sort'] || '').split(',') + ['uid']).map do |key|
-        key[0] != '-' ? [key, 1] : [key[1..-1], -1]
-      end
-
-      users.sort! do |u, v|
+      users = user_repo.find(params['q'], params['all']).sort do |u, v|
         sort_keys.inject(0) do |x, (key, ord)|
           x.nonzero? || (u[key] <=> v[key]) * ord
         end

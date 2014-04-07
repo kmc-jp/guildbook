@@ -4,3 +4,5 @@ development:
   brand:
     name: 'KMC'
     uri: 'https://inside.kmc.gr.jp'
+  ui:
+    default_sort_keys: -uidNumber
