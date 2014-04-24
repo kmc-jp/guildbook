@@ -16,6 +16,8 @@ require 'bootstrap-sass'
 require_relative 'user'
 require_relative 'utils'
 
+require_relative 'univ_helpers'
+
 module GuildBook
   class App < Sinatra::Base
     set :sessions, true
@@ -24,6 +26,7 @@ module GuildBook
     config_file "#{File.dirname(__FILE__)}/../config/guildbook*.yml"
 
     set :assets_prefix, %W[assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
+    set :assets_precompile, %w(app.js app.css univ.css *.png *.jpg *.svg *.eot *.ttf *.woff)
     set :assets_css_compressor, :sass
     set :assets_js_compressor, :closure
     configure :production do
@@ -48,6 +51,11 @@ module GuildBook
       end
 
       haml :index, locals: {users: users}
+    end
+
+    get '/_univ' do
+      users = user_repo.find(nil, false).sort_by {|u| u['uidNumber'].first }
+      haml :univ, locals: {users: users}, layout: false
     end
 
     get '/:uid' do |uid|
