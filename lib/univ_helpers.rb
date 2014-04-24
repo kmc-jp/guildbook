@@ -23,7 +23,7 @@ module GuildBook
         case s
         when nil
           ''
-        when /^.*学部/, /^.*研究科/
+        when /^.*(学部|研究科|研究所|センター)/
           $&
         end
       end
