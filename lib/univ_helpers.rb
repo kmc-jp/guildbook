@@ -8,6 +8,10 @@ module GuildBook
         ['会長', '副会長', '代表', '会計'].include?(u['title'].first)
       end
 
+      def uid(u)
+        u['uid'].first || ''
+      end
+
       def title(u)
         u['title'].first || ''
       end

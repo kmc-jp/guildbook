@@ -52,9 +52,14 @@ table {
         div {
             margin: 3px 0;
         }
-        &.name .yomi {
-            font-size: 75%;
+        &.name {
+            .yomi, .uid { font-size: 75%; }
+            @media print {
+                .uid { display: none; }
+            }
         }
+
+
         &.contacts .label {
             display: inline-block;
             width: 5.5em;
