@@ -60,9 +60,12 @@ table {
         }
 
 
-        &.contacts .label {
-            display: inline-block;
-            width: 5.5em;
+        &.contacts div {
+            display: table;
+            span { display: table-cell; }
+
+            .label { width: 5.5em; }
+            .value { width: auto; }
         }
     }
 
