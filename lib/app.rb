@@ -51,14 +51,17 @@ module GuildBook
     end
 
     get '/:uid' do |uid|
+      pass if uid =~ /^!/
       haml :detail, locals: {user: user_repo.get(uid)}
     end
 
     get '/:uid/edit' do |uid|
+      pass if uid =~ /^!/
       haml :edit, locals: {user: user_repo.get(uid), error: nil}
     end
 
     post '/:uid/edit' do |uid|
+      pass if uid =~ /^!/
       begin
         bind_uid = params.delete('$bind_uid')
         bind_password = params.delete('$bind_password')
