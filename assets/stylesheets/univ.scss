@@ -1,0 +1,79 @@
+@import "compass/reset";
+
+@media print {
+    p.notice {
+        display: none;
+    }
+}
+
+table {
+    &, thead, tbody, tr, td, th {
+        border-color: black;
+    }
+
+    page-break-after: always;
+    border-collapse:collapse;
+    border: solid 3px;
+    width: 100%;
+
+    thead th {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    th, td {
+        padding: 3px;
+    }
+
+    @media screen {
+        tr[data-outdated] {
+            background: #f99;
+        }
+    }
+
+    caption {
+        font-size: 1.4em;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    td {
+        bix-sizing: border-box;
+        page-break-inside: avoid;
+        &.title { width: 3em; text-align: center; }
+        &.department { width: 6em; text-align: center; }
+        &.grade { width: 2.2em; text-align: center; }
+        &.name { width: 8em; text-align: center; }
+        &.contacts { width: auto; }
+        &.lodging { width: 2.5em; text-align: center; }
+        border: solid 1px;
+
+        div {
+            margin: 3px 0;
+        }
+        &.name {
+            .yomi, .uid { font-size: 75%; }
+            @media print {
+                .uid { display: none; }
+            }
+        }
+
+
+        &.contacts div {
+            display: table;
+            span { display: table-cell; }
+
+            .label { width: 5.5em; }
+            .value { width: auto; }
+        }
+    }
+
+    thead {
+        th.lodging { font-size: .8em }
+        td, th {
+            border: 1px solid black;
+        }
+        border-bottom: 3px double black;
+    }
+}

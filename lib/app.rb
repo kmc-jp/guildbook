@@ -24,6 +24,7 @@ module GuildBook
     config_file "#{File.dirname(__FILE__)}/../config/guildbook*.yml"
 
     set :assets_prefix, %W[assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
+    set :assets_precompile, %w(app.js app.css univ.css *.png *.jpg *.svg *.eot *.ttf *.woff)
     set :assets_css_compressor, :sass
     set :assets_js_compressor, :closure
     configure :production do

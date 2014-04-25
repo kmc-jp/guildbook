@@ -1,0 +1,71 @@
+!!!
+%html{lang: 'ja'}
+  %head
+    %meta{charset: 'utf-8'}
+    = stylesheet_tag('univ')
+  %body
+    %p.notice Firefoxで印刷すること推奨します．
+    %p.notice 赤色背景は今年度に入ってから更新されていません．
+    %table#executives.table.table-condensed
+      %caption 代表者の役員名簿
+      %thead
+        %tr
+          %th.title 役職
+          %th.department 学部
+          %th.grade 回生
+          %th.name 氏名
+          %th.contacts 現住所及び電話番号
+          %th.lodging 下宿・自宅の別
+      %tbody
+        - users.each do |u|
+          - if ::GuildBook::UnivHelper.executive?(u)
+            %tr{data: {outdated: ::GuildBook::UnivHelper.outdated?(u)}}
+              %td.title= ::GuildBook::UnivHelper.title(u)
+              %td.department= ::GuildBook::UnivHelper.kyotou_department(u)
+              %td.grade= ::GuildBook::UnivHelper.kyotou_grade(u)
+              %td.name
+                %div.yomi #{::GuildBook::UnivHelper.yomi(u)}
+                %div= ::GuildBook::UnivHelper.name(u)
+                %div.uid #{::GuildBook::UnivHelper.uid(u)}
+              %td.contacts
+                %div
+                  %span.label 現住所:
+                  %span.value= ::GuildBook::UnivHelper.address(u)
+                %div
+                  %span.label 電話番号:
+                  %span.value= ::GuildBook::UnivHelper.tel(u)
+                %div
+                  %span.label 電子メール:
+                  %span.value= ::GuildBook::UnivHelper.email(u)
+              %td.lodging= ::GuildBook::UnivHelper.lodging(u)
+            %tr
+
+    %table#members.table.table-condensed
+      %caption 構成員名簿
+      %thead
+        %tr
+          %th.title 役職
+          %th.department 学部
+          %th.grade 回生
+          %th.name 氏名
+          %th.contacts 現住所及び電話番号
+          %th.lodging 下宿・自宅の別
+      %tbody
+        - users.each do |u|
+          - if ::GuildBook::UnivHelper.kyotou_student?(u) and !::GuildBook::UnivHelper.executive?(u)
+            %tr{data: {outdated: ::GuildBook::UnivHelper.outdated?(u)}}
+              %td.title
+              %td.department= ::GuildBook::UnivHelper.kyotou_department(u)
+              %td.grade= ::GuildBook::UnivHelper.kyotou_grade(u)
+              %td.name
+                %div.yomi #{::GuildBook::UnivHelper.yomi(u)}
+                %div= ::GuildBook::UnivHelper.name(u)
+                %div.uid #{::GuildBook::UnivHelper.uid(u)}
+              %td.contacts
+                %div
+                  %span.label 現住所:
+                  %span.value= ::GuildBook::UnivHelper.address(u)
+                %div
+                  %span.label 電話番号:
+                  %span.value= ::GuildBook::UnivHelper.tel(u)
+              %td.lodging= ::GuildBook::UnivHelper.lodging(u)
