@@ -53,7 +53,7 @@ module GuildBook
       haml :index, locals: {users: users}
     end
 
-    get '/_univ' do
+    get '/!univ' do
       users = user_repo.find(nil, false).sort_by {|u| u['uidNumber'].first }
       haml :univ, locals: {users: users}, layout: false
     end
