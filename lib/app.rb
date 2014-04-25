@@ -16,8 +16,6 @@ require 'bootstrap-sass'
 require_relative 'user'
 require_relative 'utils'
 
-require_relative 'univ_helpers'
-
 module GuildBook
   class App < Sinatra::Base
     set :sessions, true
@@ -51,11 +49,6 @@ module GuildBook
       end
 
       haml :index, locals: {users: users}
-    end
-
-    get '/!univ' do
-      users = user_repo.find(nil, false).sort_by {|u| u['uidNumber'].first }
-      haml :univ, locals: {users: users}, layout: false
     end
 
     get '/:uid' do |uid|
