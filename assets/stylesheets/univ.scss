@@ -25,10 +25,9 @@ table {
         padding: 3px;
     }
 
-    @media screen {
-        tr[data-outdated] {
-            background: #f99;
-        }
+    tr[data-outdated] {
+        @media screen { background: #f99; }
+        @media print { display: none; }
     }
 
     caption {
