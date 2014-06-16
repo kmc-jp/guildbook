@@ -1,6 +1,7 @@
 development:
   assets_uri: '/members/assets'
-  ldap_uri: 'ldaps://ldap.box2.kmc.gr.jp/ou=users,dc=box2,dc=kmc,dc=gr,dc=jp'
+  ldap_uri:
+    users: 'ldaps://ldap.box2.kmc.gr.jp/ou=users,dc=box2,dc=kmc,dc=gr,dc=jp'
   brand:
     name: 'KMC'
     uri: 'https://inside.kmc.gr.jp'

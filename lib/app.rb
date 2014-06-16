@@ -84,7 +84,7 @@ module GuildBook
     end
 
     def user_repo
-      UserRepo.new(settings.ldap_uri)
+      UserRepo.new(settings.ldap_uri['users'])
     end
 
     def remote_user
