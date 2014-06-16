@@ -1,15 +1,8 @@
-require 'net/ldap'
-require 'net/ldap/dn'
-require_relative 'ldap_ext'
-
+require_relative 'ldap_repo'
 require_relative 'date_ext'
 
 module GuildBook
-  class UserRepo
-    def initialize(uri)
-      @uri = uri
-    end
-
+  class UserRepo < LdapRepo
     def search(query = nil, include_inactive = true)
       filter = Net::LDAP::Filter.present('uid')
 
@@ -21,27 +14,22 @@ module GuildBook
         filter &= ~Net::LDAP::Filter.present('shadowExpire')
       end
 
-      return find(filter)
-    end
-
-    def do_search(filter)
-      Net::LDAP.open_uri(@uri) do |conn|
-        conn.search(filter: filter, attributes: ['*'])
-      end.collect(&:fix_encoding!)
+      return do_search(filter)
     end
 
     def get(uid)
-      Net::LDAP.open_uri(@uri) do |conn|
-        conn.search(filter: Net::LDAP::Filter.eq('uid', uid),
-                    attributes: ['*']).first or raise Sinatra::NotFound
-      end.fix_encoding!
+      do_search(Net::LDAP::Filter.eq('uid', uid)).first or raise Sinatra::NotFound
+    end
+
+    def get_many(uids)
+      do_search(uids.collect {|uid| Net::LDAP::Filter.eq('uid', uid) }.inject(:|))
     end
 
     def edit(uid, bind_uid, bind_password, attrs)
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
       attrs['x-kmc-Lodging'] = attrs['x-kmc-Lodging'] ? 'TRUE' : 'FALSE' # fixme
 
-      Net::LDAP.open_uri(@uri) do |conn|
+      Net::LDAP.open_uri(uri) do |conn|
         dn = Net::LDAP::DN.new('uid', uid, conn.base)
         bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
 
@@ -66,8 +54,6 @@ module GuildBook
         conn.replace_attribute(dn, 'x-kmc-LastModified', DateTime.now.generalized_time)
       end
     end
-
-    class Error < ::StandardError; end
 
     private
 
