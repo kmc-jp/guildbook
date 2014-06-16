@@ -42,7 +42,7 @@ module GuildBook
     get '/' do
       sort_keys = [params['sort'], settings.ui['default_sort_keys']].compact.flat_map(&Utils.method(:parse_sortkeys))
 
-      users = user_repo.find(params['q'], params['all']).sort do |u, v|
+      users = user_repo.search(params['q'], params['all']).sort do |u, v|
         sort_keys.inject(0) do |x, (key, ord)|
           x.nonzero? || (u[key] <=> v[key]) * ord
         end

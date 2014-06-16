@@ -10,7 +10,7 @@ module GuildBook
       @uri = uri
     end
 
-    def find(query = nil, include_inactive = true)
+    def search(query = nil, include_inactive = true)
       filter = Net::LDAP::Filter.present('uid')
 
       if query and (query = query.strip) and !query.empty?
@@ -21,6 +21,10 @@ module GuildBook
         filter &= ~Net::LDAP::Filter.present('shadowExpire')
       end
 
+      return find(filter)
+    end
+
+    def do_search(filter)
       Net::LDAP.open_uri(@uri) do |conn|
         conn.search(filter: filter, attributes: ['*'])
       end.collect(&:fix_encoding!)
