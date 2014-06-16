@@ -39,6 +39,8 @@ module GuildBook
     set :views, "#{File.dirname(__FILE__)}/../views"
     set :public_folder, "#{File.dirname(__FILE__)}/../public"
 
+    set :haml, escape_html: true
+
     get '/' do
       sort_keys = [params['sort'], settings.ui['default_sort_keys']].compact.flat_map(&Utils.method(:parse_sortkeys))
 
