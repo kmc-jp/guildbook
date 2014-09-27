@@ -1,0 +1,59 @@
+!!!
+- pipes =GuildBook::ChecklistHelper.pipes(columns)
+%html{lang: 'ja'}<
+  %head
+    %meta{charset: 'utf-8'}
+  %body<
+    %pre<
+      - initiate, senior = users.partition(&::GuildBook::ChecklistHelper.method(:initiate?))
+      * 新入生
+      |なまえ|#{columns}|h
+      \
+      - initiate.each do |u|
+        |#{u['uid'].first}|#{pipes}|
+        \
+      \
+      - senior = senior.group_by(&::GuildBook::ChecklistHelper.method(:machine_grade))
+      * 学部生
+      - senior.each.select {|(c,_g),_us| c == :u }.sort.each do |(_c, g),us|
+        ** B#{g}
+        \
+        |なまえ|#{columns}|h
+        \
+        - us.each do |u|
+          |#{u['uid'].first}|#{pipes}|
+          \
+      \
+      * 院生
+      - senior.each.select {|(c,_g),_us| c == :m }.sort.each do |(_c, g),us|
+        ** M#{g}
+        \
+        |なまえ|#{columns}|h
+        \
+        - us.each do |u|
+          |#{u['uid'].first}|#{pipes}|
+          \
+      - senior.each.select {|(c,_g),_us| c == :d }.sort.each do |(_c, g),us|
+        ** D#{g}
+        \
+        |なまえ|#{columns}|h
+        \
+        - us.each do |u|
+          |#{u['uid'].first}|#{pipes}|
+          \
+      \
+      - obog = senior[[:o, 0]]
+      - advisor, obog = obog.partition {|u| u['title'].first == '顧問' }
+      * 顧問
+      |なまえ|#{columns}|h
+      \
+      - advisor.each do |u|
+        |#{u['uid'].first}|#{pipes}|
+        \
+      \
+      * OB/OG
+      |なまえ(代)|#{columns}|h
+      \
+      - obog.sort_by{|u| -u['x-kmc-Generation'].first.to_i rescue 0 }.each do |u|
+        |#{u['uid'].first}(#{u['x-kmc-Generation'].first})|#{pipes}|
+        \
