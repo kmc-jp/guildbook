@@ -56,6 +56,11 @@ module GuildBook
         u['telephoneNumber'].first || ''
       end
 
+      def mailto_email(u)
+        return '' unless u['mail'].first
+        "mailto:#{u['mail'].first}"
+      end
+
       def email(u)
         u['mail'].first || ''
       end
