@@ -66,6 +66,22 @@ attributeType ( kmcAttributeType:9
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
   SINGLE-VALUE )
 
+attributeType ( kmcAttributeType:10
+  NAME 'x-kmc-MailForwardingAddress'
+  DESC 'Email address to forward messages'
+  EQUALITY caseIgnoreIA5Match
+  SUBSTR caseIgnoreIA5SubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+  SUP mail )
+
+attributeType ( kmcAttributeType:11
+  NAME 'x-kmc-MailNotificationAddress'
+  DESC 'Email address to send notification messages'
+  EQUALITY caseIgnoreIA5Match
+  SUBSTR caseIgnoreIA5SubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
+  SUP mail )
+
 objectClass ( kmcObjectClass:1
   NAME 'x-kmc-Person'
   DESC 'Additional informations for a member of KMC'
@@ -74,4 +90,5 @@ objectClass ( kmcObjectClass:1
         x-kmc-PhoneticSurname $ x-kmc-PhoneticGivenName $
         x-kmc-Generation $ x-kmc-Alias $ x-kmc-Lodging $
         x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
-        x-kmc-UniversityMatricYear ) )
+        x-kmc-UniversityMatricYear $
+        x-kmc-MailForwardingAddress $ x-kmc-MailNotificationAddress) )
