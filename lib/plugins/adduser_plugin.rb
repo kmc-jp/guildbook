@@ -28,7 +28,6 @@ module GuildBook
     private
 
     def adduser(uid, givenname, surname, password, bind_uid, bind_password)
-      ## TODO: check these work well
       unix_password = Sha1.ssha_hash password
       samba_password = Smbhash.ntlm_hash password
       unix_time = DateTime.now.to_time.to_i
@@ -44,15 +43,15 @@ module GuildBook
         :sn => surname,
         :givenName => givenname,
         :userPassword => unix_password,
-        :uidNumber => uid_number,
-        :gidNumber => gid_number,
+        :uidNumber => uid_number.to_s,
+        :gidNumber => gid_number.to_s,
         :homeDirectory => "/home/#{uid}",
         :loginShell => '/bin/bash',
         :mail => "#{uid}@kmc.gr.jp",
         :sambaAcctFlags => "[U          ]", # regular user account
         :sambaSID => sid,
         :sambaNTPassword => samba_password,
-        :sambaPwdLastSet => unix_time
+        :sambaPwdLastSet => unix_time.to_s
       }
       puts attrs
       user_repo.add(uid, attrs, bind_uid, bind_password)
