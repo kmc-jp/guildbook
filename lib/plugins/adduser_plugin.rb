@@ -10,7 +10,13 @@ module GuildBook
     end
 
     get '/!adduser/edit' do
-      haml :adduser, locals: {err: nil}
+      haml :adduser, locals: {
+        err: nil,
+        uid: '',
+        givenname: '',
+        surname: '',
+        bind_uid: remote_user
+      }
     end
 
     post '/!adduser/add' do
@@ -24,7 +30,13 @@ module GuildBook
         adduser(uid, givenname, surname, password, bind_uid, bind_password)
         redirect absolute_uri(uid)
       rescue
-        haml :adduser, locals: {err: $!}
+        haml :adduser, locals: {
+          err: $!,
+          uid: uid,
+          givenname: givenname,
+          surname: surname,
+          bind_uid: bind_uid
+        }
       end
     end
 
