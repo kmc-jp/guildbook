@@ -28,6 +28,16 @@ module GuildBook
     private
 
     def adduser(uid, givenname, surname, password, bind_uid, bind_password)
+      if user_repo.do_search(Net::LDAP::Filter.eq('uid', uid)).first
+          raise Error, uid + " already found in LDAP"
+      end
+      if File.exist?('/home/' + uid)
+          raise Error, uid + " already found in /home"
+      end
+      f = open('/etc/aliases')
+      if  f.read.include?(uid)
+          raise Error, uid + " already found in /etc/aliases"
+      end
       unix_password = Sha1.ssha_hash password
       samba_password = Smbhash.ntlm_hash password
       unix_time = DateTime.now.to_time.to_i
