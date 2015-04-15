@@ -24,6 +24,10 @@
               %a{href: absolute_uri()}
                 %span.glyphicon.glyphicon-lg.glyphicon-list-alt{title: '一覧'}
                 %span.navbar-autotext 一覧
+            %li
+              %a{href: absolute_uri('/!adduser/edit')}
+                %span.glyphicon.glyphicon-lg.glyphicon-user{title: 'ユーザ作成'}
+                %span.navbar-autotext ユーザ作成
             - if remote_user
               %li
                 %a{href: absolute_uri(remote_user)}
