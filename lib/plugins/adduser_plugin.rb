@@ -25,8 +25,10 @@ module GuildBook
         givenname = params.delete('$givenname')
         surname = params.delete('$surname')
         password = params.delete('$password')
+        password_confirm = params.delete('$password_confirm')
         bind_uid = params.delete('$bind_uid')
         bind_password = params.delete('$bind_password')
+        raise "Password does not match" if password != password_confirm
         adduser(uid, givenname, surname, password, bind_uid, bind_password)
         redirect absolute_uri(uid)
       rescue
