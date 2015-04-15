@@ -34,7 +34,7 @@ module GuildBook
       if File.exist?('/home/' + uid)
           raise UserRepo::Error, uid + " already found in /home"
       end
-      if  open('/etc/aliases') { |io| io.read.include?(uid) }
+      if open('/etc/aliases') { |io| io.read.include?(uid) }
           raise UserRepo::Error, uid + " already found in /etc/aliases"
       end
       unix_password = Sha1.ssha_hash password
