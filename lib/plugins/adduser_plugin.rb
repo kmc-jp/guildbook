@@ -9,7 +9,7 @@ module GuildBook
       @@locker = Mutex.new
     end
 
-    get '/!adduser/edit' do
+    get '/!adduser' do
       haml :adduser, locals: {
         err: nil,
         uid: '',
@@ -19,7 +19,7 @@ module GuildBook
       }
     end
 
-    post '/!adduser/add' do
+    post '/!adduser' do
       begin
         uid = params.delete('$uid')
         givenname = params.delete('$givenname')
