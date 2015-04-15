@@ -55,6 +55,34 @@ module GuildBook
       end
     end
 
+    def get_max_uid
+      do_search(Net::LDAP::Filter.present('uidNumber'), ['uidNumber']).map {|u| u['uidNumber'].first.to_i }.max
+    end
+
+    def get_max_rid
+      do_search(Net::LDAP::Filter.present('sambaSID'), ['sambaSID']).map do |e|
+        sid_components = e['sambaSID'].first.split /-/
+        sid_components.length < 8 ? 0 : sid_components[7].to_i
+      end.max
+    end
+
+    def add(uid, attributes, bind_uid, bind_password)
+      Net::LDAP.open_uri(uri) do |conn|
+        dn = Net::LDAP::DN.new('uid', uid, conn.base)
+        bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
+
+        if !conn.bind(method: :simple, username: bind_dn, password: bind_password)
+          raise Error, conn.get_operation_result.message
+        end
+        ## TODO: check admin; 書き込み権限があるか bind 段階でチェックされるわけではないので，admin か検証したい．
+
+        conn.add(dn: dn, attributes: attributes)
+        puts conn.get_operation_result.message
+        conn.replace_attribute(dn, 'x-kmc-LastModified', DateTime.now.generalized_time)
+        puts conn.get_operation_result.message
+      end
+    end
+
     private
 
     SEARCH_ATTRS = %w[uid name]

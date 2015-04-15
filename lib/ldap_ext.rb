@@ -24,7 +24,9 @@ class Net::LDAP
       host: uri.host,
       port: uri.port,
       base: uri.dn,
-      encryption: uri.kind_of?(URI::LDAPS) ? :simple_tls : :plaintext
+      # Net:LDAP does NOT support the option {:encryption => :plaintext};
+      # the following is workaround for non-TLS connection.
+      encryption: uri.kind_of?(URI::LDAPS) ? :simple_tls : nil
     }.merge(opt)
 
     open(opt, &block)
