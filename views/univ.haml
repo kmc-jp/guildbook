@@ -36,7 +36,7 @@
                   %span.value= ::GuildBook::UnivHelper.tel(u)
                 %div
                   %span.label 電子メール:
-                  %span.value= ::GuildBook::UnivHelper.email(u)
+                  %a.value{href: ::GuildBook::UnivHelper.mailto_email(u)}= ::GuildBook::UnivHelper.email(u)
               %td.lodging= ::GuildBook::UnivHelper.lodging(u)
             %tr
 
@@ -68,4 +68,8 @@
                 %div
                   %span.label 電話番号:
                   %span.value= ::GuildBook::UnivHelper.tel(u)
+                - if ::GuildBook::UnivHelper.outdated?(u)
+                  %div
+                    %span.label 電子メール:
+                    %a.value{href: ::GuildBook::UnivHelper.mailto_email(u)}= ::GuildBook::UnivHelper.email(u)
               %td.lodging= ::GuildBook::UnivHelper.lodging(u)
