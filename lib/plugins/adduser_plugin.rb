@@ -9,22 +9,36 @@ module GuildBook
       @@locker = Mutex.new
     end
 
-    get '/!adduser/edit' do
-      haml :adduser, locals: {err: nil}
+    get '/!adduser' do
+      haml :adduser, locals: {
+        err: nil,
+        uid: '',
+        givenname: '',
+        surname: '',
+        bind_uid: remote_user
+      }
     end
 
-    post '/!adduser/add' do
+    post '/!adduser' do
       begin
         uid = params.delete('$uid')
         givenname = params.delete('$givenname')
         surname = params.delete('$surname')
         password = params.delete('$password')
+        password_confirm = params.delete('$password_confirm')
         bind_uid = params.delete('$bind_uid')
         bind_password = params.delete('$bind_password')
+        raise "Password does not match" if password != password_confirm
         adduser(uid, givenname, surname, password, bind_uid, bind_password)
         redirect absolute_uri(uid)
       rescue
-        haml :adduser, locals: {err: $!}
+        haml :adduser, locals: {
+          err: $!,
+          uid: uid,
+          givenname: givenname,
+          surname: surname,
+          bind_uid: bind_uid
+        }
       end
     end
 
