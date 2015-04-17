@@ -91,10 +91,10 @@ module GuildBook
 
     def check_password_valid(password)
       if (/\A[\x20-\x7e]+\z/.match(password).nil?)
-        raise UserRepo::Error "Your password contains invalid letters"
+        raise UserRepo::Error, "Your password contains invalid letters"
       end
       if (/\A[\x20-\x7e]{8,}\z/.match(password).nil?)
-        raise UserRepo::Error "Your password is too short. You need at least 8 letters."
+        raise UserRepo::Error, "Your password is too short. You need at least 8 letters."
       end
 
       kinds = (/[a-z]/.match(password).nil? ? 0 : 1) +
@@ -102,7 +102,7 @@ module GuildBook
         (/[0-9]/.match(password).nil? ? 0 : 1) +
         (/[^a-zA-Z0-9]/.match(password).nil? ? 0 : 1)
       if (kinds < 3)
-        raise UserRepo::Error "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
+        raise UserRepo::Error, "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
       end
     end
   end
