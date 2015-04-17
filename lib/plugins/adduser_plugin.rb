@@ -22,6 +22,7 @@ module GuildBook
     post '/!adduser' do
       begin
         uid = params.delete('$uid')
+        check_uid_valid(uid)
         givenname = params.delete('$givenname')
         surname = params.delete('$surname')
         password = params.delete('$password')
@@ -103,6 +104,15 @@ module GuildBook
         (/[^a-zA-Z0-9]/.match(password).nil? ? 0 : 1)
       if (kinds < 3)
         raise UserRepo::Error, "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
+      end
+    end
+
+    def check_uid_valid(uid)
+      unless (Range.new(2, 8) === uid.length)
+        raise UserRepo::Error, "Your login name should consist of at least 2 characters in length and at most 8."
+      end
+      if (/\A[a-z][a-z0-9]{2,7}\z/.match(uid).nil?)
+        raise UserRepo::Error, "Your login name should consist of alphanumeric characters."
       end
     end
   end
