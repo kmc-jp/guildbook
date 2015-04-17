@@ -97,10 +97,10 @@ module GuildBook
         raise UserRepo::Error "Your password is too short. You need at least 8 letters."
       end
 
-      kinds = (/[a-z]/.match(password).nil? ? 1 : 0) +
-        (/[A-Z]/.match(password).nil? ? 1 : 0) +
-        (/[0-9]/.match(password).nil? ? 1 : 0) +
-        (/[^a-zA-Z0-9]/.match(password).nil? ? 1 : 0)
+      kinds = (/[a-z]/.match(password).nil? ? 0 : 1) +
+        (/[A-Z]/.match(password).nil? ? 0 : 1) +
+        (/[0-9]/.match(password).nil? ? 0 : 1) +
+        (/[^a-zA-Z0-9]/.match(password).nil? ? 0 : 1)
       if (kinds < 3)
         raise UserRepo::Error "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
       end
