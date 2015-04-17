@@ -36,9 +36,11 @@
           %span.form-group
             %label.sr-only
               ログイン名
-            %input.form-control{name: '$bind_uid', value: bind_uid, placeholder: 'administrator'}
+              %span.form-required *
+            %input.form-control{name: '$bind_uid', value: bind_uid, required: true, placeholder: 'administrator'}
           %span.form-group
             %label.sr-only
               パスワード
-            %input.form-control{type: :password, name: '$bind_password', placeholder: 'Password'}
+              %span.form-required *
+            %input.form-control{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
           %input.form-control.btn.btn-primary{type: :submit, value: 'アカウント作成'}
