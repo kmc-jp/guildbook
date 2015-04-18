@@ -74,12 +74,13 @@ module GuildBook
         if !conn.bind(method: :simple, username: bind_dn, password: bind_password)
           raise Error, conn.get_operation_result.message
         end
-        ## TODO: check admin; 書き込み権限があるか bind 段階でチェックされるわけではないので，admin か検証したい．
 
         conn.add(dn: dn, attributes: attributes)
-        puts conn.get_operation_result.message
+        case conn.get_operation_result.code
+        when 50 # Insufficient Access
+          raise Error, conn.get_operation_result.message
+        end
         conn.replace_attribute(dn, 'x-kmc-LastModified', DateTime.now.generalized_time)
-        puts conn.get_operation_result.message
       end
     end
 
