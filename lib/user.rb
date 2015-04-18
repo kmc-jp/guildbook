@@ -76,8 +76,7 @@ module GuildBook
         end
 
         conn.add(dn: dn, attributes: attributes)
-        case conn.get_operation_result.code
-        when 50 # Insufficient Access
+        unless conn.get_operation_result.code == 0 # Success
           raise Error, conn.get_operation_result.message
         end
         conn.replace_attribute(dn, 'x-kmc-LastModified', DateTime.now.generalized_time)
