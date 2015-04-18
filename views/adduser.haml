@@ -22,10 +22,11 @@
     %div.row
       %div.col-sm-2.col-xs-12
         パスワード
+        %span.form-required *
       %div.col-sm-5.col-xs-6
-        %input.form-control{type: :password, name: '$password', placeholder: 'Password'}
+        %input.form-control{type: :password, name: '$password', required: true, placeholder: 'Password'}
       %div.col-sm-5.col-xs-6
-        %input.form-control{type: :password, name: '$password_confirm', placeholder: 'Password(確認)'}
+        %input.form-control{type: :password, name: '$password_confirm', required: true, placeholder: 'Password(確認)'}
     %hr
     %fieldset.row
       %legend.col-sm-10.col-sm-offset-1.col-xs-12
@@ -35,9 +36,11 @@
           %span.form-group
             %label.sr-only
               ログイン名
-            %input.form-control{name: '$bind_uid', value: bind_uid, placeholder: 'administrator'}
+              %span.form-required *
+            %input.form-control{name: '$bind_uid', value: bind_uid, required: true, placeholder: 'administrator'}
           %span.form-group
             %label.sr-only
               パスワード
-            %input.form-control{type: :password, name: '$bind_password', placeholder: 'Password'}
+              %span.form-required *
+            %input.form-control{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
           %input.form-control.btn.btn-primary{type: :submit, value: 'アカウント作成'}
