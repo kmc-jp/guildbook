@@ -108,8 +108,8 @@ module GuildBook
     end
 
     def check_uid_valid(uid)
-      unless (Range.new(2, 8) === uid.length)
-        raise UserRepo::Error, "Your login name should consist of at least 2 characters in length and at most 8."
+      unless (Range.new(3, 8) === uid.length)
+        raise UserRepo::Error, "Your login name should consist of at least 3 characters in length and at most 8."
       end
       if (/\A[a-z][a-z0-9]{2,7}\z/.match(uid).nil?)
         raise UserRepo::Error, "Your login name should consist of alphanumeric characters."
