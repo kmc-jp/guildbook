@@ -60,7 +60,7 @@ module GuildBook
       samba_password = Smbhash.ntlm_hash password
       unix_time = DateTime.now.to_time.to_i
       gid_number = 200 # kmc
-      domain_sid = base_repo.get_kmc_domain_sid
+      domain_sid = base_repo.get_domain_sid(samba_domain_name)
       attrs = {
         :objectClass => %w{sambaSamAccount inetOrgPerson posixAccount shadowAccount x-kmc-Person},
         :uid => uid,
@@ -88,6 +88,10 @@ module GuildBook
 
     def base_repo
       BaseRepo.new(settings.ldap_uri['base'])
+    end
+
+    def samba_domain_name
+      settings.samba_domain_name
     end
 
     def check_password_valid(password)
