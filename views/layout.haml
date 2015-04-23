@@ -20,19 +20,11 @@
           %a.navbar-brand{href: settings.brand['uri']}= settings.brand['name']
         %div.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li
-              %a{href: absolute_uri()}
-                %span.glyphicon.glyphicon-lg.glyphicon-list-alt{title: '一覧'}
-                %span.navbar-autotext 一覧
-            %li
-              %a{href: absolute_uri('/!adduser')}
-                %span.glyphicon.glyphicon-lg.glyphicon-user{title: 'ユーザ作成'}
-                %span.navbar-autotext ユーザ作成
-            - if remote_user
+            - navlinks.each do |navlink|
               %li
-                %a{href: absolute_uri(remote_user)}
-                  %span.glyphicon.glyphicon-lg.glyphicon-user{title: remote_user}
-                  %span.navbar-autotext= remote_user
+                %a{href: navlink[:href]}
+                  %span.glyphicon.glyphicon-lg{class: "glyphicon-#{navlink[:icon]}", title: navlink[:text]}
+                  %span.navbar-autotext= navlink[:text]
           %form.form-inline.navbar-form.navbar-right{action: absolute_uri(), role: 'search'}
             %div.input-group
               %input.form-control{type: :search, name: 'q'}

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require_relative '../app'
 require_relative '../ssha'
 require_relative '../base'
@@ -7,6 +8,14 @@ module GuildBook
   class App
     configure do
       @@locker = Mutex.new
+    end
+
+    before do
+      navlinks << {
+        href: absolute_uri('/!adduser'),
+        icon: 'user',
+        text: 'ユーザ作成'
+      }
     end
 
     get '/!adduser' do
