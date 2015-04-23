@@ -5,10 +5,14 @@ module GuildBook
   class App
     before do
       navlinks << {
-        href: settings.help_uri,
+        href: '/!help',
         icon: 'question-sign',
         text: '使い方'
       }
+    end
+
+    get '/!help' do
+      redirect settings.help_uri
     end
   end
 end
