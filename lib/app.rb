@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'uri'
 
 require 'sinatra/base'
@@ -40,6 +41,22 @@ module GuildBook
     set :public_folder, "#{File.dirname(__FILE__)}/../public"
 
     set :haml, escape_html: true
+
+    before do
+      navlinks << {
+        href: absolute_uri(),
+        icon: 'list-alt',
+        text: '一覧'
+      }
+
+      if remote_user
+        navlinks << {
+          href: absolute_uri(remote_user),
+          icon: 'user',
+          text: remote_user
+        }
+      end
+    end
 
     get '/' do
       sort_keys = [params['sort'], settings.ui['default_sort_keys']].compact.flat_map(&Utils.method(:parse_sortkeys))
@@ -91,6 +108,10 @@ module GuildBook
 
     def remote_user
       request.env['REMOTE_USER']
+    end
+
+    def navlinks
+      @navlinks ||= []
     end
   end
 end
