@@ -16,3 +16,9 @@ gem 'closure-compiler', '~> 1.1'
 gem 'net-ldap', github: 'ruby-ldap/ruby-net-ldap'
 gem 'smbhash'
 
+group 'test' do
+  gem 'minitest', '~> 5.7'
+  gem 'minitest-reporters', '~> 1.0'
+
+  gem 'ruby-ldapserver', '~> 0.5.1'
+end
