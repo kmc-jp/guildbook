@@ -8,15 +8,10 @@ class LdapRepoTest < Minitest::Test
   def setup
     @server = MockLdapServer.new(port: PORT)
     @server.run_tcpserver
-
   end
 
   def teardown
-    begin
-      @server.stop
-    rescue Interrupt
-      # nop
-    end
+    @server.stop
   end
 
   def test_do_search

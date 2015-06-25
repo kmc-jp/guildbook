@@ -20,5 +20,5 @@ group 'test' do
   gem 'minitest', '~> 5.7'
   gem 'minitest-reporters', '~> 1.0'
 
-  gem 'ruby-ldapserver', '~> 0.5.1'
+  gem 'ruby-ldapserver', '~> 0.5.2'
 end

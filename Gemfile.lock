@@ -40,7 +40,7 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.2.2)
-    ruby-ldapserver (0.5.1)
+    ruby-ldapserver (0.5.2)
     ruby-progressbar (1.7.5)
     sass (3.2.19)
     sinatra (1.4.4)
@@ -88,7 +88,7 @@ DEPENDENCIES
   net-ldap!
   rack (~> 1.5)
   rake (~> 10.0)
-  ruby-ldapserver (~> 0.5.1)
+  ruby-ldapserver (~> 0.5.2)
   sass (~> 3.2)
   sinatra (~> 1.4)
   sinatra-asset-pipeline
