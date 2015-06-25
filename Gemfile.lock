@@ -7,11 +7,15 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    ansi (1.5.0)
     backports (3.6.0)
     bootstrap-sass (3.1.1.0)
       sass (~> 3.2)
+    builder (3.2.2)
     chunky_png (1.3.0)
     closure-compiler (1.1.10)
+    codeclimate-test-reporter (0.4.7)
+      simplecov (>= 0.7.1, < 1.0.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -20,11 +24,19 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.17)
+    docile (1.1.5)
     execjs (2.0.2)
     fssm (0.2.10)
     haml (4.0.5)
       tilt
     hike (1.2.3)
+    json (1.8.3)
+    minitest (5.7.0)
+    minitest-reporters (1.0.17)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     multi_json (1.9.2)
     rack (1.5.2)
     rack-protection (1.5.2)
@@ -32,7 +44,14 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.2.2)
+    ruby-ldapserver (0.5.2)
+    ruby-progressbar (1.7.5)
     sass (3.2.19)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -71,11 +90,15 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.1)
   closure-compiler (~> 1.1)
+  codeclimate-test-reporter (~> 0.4.7)
   compass
   haml (~> 4.0)
+  minitest (~> 5.7)
+  minitest-reporters (~> 1.0)
   net-ldap!
   rack (~> 1.5)
   rake (~> 10.0)
+  ruby-ldapserver (~> 0.5.2)
   sass (~> 3.2)
   sinatra (~> 1.4)
   sinatra-asset-pipeline
