@@ -1,7 +1,5 @@
 require 'test_helper'
 
-require 'ldap_repo'
-
 class LdapRepoTest < Minitest::Test
   PORT = 33899
 

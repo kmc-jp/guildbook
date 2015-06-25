@@ -21,4 +21,5 @@ group 'test' do
   gem 'minitest-reporters', '~> 1.0'
 
   gem 'ruby-ldapserver', '~> 0.5.2'
+  gem 'codeclimate-test-reporter', '~> 0.4.7'
 end
