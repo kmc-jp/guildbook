@@ -10,7 +10,7 @@ gem 'sinatra-asset-pipeline'
 gem 'haml', '~> 4.0'
 gem 'sass', '~> 3.2'
 gem 'compass'
-gem 'bootstrap-sass', '~> 3.1'
+gem 'bootstrap-sass', ['~> 3.2', '!= 3.3.5']  # 3.3.5 has dependency problem
 gem 'closure-compiler', '~> 1.1'
 
 gem 'net-ldap'

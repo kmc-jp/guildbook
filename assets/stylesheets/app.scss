@@ -1,4 +1,6 @@
 $grid-float-breakpoint: 440px;
+@import "bootstrap-sprockets";
+@import "bootstrap-compass";
 @import "bootstrap";
 
 body {
