@@ -16,7 +16,7 @@ GEM
       sass (~> 3.2.17)
     execjs (2.0.2)
     fssm (0.2.10)
-    haml (4.0.5)
+    haml (4.0.6)
       tilt
     hike (1.2.3)
     multi_json (1.11.2)
