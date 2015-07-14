@@ -1,9 +1,3 @@
-GIT
-  remote: git://github.com/ruby-ldap/ruby-net-ldap.git
-  revision: 210585e458ef809b949c25b1c4592fbd78a1222f
-  specs:
-    net-ldap (0.5.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -26,6 +20,7 @@ GEM
       tilt
     hike (1.2.3)
     multi_json (1.9.2)
+    net-ldap (0.11)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
@@ -73,7 +68,7 @@ DEPENDENCIES
   closure-compiler (~> 1.1)
   compass
   haml (~> 4.0)
-  net-ldap!
+  net-ldap
   rack (~> 1.5)
   rake (~> 10.0)
   sass (~> 3.2)
