@@ -21,7 +21,7 @@ GEM
     hike (1.2.3)
     multi_json (1.9.2)
     net-ldap (0.11)
-    rack (1.5.2)
+    rack (1.6.4)
     rack-protection (1.5.2)
       rack
     rack-test (0.6.2)
