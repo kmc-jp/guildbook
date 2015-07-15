@@ -24,21 +24,24 @@ module GuildBook
     register Sinatra::ConfigFile
     config_file "#{File.dirname(__FILE__)}/../config/guildbook*.yml"
 
-    set :assets_prefix, %W[assets vendor/assets #{Compass::Frameworks[:bootstrap].path}/vendor/assets]
+    set :root, File.expand_path('..', File.dirname(__FILE__))
+    set :views, -> { File.join(root, 'views') }
+    set :public_folder, -> { File.join(root, 'public') }
+
     set :assets_precompile, %w(app.js app.css univ.css *.png *.jpg *.svg *.eot *.ttf *.woff)
     set :assets_css_compressor, :sass
     set :assets_js_compressor, :closure
-    configure :production do
-      assets_uri = URI.parse(settings.assets_uri)
-      Sprockets::Helpers.protocol = assets_uri.scheme
-      Sprockets::Helpers.asset_host = assets_uri.host
-      Sprockets::Helpers.prefix = assets_uri.path
-      # port is ignored -- needs patch sprockets-helpers
-    end
     register Sinatra::AssetPipeline
 
-    set :views, "#{File.dirname(__FILE__)}/../views"
-    set :public_folder, "#{File.dirname(__FILE__)}/../public"
+    configure do
+      Sprockets::Helpers.configure do |config|
+        assets_uri = URI.parse(settings.assets_uri)
+        config.protocol = assets_uri.scheme
+        config.asset_host = assets_uri.host
+        config.prefix = assets_uri.path
+        # port is ignored -- needs patch sprockets-helpers
+      end
+    end
 
     set :haml, escape_html: true
 

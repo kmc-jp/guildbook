@@ -5,7 +5,7 @@ gem 'rack', '~> 1.5'
 
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib', '~> 1.4'
-gem 'sinatra-asset-pipeline'
+gem 'sinatra-asset-pipeline', '~> 0.7'
 
 gem 'haml', '~> 4.0'
 gem 'sass', '~> 3.2'
