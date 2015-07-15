@@ -92,3 +92,6 @@ DEPENDENCIES
   sinatra-asset-pipeline (~> 0.7)
   sinatra-contrib (~> 1.4)
   smbhash
+
+BUNDLED WITH
+   1.10.5
