@@ -10,7 +10,7 @@
         ログイン名
         %span.form-required *
       %div.col-sm-5.col-xs-6
-        %input.form-control{name: '$uid', value: uid, placeholder: 'combat'}
+        %input.form-control{name: '$uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat'}
     %div.row
       %div.col-sm-2.col-xs-12
         氏名(ローマ字)
