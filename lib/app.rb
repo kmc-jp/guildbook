@@ -28,12 +28,14 @@ module GuildBook
     set :views, -> { File.join(root, 'views') }
     set :public_folder, -> { File.join(root, 'public') }
 
-    set :assets_precompile, %w(app.js app.css univ.css *.png *.jpg *.svg *.eot *.ttf *.woff)
+    set :assets_precompile, %w(app.js app.css univ.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
     set :assets_css_compressor, :sass
     set :assets_js_compressor, :closure
     register Sinatra::AssetPipeline
 
     configure do
+      self.sprockets.append_path File.join(self.root, 'bower_components')
+
       Sprockets::Helpers.configure do |config|
         assets_uri = URI.parse(settings.assets_uri)
         config.protocol = assets_uri.scheme
