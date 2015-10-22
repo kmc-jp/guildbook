@@ -11,11 +11,11 @@ module GuildBook
 
       def student?(u)
         status = u['x-kmc-UniversityStatus'].first
-        status and status =~/^(?:M|D)?\d+$/
+        status and status =~/^[BMD]?\d+$/
       end
 
       def parse_grade(g)
-        return [:u, $1.to_i] if g =~ /^(\d+)$/
+        return [:u, $1.to_i] if g =~ /^B?(\d+)$/
         return [:m, $1.to_i] if g =~ /^M(\d+)$/
         return [:d, $1.to_i] if g =~ /^D(\d+)$/
         return [:o, 0]
