@@ -5,8 +5,9 @@
     %meta{charset: 'utf-8'}
     %meta{name: 'viewport', content:'width=device-width,initial-scale=1'}
     %title #{settings.brand['name']}名簿システム
-    != javascript_tag('app')
-    != stylesheet_tag('app')
+    = stylesheet_link_tag 'app', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'app', 'data-turbolinks-track' => true
+    = csrf_meta_tags
   %body
     %nav.navbar.navbar-inverse.navbar-fixed-top
       %div.container
