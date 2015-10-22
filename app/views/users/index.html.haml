@@ -13,10 +13,10 @@
             %th 氏名
             %th 電話番号
         %tbody
-          - users.each do |user|
+          - @users.each do |user|
             %tr
               %td
-                %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
+                = link_to user['uid'].first, id: user['uid'].first, controller: :users, action: :show
               %td
                 #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
               %td
@@ -33,10 +33,10 @@
             %th 入学年度
             %th 役職
         %tbody
-          - users.each do |user|
+          - @users.each do |user|
             %tr
               %td
-                %a{href: absolute_uri(user['uid'].first)} #{user['uid'].first}
+                = link_to user['uid'].first, id: user['uid'].first, controller: :users, action: :show
               %td
                 #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
               %td

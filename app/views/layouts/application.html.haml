@@ -4,7 +4,7 @@
   %head
     %meta{charset: 'utf-8'}
     %meta{name: 'viewport', content:'width=device-width,initial-scale=1'}
-    %title #{settings.brand['name']}名簿システム
+    %title #{Settings.brand.name}名簿システム
     = stylesheet_link_tag 'app', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'app', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -17,15 +17,15 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{href: settings.brand['uri']}= settings.brand['name']
+          %a.navbar-brand{href: Settings.brand.uri}= Settings.brand.name
         %div.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            - navlinks.each do |navlink|
-              %li
-                %a{href: navlink[:href]}
-                  %span.glyphicon.glyphicon-lg{class: "glyphicon-#{navlink[:icon]}", title: navlink[:text]}
-                  %span.navbar-autotext= navlink[:text]
-          %form.form-inline.navbar-form.navbar-right{action: absolute_uri(), role: 'search'}
+            -# - navlinks.each do |navlink|
+            -#   %li
+            -#     %a{href: navlink[:href]}
+            -#       %span.glyphicon.glyphicon-lg{class: "glyphicon-#{navlink[:icon]}", title: navlink[:text]}
+            -#       %span.navbar-autotext= navlink[:text]
+          %form.form-inline.navbar-form.navbar-right{action: '#', role: 'search'}
             %div.input-group
               %input.form-control{type: :search, name: 'q'}
               %span.input-group-btn
