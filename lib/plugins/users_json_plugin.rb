@@ -2,7 +2,6 @@ require_relative '../app'
 require_relative 'users_json_helpers'
 require "sinatra/json"
 require "json"
-require 'sinatra/reloader'
 
 module GuildBook
   class App
