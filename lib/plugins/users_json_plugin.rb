@@ -10,17 +10,8 @@ module GuildBook
       if !params.empty? && !params[:filter].nil?
         filter = params[:filter].gsub(" ", "")
         filter = params[:filter].split(",").map{|item|
-          t = item.split('=')
-          k = t[0]
-          v = t[1]
-          case k
-          when "username"
-            ["uid", v]
-          else
-            [k, v]
-          end
+          item.split('=')
         }
-        p filter
         repo = user_repo.filter(filter)
       else
         repo = user_repo.search(nil, false)

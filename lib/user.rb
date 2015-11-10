@@ -8,6 +8,12 @@ module GuildBook
       if query
         filter2 = nil
         query.each_with_index {|item, index|
+          case item
+          when "username"
+            item = "uid"
+          when "kyotou_grade"
+            item = "x-kmc-UniversityStatus"
+          end
           if index == 0
             filter2 = Net::LDAP::Filter.eq(item[0], item[1])
           else
