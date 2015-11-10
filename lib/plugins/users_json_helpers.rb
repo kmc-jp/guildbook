@@ -5,28 +5,62 @@ require_relative '../date_ext'
 module GuildBook
   module UsersJsonHelper
     class << self
-      def initiate?(u)
-        u['x-kmc-Generation'].first.to_i == Date.today.academic_year - 1976 rescue false
+      def uid(u)
+        u['uid'].first || ''
       end
 
-      def student?(u)
+      def title(u)
+        u['title'].first || ''
+      end
+
+      def kyotou_student?(u)
         status = u['x-kmc-UniversityStatus'].first
-        status and status =~/^[BMD]?\d+$/
+        department = u['x-kmc-UniversityDepartment'].first
+        status and department and status =~/^(?:M|D)?\d+$/ and department !~ /(?!<京都)大学/
       end
 
-      def parse_grade(g)
-        return [:u, $1.to_i] if g =~ /^B?(\d+)$/
-        return [:m, $1.to_i] if g =~ /^M(\d+)$/
-        return [:d, $1.to_i] if g =~ /^D(\d+)$/
-        return [:o, 0]
+      def kyotou_department(u)
+        s = u['x-kmc-UniversityDepartment'].first
+        case s
+        when nil
+          ''
+        when /^.*(学部|研究科|研究所|センター)/
+          $&
+        end
       end
 
-      def machine_grade(u)
-        parse_grade(u['x-kmc-UniversityStatus'].first || '')
+      def kyotou_grade(u)
+        u['x-kmc-UniversityStatus'].first || ''
       end
 
-      def pipes(cols)
-        '|' * cols.count('|')
+      def name(u)
+        "#{u['sn;lang-ja'].first} #{u['givenName;lang-ja'].first}"
+      end
+
+      def yomi(u)
+        "#{u['x-kmc-PhoneticSurname'].first} #{u['x-kmc-PhoneticGivenName'].first}"
+      end
+
+      def lodging(u)
+        u['x-kmc-Lodging'].first == 'FALSE' ? '' : '下宿'
+      end
+
+      def address(u)
+        u['postalAddress'].first || ''
+      end
+
+      def tel(u)
+        u['telephoneNumber'].first || ''
+      end
+
+      def email(u)
+        u['mail'].first || ''
+      end
+
+      def outdated?(u)
+        today = Date.today
+        lm = u['x-kmc-LastModified'].first
+        !lm or Date.parse(lm) < Date.new(today.month >=4 ? today.year : today.year - 1, 4, 1)
       end
     end
   end

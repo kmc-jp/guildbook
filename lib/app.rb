@@ -77,6 +77,7 @@ module GuildBook
 
     get '/:uid' do |uid|
       pass if uid =~ /^!/
+      pass if uid=~/\.json?.*$/
       haml :detail, locals: {user: user_repo.get(uid)}
     end
 

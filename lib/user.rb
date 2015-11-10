@@ -3,6 +3,22 @@ require_relative 'date_ext'
 
 module GuildBook
   class UserRepo < LdapRepo
+    def filter(query = nil)
+      filter = Net::LDAP::Filter.present('uid')
+      if query
+        filter2 = nil
+        query.each_with_index {|item, index|
+          if index == 0
+            filter2 = Net::LDAP::Filter.eq(item[0], item[1])
+          else
+            filter2 |= Net::LDAP::Filter.eq(item[0], item[1])
+          end
+        }
+        do_search(filter & filter2)
+      else
+        do_search(filter)
+      end
+    end
     def search(query = nil, include_inactive = true)
       filter = Net::LDAP::Filter.present('uid')
 
