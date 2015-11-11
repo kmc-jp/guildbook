@@ -1,6 +1,3 @@
-require_relative '../../lib/utils'
-require_relative '../../lib/user'
-
 class UsersController < ApplicationController
   def index
     @users = sort(User.all)
