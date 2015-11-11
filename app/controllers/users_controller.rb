@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
   def index
-    @users = sort(User.all)
+    if params[:q].present?
+      query = "*#{ActiveLdap::Escape.ldap_filter_escape(params[:q])}*"
+      filter = [:or, *SEARCHABLE_ATTRS.map {|attr| [attr, query] }]
+    end
+
+    if params[:all].blank?
+      filter = [:and, filter, [:not, ['shadowExpire', '*']]]
+    end
+
+    @users = sort(User.all(filter: filter), sort_keys: params[:sort])
   end
 
   def show
@@ -13,7 +22,9 @@ class UsersController < ApplicationController
 
   private
 
-  def sort(users, sort_keys = nil)
+  SEARCHABLE_ATTRS = %w[uid name]
+
+  def sort(users, sort_keys: nil)
     sort_keys = [*sort_keys, Settings.ui.default_sort_keys].compact.flat_map(&method(:parse_sortkeys))
 
     users.sort do |u, v|
