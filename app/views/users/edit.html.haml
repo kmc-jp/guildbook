@@ -1,52 +1,48 @@
-- if error
-  %p.alert.alert-danger
-    = error
-
-%form.edit-form{action: absolute_uri(user['uid'].first, :edit), method: :POST}
+= form_for(@user) do |f|
   %div.container-fluid
     %div.row
       %div.col-sm-2.col-xs-12 ログイン名
-      %div.col-sm-5.col-xs-6 #{user['uid'].first}
-      %div.col-sm-5.col-xs-6 (UID: #{user['uidNumber'].first})
+      %div.col-sm-5.col-xs-6 #{@user.uid}
+      %div.col-sm-5.col-xs-6 (UID: #{@user.uid_number})
     %hr
     %div.row
       %div.col-sm-2.col-xs-12
         氏名(ローマ字)
         %span.form-required *
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'sn', required: true, placeholder: 'ECHIZEN'
+        = f.text_field :sn, value: @user.sn, required: true, placeholder: 'ECHIZEN', class: 'form-control'
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'givenName', required: true, placeholder: 'Kousuke'
+        = f.text_field :gn, value: @user.gn, required: true, placeholder: 'Kousuke', class: 'form-control'
     %div.row
       %div.col-sm-2.col-xs-12
         氏名(漢字)
         %span.form-required *
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'sn;lang-ja', required: true, placeholder: '越前'
+        = f.text_field :'sn;lang-ja', value: @user.sn(lang: :ja), required: true, placeholder: '越前', class: 'form-control'
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'givenName;lang-ja', required: true, placeholder: '康介'
+        = f.text_field :'gn;lang-ja', value: @user.gn(lang: :ja), required: true, placeholder: '康介', class: 'form-control'
     %div.row
       %div.col-sm-2.col-xs-12
         よみがな
         %span.form-required *
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'x-kmc-PhoneticSurname', required: true, placeholder: 'えちぜん'
+        = f.text_field :x_kmc_phonetic_surname, required: true, placeholder: 'えちぜん', class: 'form-control'
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'x-kmc-PhoneticGivenName', required: true, placeholder: 'こうすけ'
+        = f.text_field :x_kmc_phonetic_given_name, required: true, placeholder: 'こうすけ', class: 'form-control'
     %div.row
       %div.col-sm-2.col-xs-12 別名
       %div.col-sm-5.col-xs-12
-        - input_userattr user, 'x-kmc-Alias', placeholder: 'コンバット越前'
+        = f.text_field :x_kmc_alias, placeholder: 'コンバット越前', class: 'form-control'
     %div.row
       %div.col-sm-2.col-xs-12 役職
       %div.col-sm-5.col-xs-12
-        - input_userattr user, 'title', placeholder: '会長, 会計'
+        = f.text_field :title, placeholder: '会長, 会計', class: 'form-control'
     %div.row
       %div.col-sm-2.col-xs-12
         電話番号
         %span.form-required *
       %div.col-sm-5.col-xs-12
-        - input_userattr user, 'telephoneNumber', type: :tel, required: true, placeholder: '090-XXXX-YYYY', pattern: '\d+-\d+-\d+'
+        = f.telephone_field :telephone_number, required: true, placeholder: '090-XXXX-YYYY', pattern: '\d+-\d+-\d+', class: 'form-control'
     %div.row
       %div.col-sm-2.col-xs-12
         住所
@@ -54,22 +50,22 @@
       %div.col-sm-10.col-xs-12
         %span.pull-left.input-group.postal-code
           %span.input-group-addon 〒
-          - input_userattr user, 'postalCode', required: true, placeholder: '606-8205', pattern: '\d{3}-\d{4}'
+          = f.text_field :postal_code, required: true, placeholder: '606-8205', pattern: '\d{3}-\d{4}', class: 'form-control'
         %span.input-group
-          - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
+          = f.text_field :postal_address, required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号', class: 'form-control'
           %span.input-group-addon
             %label
-              - input_userattr user, 'x-kmc-Lodging', type: :checkbox, value: 'true', checked: user['x-kmc-Lodging'].first == 'TRUE', class: ''
+              = f.check_box :x_kmc_lodging, type: :checkbox, value: 'true'
               下宿
     %div.row
       %div.col-sm-2.col-xs-12
         所属
         %span.form-required *在学者のみ
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'x-kmc-UniversityDepartment', placeholder: '工学部情報学科'
+        = f.text_field :x_kmc_university_department, placeholder: '工学部情報学科', class: 'form-control'
       %div.col-sm-5.col-xs-6
         %div.input-group
-          - input_userattr user, 'x-kmc-UniversityStatus', placeholder: '1, M2, D3, 教授'
+          = f.text_field :x_kmc_university_status, placeholder: '1, M2, D3, 教授', class: 'form-control'
           %span.input-group-addon 回生
     %div.row
       %div.col-sm-2.col-xs-12
@@ -78,20 +74,20 @@
       %div.col-sm-5.col-xs-12
         %div.input-group
           %span.input-group-addon 西暦
-          - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number,
-            placeholder: Date.today.academic_year, min: 1950, max: 2050
+          = f.number_field :x_kmc_university_matric_year, required: true,
+            placeholder: Date.today.academic_year, min: 1950, max: 2050, class: 'form-control'
           %span.input-group-addon 年度入学
       %div.col-sm-5.col-xs-12
         %div.input-group
           %span.input-group-addon 第
-          - input_userattr user, 'x-kmc-Generation', required: true, type: :number,
-            placeholder: Date.today.academic_year - 1976, min: 1
+          = f.number_field :x_kmc_generation, required: true,
+            placeholder: Date.today.academic_year - 1976, min: 1, class: 'form-control'
           %span.input-group-addon 代
     %div.row
       %div.col-sm-2.col-xs-12
         備考
       %div.col-sm-10.col-xs-12
-        - input_userattr user, 'description'
+        = f.text_field :description, class: 'form-control'
     %fieldset.row
       %legend.col-sm-10.col-sm-offset-1.col-xs-12
         編集者
@@ -100,9 +96,9 @@
           %span.form-group
             %label.sr-only
               ログイン名
-            %input.form-control{name: '$bind_uid', value: remote_user || user['uid'].first, placeholder: 'combat'}
+            = text_field_tag 'bind[uid]', @remote_user || @user.uid, placeholder: 'combat', class: 'form-control'
           %span.form-group
             %label.sr-only
               パスワード
-            %input.form-control{type: :password, name: '$bind_password', placeholder: 'Password'}
-          %input.form-control.btn.btn-primary{type: :submit, value: '保存'}
+            = text_field_tag 'bind[password]', '', placeholder: 'Password', class: 'form-control'
+    = f.submit class: 'form-control btn btn-primary'

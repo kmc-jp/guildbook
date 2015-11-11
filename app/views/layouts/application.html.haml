@@ -33,4 +33,8 @@
     %div.container-fluid
       %div.row
         %main.col-xs-12.col-md-8.col-md-offset-2{role: 'main'}
+          - unless flash.empty?
+            %div#alerts
+              - flash.each do |key, value|
+                %div{class: "alert-#{key}"}= value
           != yield

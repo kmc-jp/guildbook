@@ -16,12 +16,12 @@
           - @users.each do |user|
             %tr
               %td
-                = link_to user['uid'].first, id: user['uid'].first, controller: :users, action: :show
+                = link_to user.uid, id: user.uid, controller: :users, action: :show
               %td
-                #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
+                #{user.sn(lang: :ja)} #{user.gn(lang: :ja)}
               %td
-                - if !user['telephoneNumber'].empty?
-                  %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+                - if user.telephone_number
+                  %a{href: "tel:#{user.telephone_number}"} #{user.telephone_number}
     %div#detail-list.tab-pane.table-responsive
       %table.table.table-striped.table-condensed
         %thead
@@ -36,15 +36,15 @@
           - @users.each do |user|
             %tr
               %td
-                = link_to user['uid'].first, id: user['uid'].first, controller: :users, action: :show
+                = link_to user.uid, id: user.uid, controller: :users, action: :show
               %td
-                #{user['sn;lang-ja'].first} #{user['givenName;lang-ja'].first}
+                #{user.sn(lang: :ja)} #{user.gn(lang: :ja)}
               %td
-                - if !user['telephoneNumber'].empty?
-                  %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
+                - if user.telephone_number
+                  %a{href: "tel:#{user.telephone_number}"} #{user.telephone_number}
               %td
-                #{user['postalAddress'].first}
+                #{user.postal_address}
               %td
-                #{user['x-kmc-UniversityMatricYear'].first}
+                #{user.x_kmc_university_matric_year}
               %td
-                #{user['title'].first}
+                #{user.title}

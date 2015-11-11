@@ -14,6 +14,7 @@ gem 'bootstrap-sass', '~> 3.2', '!= 3.3.5'  # 3.3.5 has dependency problem
 gem 'closure-compiler', '~> 1.1', '< 1.1.11' # from 1.1.11 requires JDK1.8
 
 gem 'net-ldap'
+gem 'activeldap'
 
 group :development, :test do
   gem 'pry-byebug'

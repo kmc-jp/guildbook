@@ -3,6 +3,7 @@ require_relative 'boot'
 require "rails"
 require "action_controller/railtie"
 require "action_view/railtie"
+require "active_ldap/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 

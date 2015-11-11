@@ -1,40 +1,40 @@
 %table.table.table-striped
   %tr
     %th ログイン名
-    %td #{@user['uid'].first} (##{@user['uidNumber'].first})
+    %td #{@user.uid} (##{@user.uid_number})
   %tr
     %th 氏名
-    %td #{@user['sn;lang-ja'].first} #{@user['givenName;lang-ja'].first} (#{@user['sn'].first} #{@user['givenName'].first})
-  - if @user['x-kmc-Alias'].first
+    %td #{@user.sn(lang: :ja)} #{@user.gn(lang: :ja)} (#{@user.sn} #{@user.gn})
+  - if @user.x_kmc_alias
     %tr
       %th 別名
       %td
-        = @user['x-kmc-Alias'].first
+        = @user.x_kmc_alias
   %tr
     %th メールアドレス
     %td
-      - if @user['mail'].first
-        %a{href: "mailto:#{@user['mail'].first}"}= @user['mail'].first
+      - if @user.mail
+        %a{href: "mailto:#{@user.mail}"}= @user.mail
   %tr
     %th 電話番号
     %td
-      - if @user['telephoneNumber'].first
-        %a{href: "tel:#{@user['telephoneNumber'].first}"}= @user['telephoneNumber'].first
+      - if @user.telephoneNumber
+        %a{href: "tel:#{@user.telephone_number}"}= @user.telephoneNumber
   %tr
     %th 住所
-    %td #{@user['postalCode'].first} #{@user['postalAddress'].first}
-  - if @user['x-kmc-UniversityDepartment'].first
+    %td #{@user.postal_code} #{@user.postal_address}
+  - if @user.x_kmc_university_department
     %tr
       %th 所属
-      %td #{@user['x-kmc-UniversityDepartment'].first} #{@user['x-kmc-UniversityStatus'].first}
-  - if @user['description'].first
+      %td #{@user.x_kmc_university_department} #{@user.x_kmc_university_status}
+  - if @user.description
     %tr
       %th 備考
-      %td= @user['description'].first
+      %td= @user.description
   %tr
     %th 最終更新
     %td
-      - if @user['x-kmc-LastModified'].first
-        = DateTime.parse(@user['x-kmc-LastModified'].first).strftime('%F %T')
+      - if @user.x_kmc_last_modified
+        = @user.x_kmc_last_modified.strftime('%F %T')
 
-= link_to '編集', {id: @user['uid'].first, controller: :users, action: :edit}, class: 'btn btn-primary btn-block btn-lg'
+= link_to '編集', {id: @user.uid, controller: :users, action: :edit}, class: 'btn btn-primary btn-block btn-lg'
