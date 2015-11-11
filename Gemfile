@@ -16,9 +16,6 @@ gem 'closure-compiler', '~> 1.1', '< 1.1.11' # from 1.1.11 requires JDK1.8
 gem 'net-ldap'
 
 group :development, :test do
-  gem 'byebug'
-end
-
-group :development do
+  gem 'pry-byebug'
   gem 'spring'
 end
