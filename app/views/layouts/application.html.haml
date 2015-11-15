@@ -25,7 +25,7 @@
             -#     %a{href: navlink[:href]}
             -#       %span.glyphicon.glyphicon-lg{class: "glyphicon-#{navlink[:icon]}", title: navlink[:text]}
             -#       %span.navbar-autotext= navlink[:text]
-          %form.form-inline.navbar-form.navbar-right{action: '#', role: 'search'}
+          %form.form-inline.navbar-form.navbar-right{action: users_path, role: 'search'}
             %div.input-group
               %input.form-control{type: :search, name: 'q'}
               %span.input-group-btn
