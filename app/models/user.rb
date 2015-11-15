@@ -6,6 +6,10 @@ class User < ActiveLdap::Base
                scope: :one,
                classes: %w[posixAccount x-kmc-Person]
 
+  before_save do
+    self.x_kmc_last_modified = Time.now
+  end
+
   class << self
     def attr_with_lang(name)
       attr = schema.attribute(name)
