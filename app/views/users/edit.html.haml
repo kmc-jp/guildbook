@@ -100,5 +100,5 @@
           %span.form-group
             %label.sr-only
               パスワード
-            = text_field_tag 'bind[password]', '', placeholder: 'Password', class: 'form-control'
+            = password_field_tag 'bind[password]', '', placeholder: 'Password', class: 'form-control'
           = f.submit class: 'form-control btn btn-primary'
