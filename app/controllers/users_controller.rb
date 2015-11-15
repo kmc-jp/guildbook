@@ -20,9 +20,35 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def update
+    @user = User.find(params[:id])
+
+    begin
+      @user.bind(bind_dn: @user.find(params[:bind][:uid]).dn, password: params[:bind][:password])
+      @user.update_attributes!(update_params(params))
+      redirect_to user_url(@user)
+      return
+    rescue
+      flash.now[:danger] = $!.message
+    ensure
+      @user.remove_connection
+    end
+
+    render :edit
+  end
+
   private
 
   SEARCHABLE_ATTRS = %w[uid name]
+
+  EDITABLE_ATTRS = %w[
+    cn
+    sn sn;lang-ja x_kmc_phonetic_surname gn gn;lang-ja x_kmc_phonetic_given_name
+    x_kmc_university_department x_kmc_university_status x_kmc_university_matric_year
+    x_kmc_alias title x_kmc_generation description
+    postal_code postal_address x_kmc_lodging
+    telephone_number
+  ]
 
   def sort(users, sort_keys: nil)
     sort_keys = [*sort_keys, Settings.ui.default_sort_keys].compact.flat_map(&method(:parse_sortkeys))
@@ -40,5 +66,20 @@ class UsersController < ApplicationController
 
   def tokenize(s)
     s.to_s.split(/(\d+)|\s+/).map {|t| t =~ /\A\d+\z/ ? t.to_i : t }
+  end
+
+  def update_params(params)
+    p = params.require(:user).permit(EDITABLE_ATTRS)
+    p['cn'] = "#{p['gn']} #{p['sn']}"
+
+    p.inject({}) do |hash, (key, value)|
+      if key.include?(';')
+        key, subtype = key.split(';', 2)
+        value = {subtype => value}
+      end
+
+      hash[key] = [*hash[key], value]
+      hash
+    end
   end
 end
