@@ -7,7 +7,10 @@ class User < ActiveLdap::Base
                classes: %w[posixAccount x-kmc-Person]
 
   class << self
-    def attr_with_lang(*names)
+    def attr_with_lang(name)
+      attr = schema.attribute(name)
+      names = [attr.name, *attr.aliases].collect_concat {|n| [n.underscore, n.underscore.camelize(:lower)] }.uniq
+
       names.each do |name|
         define_method(name) do |force_array = false, lang: nil|
           values = self[name, true]
@@ -23,6 +26,6 @@ class User < ActiveLdap::Base
     end
   end
 
-  attr_with_lang :sn, :surname
-  attr_with_lang :gn, :given_name
+  attr_with_lang :sn
+  attr_with_lang :gn
 end
