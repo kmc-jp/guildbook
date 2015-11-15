@@ -75,13 +75,13 @@
         %div.input-group
           %span.input-group-addon 西暦
           = f.number_field :x_kmc_university_matric_year, required: true,
-            placeholder: Date.today.academic_year, min: 1950, max: 2050, class: 'form-control'
+            placeholder: Date.today.academic_year.to_s, min: 1950, max: 2050, class: 'form-control'
           %span.input-group-addon 年度入学
       %div.col-sm-5.col-xs-12
         %div.input-group
           %span.input-group-addon 第
           = f.number_field :x_kmc_generation, required: true,
-            placeholder: Date.today.academic_year - 1976, min: 1, class: 'form-control'
+            placeholder: (Date.today.academic_year - 1976).to_s, min: 1, class: 'form-control'
           %span.input-group-addon 代
     %div.row
       %div.col-sm-2.col-xs-12
