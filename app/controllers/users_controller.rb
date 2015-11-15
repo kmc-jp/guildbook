@@ -23,18 +23,17 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
+    @user.assign_attributes(update_params(params))
     begin
       @user.bind(bind_dn: @user.find(params[:bind][:uid]).dn, password: params[:bind][:password])
-      @user.update_attributes!(update_params(params))
+      @user.save!
       redirect_to user_url(@user)
-      return
     rescue
       flash.now[:danger] = $!.message
+      render :edit
     ensure
       @user.remove_connection
     end
-
-    render :edit
   end
 
   private
