@@ -16,6 +16,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new
+    
+  end
+
   def edit
     @user = User.find(params[:id])
   end
@@ -69,6 +78,21 @@ class UsersController < ApplicationController
 
   def update_params(params)
     p = params.require(:user).permit(EDITABLE_ATTRS)
+    p['cn'] = "#{p['gn']} #{p['sn']}"
+
+    p.inject({}) do |hash, (key, value)|
+      if key.include?(';')
+        key, subtype = key.split(';', 2)
+        value = {subtype => value}
+      end
+
+      hash[key] = [*hash[key], value]
+      hash
+    end
+  end
+
+  def create_params(params)
+    p = params.require(:user).permit(EDITABLE_ATTRS + [:raw_user_password, :raw_user_password_confirmation])
     p['cn'] = "#{p['gn']} #{p['sn']}"
 
     p.inject({}) do |hash, (key, value)|

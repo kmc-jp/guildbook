@@ -32,4 +32,8 @@ class User < ActiveLdap::Base
 
   attr_with_lang :sn
   attr_with_lang :gn
+
+  attr_accessor :raw_user_password, :raw_user_password_confirmation
+
+  validates :raw_user_password, confirmation: true
 end
