@@ -7,6 +7,7 @@
 /vendor/bundle/
 /vendor/assets/
 
+config/ldap.yml
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
