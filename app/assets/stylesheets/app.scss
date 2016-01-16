@@ -1,0 +1,42 @@
+$grid-float-breakpoint: 440px;
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+  padding-top: 70px;
+}
+
+.form-required {
+  color: #911;
+}
+
+.postal-code {
+  max-width: 18ex;
+}
+
+form.edit-form {
+  div.container-fluid {
+    div.row {
+      margin-bottom: 4px;
+    }
+  }
+}
+
+.glyphicon-lg {
+  margin-bottom: -.25em;
+  font-size: 1.5em;
+  vertical-align: -.25em;
+  line-height: 0;
+}
+
+@media (min-width: $grid-float-breakpoint) {
+  .navbar-form {
+    width: 30ex;
+  }
+
+  @media (max-width: $screen-xs-max) {
+    .navbar-autotext {
+      display: none;
+    }
+  }
+}

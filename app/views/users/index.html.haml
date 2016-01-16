@@ -1,0 +1,50 @@
+%div.tabbable
+  %ul.nav.nav-tabs
+    %li.active
+      %a{href: "#basic-list", data: {toggle: "tab"}} 一覧
+    %li
+      %a{href: "#detail-list", data: {toggle: "tab"}} 一覧(詳細)
+  %div.tab-content
+    %div#basic-list.tab-pane.active
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th ログイン名
+            %th 氏名
+            %th 電話番号
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td
+                = link_to user.uid, id: user.uid, controller: :users, action: :show
+              %td
+                #{user.sn(lang: :ja)} #{user.gn(lang: :ja)}
+              %td
+                - if user.telephone_number
+                  %a{href: "tel:#{user.telephone_number}"} #{user.telephone_number}
+    %div#detail-list.tab-pane.table-responsive
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th ログイン名
+            %th 氏名
+            %th 電話番号
+            %th 住所
+            %th 入学年度
+            %th 役職
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td
+                = link_to user.uid, id: user.uid, controller: :users, action: :show
+              %td
+                #{user.sn(lang: :ja)} #{user.gn(lang: :ja)}
+              %td
+                - if user.telephone_number
+                  %a{href: "tel:#{user.telephone_number}"} #{user.telephone_number}
+              %td
+                #{user.postal_address}
+              %td
+                #{user.x_kmc_university_matric_year}
+              %td
+                #{user.title}

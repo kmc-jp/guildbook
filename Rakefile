@@ -1,11 +1,6 @@
-require 'rubygems'
-require 'bundler/setup'
-require 'sinatra/asset_pipeline/task'
-require "#{File.dirname(__FILE__)}/lib/app"
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-task :bower do
-  sh 'bower install --production'
-end
+require File.expand_path('../config/application', __FILE__)
 
-Sinatra::AssetPipeline::Task.define!(GuildBook::App)
-Rake::Task['assets:precompile'].enhance(['bower'])
+Rails.application.load_tasks

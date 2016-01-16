@@ -1,0 +1,8 @@
+assets_uri: '/members/assets'
+help_uri: 'https://inside.kmc.gr.jp/'
+brand:
+  name: 'KMC'
+  uri: 'https://inside.kmc.gr.jp'
+ui:
+  default_sort_keys: -uidNumber
+samba_domain_name: KMC
