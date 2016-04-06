@@ -93,7 +93,7 @@ module GuildBook
       x-kmc-UniversityDepartment x-kmc-UniversityStatus x-kmc-UniversityMatricYear
       x-kmc-Alias title x-kmc-Generation description
       postalCode postalAddress x-kmc-Lodging
-      telephoneNumber
+      telephoneNumber x-kmc-MailForwardingAddress
     ]
   end
 end
