@@ -91,7 +91,7 @@
       %div.col-sm-2.col-xs-12
         メール転送先
       %div.col-sm-10.col-xs-12
-        - input_userattr user, 'x-kmc-MailForwardingAddress'
+        - input_userattr user, 'x-kmc-MailForwardingAddress', placeholder: "#{user['uid'].first}, combat@example.com"
     %div.row
       %div.col-sm-2.col-xs-12
         備考
