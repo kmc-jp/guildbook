@@ -1,5 +1,6 @@
 require_relative 'ldap_repo'
 require_relative 'date_ext'
+require_relative 'string_ext'
 
 module GuildBook
   class UserRepo < LdapRepo
@@ -44,7 +45,7 @@ module GuildBook
                 raise Error, conn.get_operation_result.message
               end
             else
-              if !conn.replace_attribute(dn, key, value)
+              if !conn.replace_attribute(dn, key, normalize_string(value))
                 raise Error, conn.get_operation_result.message
               end
             end
@@ -95,5 +96,9 @@ module GuildBook
       postalCode postalAddress x-kmc-Lodging
       telephoneNumber x-kmc-MailForwardingAddress
     ]
+
+    def normalize_string(s)
+      s.to_s.normalize_numbers
+    end
   end
 end
