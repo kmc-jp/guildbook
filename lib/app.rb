@@ -5,6 +5,7 @@ require 'sinatra/base'
 require 'sinatra/config_file'
 require 'sinatra/reloader'
 require 'sinatra/asset_pipeline'
+require 'sinatra/content_for'
 
 require 'haml'
 require_relative 'view_helpers'
@@ -32,6 +33,8 @@ module GuildBook
     set :assets_css_compressor, :sass
     set :assets_js_compressor, :closure
     register Sinatra::AssetPipeline
+
+    helpers Sinatra::ContentFor
 
     configure do
       self.sprockets.append_path File.join(self.root, 'bower_components')
