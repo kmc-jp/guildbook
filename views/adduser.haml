@@ -28,6 +28,8 @@
         %span.form-required *
       %div.col-sm-5.col-xs-6
         %input.form-control{type: :password, name: '$password', required: true, placeholder: 'Password'}
+        %meter.small{min: 0, max: 4}
+        %small.text-muted
       %div.col-sm-5.col-xs-6
         %input.form-control{type: :password, name: '$password_confirm', required: true, placeholder: 'Password(確認)'}
     %hr

@@ -21,6 +21,34 @@ form.edit-form {
       margin-bottom: 4px;
     }
   }
+
+  meter {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    margin: 0 auto;
+    width: 50%;
+
+    /* for Firefox */
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    &::-webkit-meter-bar {
+      background: none;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    &[value="1"]::-webkit-meter-optimum-value { background: red; }
+    &[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+    &[value="3"]::-webkit-meter-optimum-value { background: orange; }
+    &[value="4"]::-webkit-meter-optimum-value { background: green; }
+
+    &[value="1"]::-moz-meter-bar { background: red; }
+    &[value="2"]::-moz-meter-bar { background: yellow; }
+    &[value="3"]::-moz-meter-bar { background: orange; }
+    &[value="4"]::-moz-meter-bar { background: green; }
+  }
 }
 
 .glyphicon-lg {
