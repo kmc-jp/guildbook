@@ -2,6 +2,8 @@
 //= require zxcvbn
 
 jQuery(document).ready(function () {
+	const kmcDictionary = ["kmc"];
+
 	const strength = {
 		0: "ぽよい",
 		1: "弱い",
@@ -45,13 +47,22 @@ jQuery(document).ready(function () {
 		}
 	}
 
+	function getUserDictionaryFromForm() {
+		const form = jQuery("#form-adduser");
+		return kmcDictionary.concat(
+			form.find("input[name='$uid']").val(),
+			form.find("input[name='$surname']").val(),
+			form.find("input[name='$givenname']").val()
+		);
+	}
+
 	function checkStrength() {
 		const password = jQuery("#form-adduser input[name='$password']");
 		const password_val = password.val();
 		const meter = password.next("meter");
 		const message = meter.next("small");
 
-		const result = zxcvbn(password_val);
+		const result = zxcvbn(password_val, getUserDictionaryFromForm());
 		meter.attr({value: result.score});
 		if (password_val !== "") {
 			message.text("強度：" + strength[result.score]);
