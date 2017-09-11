@@ -94,6 +94,11 @@
         - input_userattr user, 'x-kmc-MailForwardingAddress', placeholder: "#{user['uid'].first}, combat@example.com"
     %div.row
       %div.col-sm-2.col-xs-12
+        SSH 公開鍵
+      %div.col-sm-10.col-xs-12.ssh-public-key
+        - textarea_userattr user, 'sshPublicKey', placeholder: "ssh-rsa XXXXXXX..."
+    %div.row
+      %div.col-sm-2.col-xs-12
         備考
       %div.col-sm-10.col-xs-12
         - input_userattr user, 'description'

@@ -90,7 +90,7 @@ module GuildBook
 
     EDITABLE_ATTRS = %w[
       cn
-      sn x-kmc-PhoneticSurname givenName x-kmc-PhoneticGivenName
+      sn sshPublicKey x-kmc-PhoneticSurname givenName x-kmc-PhoneticGivenName
       x-kmc-UniversityDepartment x-kmc-UniversityStatus x-kmc-UniversityMatricYear
       x-kmc-Alias title x-kmc-Generation description
       postalCode postalAddress x-kmc-Lodging
