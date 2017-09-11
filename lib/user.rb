@@ -30,6 +30,13 @@ module GuildBook
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
       attrs['x-kmc-Lodging'] = attrs['x-kmc-Lodging'] ? 'TRUE' : 'FALSE' # fixme
 
+      ssh_public_keys = attrs.delete('sshPublicKey')
+      ssh_public_keys.each do |key|
+        unless ssh_public_key_valid?(key)
+          raise Error, 'Unsupported ssh public key'
+        end
+      end
+
       Net::LDAP.open_uri(uri) do |conn|
         dn = Net::LDAP::DN.new('uid', uid, conn.base)
         bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
@@ -38,17 +45,11 @@ module GuildBook
           raise Error, conn.get_operation_result.message
         end
 
+        update_attribute(conn, dn, 'sshPublicKey', ssh_public_keys)
+
         attrs.each do |key, value|
           if EDITABLE_ATTRS.include?(key.split(';').first)
-            if value.empty?
-              if !conn.delete_attribute(dn ,key) and conn.get_operation_result.code != 16 # no such attribute
-                raise Error, conn.get_operation_result.message
-              end
-            else
-              if !conn.replace_attribute(dn, key, normalize_string(value))
-                raise Error, conn.get_operation_result.message
-              end
-            end
+            update_attribute(conn, dn, key, normalize_string(value))
           end
         end
 
@@ -97,8 +98,24 @@ module GuildBook
       telephoneNumber x-kmc-MailForwardingAddress
     ]
 
+    def update_attribute(conn, dn, key, value)
+      if value.empty?
+        if !conn.delete_attribute(dn ,key) and conn.get_operation_result.code != 16 # no such attribute
+          raise Error, conn.get_operation_result.message
+        end
+      else
+        if !conn.replace_attribute(dn, key, value)
+          raise Error, conn.get_operation_result.message
+        end
+      end
+    end
+
     def normalize_string(s)
       s.to_s.normalize_numbers
+    end
+
+    def ssh_public_key_valid?(key)
+      key.is_a?(String) && key =~ /^(?:ssh-rsa|ecdsa-sha2-nistp256|ecdsa-sha2-nistp384|ecdsa-sha2-nistp521|ssh-ed25519) /
     end
   end
 end
