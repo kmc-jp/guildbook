@@ -97,7 +97,7 @@
         SSH 公開鍵
       %div.col-sm-10.col-xs-12
         / Content must be on the same line to suppress indent in textarea.
-        %textarea.form-control.ssh-public-key{name: 'sshPublicKey', placeholder: 'ssh-rsa XXXXXXX...'}=user['sshPublicKey'].join("\n")
+        %textarea.form-control.ssh-public-key{name: 'sshPublicKey', placeholder: 'ssh-rsa XXXXXXX...'}= user['sshPublicKey'].join("\n")
     %div.row
       %div.col-sm-2.col-xs-12
         備考
