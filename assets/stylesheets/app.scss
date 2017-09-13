@@ -11,6 +11,12 @@ body {
   color: #911;
 }
 
+textarea.ssh-public-key {
+  font-family: monospace;
+  white-space: pre;
+  height: 5em;
+}
+
 .postal-code {
   max-width: 18ex;
 }

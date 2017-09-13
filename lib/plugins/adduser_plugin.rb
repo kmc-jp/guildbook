@@ -71,7 +71,7 @@ module GuildBook
       gid_number = 200 # kmc
       domain_sid = base_repo.get_domain_sid(samba_domain_name)
       attrs = {
-        :objectClass => %w{sambaSamAccount inetOrgPerson posixAccount shadowAccount x-kmc-Person},
+        :objectClass => %w{sambaSamAccount inetOrgPerson posixAccount shadowAccount x-kmc-Person ldapPublicKey},
         :uid => uid,
         :cn => "#{givenname} #{surname}",
         :sn => surname,

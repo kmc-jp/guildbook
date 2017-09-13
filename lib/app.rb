@@ -90,6 +90,8 @@ module GuildBook
       begin
         bind_uid = params.delete('$bind_uid')
         bind_password = params.delete('$bind_password')
+        # textinput to lines
+        params['sshPublicKey'] = params['sshPublicKey'].strip().split(/\r?\n/)
         user_repo.edit(uid, bind_uid, bind_password, params)
         redirect absolute_uri(uid)
       rescue
