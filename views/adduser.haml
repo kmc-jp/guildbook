@@ -1,9 +1,12 @@
+- content_for :html_head do
+  != javascript_tag('adduser-ui')
+
 - if err
   %p.alert.alert-danger
     = err
 
 %h2 アカウント新規作成
-%form.edit-form{action: absolute_uri('!adduser'), method: :POST}
+%form.edit-form#form-adduser{action: absolute_uri('!adduser'), method: :POST}
   %div.container-fluid
     %div.row
       %div.col-sm-2.col-xs-12
@@ -25,6 +28,8 @@
         %span.form-required *
       %div.col-sm-5.col-xs-6
         %input.form-control{type: :password, name: '$password', required: true, placeholder: 'Password'}
+        %meter.small{min: 0, max: 4}
+        %small.text-muted
       %div.col-sm-5.col-xs-6
         %input.form-control{type: :password, name: '$password_confirm', required: true, placeholder: 'Password(確認)'}
     %hr
