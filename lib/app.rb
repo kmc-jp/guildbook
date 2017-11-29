@@ -31,7 +31,6 @@ module GuildBook
 
     set :assets_precompile, %w(app.js app.css univ.css adduser-ui.js *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
     set :assets_css_compressor, :sass
-    set :assets_js_compressor, :closure
     register Sinatra::AssetPipeline
 
     helpers Sinatra::ContentFor
