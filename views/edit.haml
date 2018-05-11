@@ -64,9 +64,9 @@
     %div.row
       %div.col-sm-2.col-xs-12
         所属
-        %span.form-required *在学者のみ
+        %span.form-required *在学者は必須
       %div.col-sm-5.col-xs-6
-        - input_userattr user, 'x-kmc-UniversityDepartment', placeholder: '工学部情報学科'
+        - input_userattr user, 'x-kmc-UniversityDepartment', placeholder: '工学部情報学科, 千葉電波大学理学部'
       %div.col-sm-5.col-xs-6
         %div.input-group
           - input_userattr user, 'x-kmc-UniversityStatus', placeholder: '1, M2, D3, 教授'
