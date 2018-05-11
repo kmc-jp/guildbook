@@ -45,7 +45,7 @@ module GuildBook
       end
 
       def lodging(u)
-        u['x-kmc-Lodging'].first == 'FALSE' ? '' : '下宿'
+        u['x-kmc-Lodging'].first == 'FALSE' ? '自宅' : '下宿'
       end
 
       def address(u)
