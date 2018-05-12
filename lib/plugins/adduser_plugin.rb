@@ -128,9 +128,11 @@ module GuildBook
       if File.exist?('/home/' + uid)
         raise UserRepo::Error, uid + " already found in /home"
       end
-      if open('/etc/aliases') { |io| io.read.include?(uid) }
-        raise UserRepo::Error, uid + " already found in /etc/aliases"
-      end
+      open('/etc/aliases') { |io|
+        if io.each_line.find {|line| line.start_with?("#{uid}:")}
+          raise UserRepo::Error, uid + " already found in /etc/aliases"
+        end
+      }
     end
   end
 end
