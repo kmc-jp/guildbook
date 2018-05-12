@@ -23,12 +23,11 @@ module GuildBook
       end
 
       def kyotou_department(u)
-        s = u['x-kmc-UniversityDepartment'].first
-        case s
+        case u['x-kmc-UniversityDepartment'].first
         when nil
           ''
-        when /^.*(学部|研究科|研究所|センター)/
-          $&
+        when /\A(?:京都大学[[:space:]]*(?:大学院[[:space:]]*)?)?(.*(?:学部|研究科|研究所|センター))/
+          $1
         end
       end
 
