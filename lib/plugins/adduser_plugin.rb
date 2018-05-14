@@ -32,6 +32,7 @@ module GuildBook
       begin
         uid = params.delete('$uid')
         check_uid_valid(uid)
+        check_uid_unique(uid)
         givenname = params.delete('$givenname')
         surname = params.delete('$surname')
         password = params.delete('$password')
@@ -56,15 +57,6 @@ module GuildBook
     private
 
     def adduser(uid, givenname, surname, password, bind_uid, bind_password)
-      if user_repo.do_search(Net::LDAP::Filter.eq('uid', uid)).first
-        raise UserRepo::Error, uid + " already found in LDAP"
-      end
-      if File.exist?('/home/' + uid)
-        raise UserRepo::Error, uid + " already found in /home"
-      end
-      if open('/etc/aliases') { |io| io.read.include?(uid) }
-        raise UserRepo::Error, uid + " already found in /etc/aliases"
-      end
       unix_password = Sha1.ssha_hash password
       samba_password = Smbhash.ntlm_hash password
       unix_time = DateTime.now.to_time.to_i
@@ -127,6 +119,20 @@ module GuildBook
       if (/\A[a-z][a-z0-9]{2,7}\z/.match(uid).nil?)
         raise UserRepo::Error, "Your login name should consist of alphanumeric characters."
       end
+    end
+
+    def check_uid_unique(uid)
+      if user_repo.do_search(Net::LDAP::Filter.eq('uid', uid)).first
+        raise UserRepo::Error, uid + " already found in LDAP"
+      end
+      if File.exist?('/home/' + uid)
+        raise UserRepo::Error, uid + " already found in /home"
+      end
+      open('/etc/aliases') { |io|
+        if io.each_line.find {|line| line.start_with?("#{uid}:")}
+          raise UserRepo::Error, uid + " already found in /etc/aliases"
+        end
+      }
     end
   end
 end
