@@ -30,6 +30,7 @@
             %th 氏名
             %th 電話番号
             %th 住所
+            %th 代
             %th 入学年度
             %th 所属
             %th 役職
@@ -45,6 +46,8 @@
                   %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
               %td
                 #{user['postalAddress'].first}
+              %td
+                #{user['x-kmc-Generation'].first}
               %td
                 #{user['x-kmc-UniversityMatricYear'].first}
               %td
