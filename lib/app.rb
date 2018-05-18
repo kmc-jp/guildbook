@@ -116,7 +116,7 @@ module GuildBook
     end
 
     def remote_user
-      request.env['REMOTE_USER']
+      request.env['REMOTE_USER'] || request.env['HTTP_X_FORWARDED_USER']
     end
 
     def navlinks
