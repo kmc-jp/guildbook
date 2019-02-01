@@ -20,8 +20,6 @@ require_relative 'utils'
 
 module GuildBook
   class App < Sinatra::Base
-    set :sessions, true
-
     register Sinatra::ConfigFile
     config_file "#{File.dirname(__FILE__)}/../config/guildbook*.yml"
 
