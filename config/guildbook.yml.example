@@ -1,3 +1,4 @@
+# -*- yaml -*-
 development:
   assets_uri: '/members/assets'
   ldap_uri:
@@ -11,3 +12,7 @@ development:
   ui:
     default_sort_keys: -uidNumber
   samba_domain_name: KMC
+
+  adduser:
+    login_blacklist:
+      - [root, daemon, bin, sys, sync, games, man, mail, news, uucp, proxy, backup, list, irc, gnats, nobody]  # Debian default sysusers
