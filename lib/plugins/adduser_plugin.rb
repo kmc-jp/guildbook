@@ -122,17 +122,18 @@ module GuildBook
     end
 
     def check_uid_unique(uid)
+      blacklist = settings.adduser['login_blacklist'].flatten
+      if blacklist.include?(uid)
+        raise UserRepo::Error, "Login name '#{uid}' is blacklisted"
+      end
+
+      if File.exist?(File.join('/home', uid))
+        raise UserRepo::Error, "Login name '#{uid}' found in /home"
+      end
+
       if user_repo.do_search(Net::LDAP::Filter.eq('uid', uid)).first
-        raise UserRepo::Error, uid + " already found in LDAP"
+        raise UserRepo::Error, "Login name '#{uid}' found in LDAP"
       end
-      if File.exist?('/home/' + uid)
-        raise UserRepo::Error, uid + " already found in /home"
-      end
-      open('/etc/aliases') { |io|
-        if io.each_line.find {|line| line.start_with?("#{uid}:")}
-          raise UserRepo::Error, uid + " already found in /etc/aliases"
-        end
-      }
     end
   end
 end
