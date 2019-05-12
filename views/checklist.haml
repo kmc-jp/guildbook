@@ -21,7 +21,7 @@
         |なまえ|#{columns}|h
         \
         - us.each do |u|
-          - if ::GuildBook::UnivHelper.outdated?(u)
+          - if ::GuildBook::ChecklistHelper.outdated?(u)
             //
           |#{u['uid'].first}|#{pipes}|
           \
@@ -33,7 +33,7 @@
         |なまえ|#{columns}|h
         \
         - us.each do |u|
-          - if ::GuildBook::UnivHelper.outdated?(u)
+          - if ::GuildBook::ChecklistHelper.outdated?(u)
             //
           |#{u['uid'].first}|#{pipes}|
           \
@@ -43,7 +43,7 @@
         |なまえ|#{columns}|h
         \
         - us.each do |u|
-          - if ::GuildBook::UnivHelper.outdated?(u)
+          - if ::GuildBook::ChecklistHelper.outdated?(u)
             //
           |#{u['uid'].first}|#{pipes}|
           \

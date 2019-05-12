@@ -28,6 +28,12 @@ module GuildBook
       def pipes(cols)
         '|' * cols.count('|')
       end
+
+      def outdated?(u)
+        today = Date.today
+        lm = u['x-kmc-LastModified'].first
+        !lm or Date.parse(lm) < Date.new(today.month >=4 ? today.year : today.year - 1, 4, 1)
+      end
     end
   end
 end
