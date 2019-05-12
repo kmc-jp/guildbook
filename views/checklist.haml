@@ -21,6 +21,8 @@
         |なまえ|#{columns}|h
         \
         - us.each do |u|
+          - if ::GuildBook::UnivHelper.outdated?(u)
+            //
           |#{u['uid'].first}|#{pipes}|
           \
       \
@@ -31,6 +33,8 @@
         |なまえ|#{columns}|h
         \
         - us.each do |u|
+          - if ::GuildBook::UnivHelper.outdated?(u)
+            //
           |#{u['uid'].first}|#{pipes}|
           \
       - senior.each.select {|(c,_g),_us| c == :d }.sort.each do |(_c, g),us|
@@ -39,6 +43,8 @@
         |なまえ|#{columns}|h
         \
         - us.each do |u|
+          - if ::GuildBook::UnivHelper.outdated?(u)
+            //
           |#{u['uid'].first}|#{pipes}|
           \
       \
