@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+require 'pathname'
 require 'uri'
 
 require 'sinatra/base'
@@ -34,7 +35,9 @@ module GuildBook
     helpers Sinatra::ContentFor
 
     configure do
-      self.sprockets.append_path File.join(self.root, 'bower_components')
+      Pathname(self.root).join('node_modules').each_child do |p|
+        self.sprockets.append_path(p.join('dist'))
+      end
 
       Sprockets::Helpers.configure do |config|
         assets_uri = URI.parse(settings.assets_uri)

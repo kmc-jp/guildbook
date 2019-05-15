@@ -1,7 +1,0 @@
-{
-  "name": "guildbook",
-  "dependencies": {
-    "jquery": "~2.1.4",
-    "zxcvbn": "~4.4.2"
-  }
-}

@@ -14,4 +14,3 @@ gem 'bootstrap-sass', ['~> 3.2', '!= 3.3.5']  # 3.3.5 has dependency problem
 
 gem 'net-ldap'
 gem 'smbhash'
-
