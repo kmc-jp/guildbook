@@ -50,7 +50,7 @@
           %th.lodging 下宿・自宅の別
       %tbody
         - users.each do |u|
-          - if ::GuildBook::UnivHelper.kyotou_student?(u) and !::GuildBook::UnivHelper.executive?(u)
+          - if ::GuildBook::UnivHelper.kyotou_student?(u)
             %tr{data: {outdated: ::GuildBook::UnivHelper.outdated?(u)}}
               %td.title
               %td.department= ::GuildBook::UnivHelper.kyotou_department(u)
