@@ -8,7 +8,7 @@ module GuildBook
 
       users = user_repo.get_many(group_repo.get(group)).sort do |u, v|
         sort_keys.inject(0) do |x, (key, ord)|
-          x.nonzero? || (u[key] <=> v[key]) * ord
+          x.nonzero? || (u[key].map(&Utils.method(:tokenize)) <=> v[key].map(&Utils.method(:tokenize))) * ord
         end
       end
 
