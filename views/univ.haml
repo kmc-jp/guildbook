@@ -5,7 +5,7 @@
     != stylesheet_tag('univ')
   %body
     %p.notice 赤色背景は今年度に入ってから更新されていません．
-    %table#executives.table.table-condensed
+    %table#executives
       %caption 代表者の役員名簿
       %thead
         %tr
@@ -38,7 +38,7 @@
                   %a.value{href: ::GuildBook::UnivHelper.mailto_email(u)}= ::GuildBook::UnivHelper.email(u)
               %td.lodging= ::GuildBook::UnivHelper.lodging(u)
 
-    %table#members.table.table-condensed
+    %table#members
       %caption 構成員名簿
       %thead
         %tr

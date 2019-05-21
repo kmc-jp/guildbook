@@ -1,7 +1,7 @@
+import jQuery from 'jquery';
+import zxcvbn from 'zxcvbn';
 
-//= require zxcvbn
-
-jQuery(document).ready(function () {
+jQuery(document).ready(function ($) {
 	const kmcDictionary = ["kmc"];
 
 	const strength = {
@@ -27,11 +27,11 @@ jQuery(document).ready(function () {
 	}
 
 	function validate() {
-		const password = jQuery("#form-adduser input[name='$password']");
-		const password_confirm = jQuery("#form-adduser input[name='$password_confirm']");
+		const password = $("#form-adduser input[name='$password']");
+		const password_confirm = $("#form-adduser input[name='$password_confirm']");
 		const message = password.siblings("small");
-		jQuery("#form-adduser input").parent().removeClass("has-error");
-		jQuery("#form-adduser input[type='submit']").attr({disabled: false});
+		$("#form-adduser input").parent().removeClass("has-error");
+		$("#form-adduser input[type='submit']").attr({disabled: false});
 		if (!isValidPassword(password.val())) {
 			password.parent().addClass("has-error");
 			message.text("8文字以上で大文字・小文字・数字・記号から3種類以上必要です");
@@ -40,15 +40,15 @@ jQuery(document).ready(function () {
 			password_confirm.parent().addClass("has-error");
 			message.text("パスワードが一致しません");
 		}
-		if (jQuery("#form-adduser input").parent().hasClass("has-error")) {
-			jQuery("#form-adduser input[type='submit']").attr({disabled: true});
+		if ($("#form-adduser input").parent().hasClass("has-error")) {
+			$("#form-adduser input[type='submit']").attr({disabled: true});
 		} else {
 			checkStrength();
 		}
 	}
 
 	function getUserDictionaryFromForm() {
-		const form = jQuery("#form-adduser");
+		const form = $("#form-adduser");
 		return kmcDictionary.concat(
 			form.find("input[name='$uid']").val(),
 			form.find("input[name='$surname']").val(),
@@ -57,7 +57,7 @@ jQuery(document).ready(function () {
 	}
 
 	function checkStrength() {
-		const password = jQuery("#form-adduser input[name='$password']");
+		const password = $("#form-adduser input[name='$password']");
 		const password_val = password.val();
 		const meter = password.next("meter");
 		const message = meter.next("small");
@@ -69,7 +69,7 @@ jQuery(document).ready(function () {
 		}
 	}
 
-	jQuery("#form-adduser input[name='$password']").keyup(checkStrength);
-	jQuery("#form-adduser input[name^='$password']").blur(validate);
+	$("#form-adduser input[name='$password']").keyup(checkStrength);
+	$("#form-adduser input[name^='$password']").blur(validate);
 });
 

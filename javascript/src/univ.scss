@@ -1,12 +1,23 @@
-@import "compass/reset";
+@import "bootstrap/scss/bootstrap-reboot.scss";
 
 @media print {
     p.notice {
         display: none;
     }
+    a {
+        color: $black !important;
+    }
 }
 
 table {
+    box-sizing: content-box;
+    line-height: 1;
+
+    * {
+        box-sizing: inherit !important;
+        line-height: inherit !important;
+    }
+
     &, thead, tbody, tr, td, th {
         border-color: black;
     }
@@ -31,10 +42,12 @@ table {
     }
 
     caption {
+        color: $black;
         font-size: 1.4em;
         font-weight: bold;
         text-align: center;
         margin-bottom: 5px;
+        caption-side: top;
     }
 
     td {

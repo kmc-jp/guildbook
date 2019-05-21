@@ -4,23 +4,22 @@ require 'uri'
 
 require 'sinatra/base'
 require 'sinatra/config_file'
-require 'sinatra/reloader'
-require 'sinatra/asset_pipeline'
 require 'sinatra/content_for'
 
 require 'haml'
 require_relative 'view_helpers'
 require_relative 'date_ext'
-
-require 'sass'
-require 'compass'
-require 'bootstrap-sass'
-
 require_relative 'user'
 require_relative 'utils'
+require_relative 'webpack_helpers'
 
 module GuildBook
   class App < Sinatra::Base
+    configure :development do
+      require 'sinatra/reloader'
+      register Sinatra::Reloader
+    end
+
     register Sinatra::ConfigFile
     config_file "#{File.dirname(__FILE__)}/../config/guildbook*.yml"
 
@@ -28,39 +27,22 @@ module GuildBook
     set :views, -> { File.join(root, 'views') }
     set :public_folder, -> { File.join(root, 'public') }
 
-    set :assets_precompile, %w(app.js app.css univ.css adduser-ui.js *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
-    set :assets_css_compressor, :sass
-    register Sinatra::AssetPipeline
-
     helpers Sinatra::ContentFor
-
-    configure do
-      Pathname(self.root).join('node_modules').each_child do |p|
-        self.sprockets.append_path(p.join('dist'))
-      end
-
-      Sprockets::Helpers.configure do |config|
-        assets_uri = URI.parse(settings.assets_uri)
-        config.protocol = assets_uri.scheme
-        config.asset_host = assets_uri.host
-        config.prefix = assets_uri.path
-        # port is ignored -- needs patch sprockets-helpers
-      end
-    end
+    helpers WebpackHelpers
 
     set :haml, escape_html: true
 
     before do
       navlinks << {
         href: absolute_uri(),
-        icon: 'list-alt',
+        icon: 'users',
         text: '一覧'
       }
 
       if remote_user
         navlinks << {
           href: absolute_uri(remote_user),
-          icon: 'user',
+          icon: 'portrait',
           text: remote_user
         }
       end

@@ -6,7 +6,7 @@ module GuildBook
     before do
       navlinks << {
         href: absolute_uri('/!help'),
-        icon: 'question-sign',
+        icon: 'question-circle',
         text: '使い方'
       }
     end

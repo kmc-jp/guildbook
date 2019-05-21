@@ -1,10 +1,9 @@
-$grid-float-breakpoint: 440px;
-@import "bootstrap-sprockets";
-@import "bootstrap-compass";
-@import "bootstrap";
+@import "bootstrap/scss/bootstrap.scss";
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
 
 body {
-  padding-top: 70px;
+  padding-top: 5rem;
 }
 
 .form-required {
@@ -15,10 +14,6 @@ textarea.ssh-public-key {
   font-family: monospace;
   white-space: pre;
   height: 5em;
-}
-
-.postal-code {
-  max-width: 18ex;
 }
 
 form.edit-form {
@@ -60,14 +55,14 @@ form.edit-form {
   line-height: 0;
 }
 
-@media (min-width: $grid-float-breakpoint) {
-  .navbar-form {
-    width: 30ex;
-  }
+// @media (min-width: $grid-float-breakpoint) {
+//   .navbar-form {
+//     width: 30ex;
+//   }
 
-  @media (max-width: $screen-xs-max) {
-    .navbar-autotext {
-      display: none;
-    }
-  }
-}
+//   @media (max-width: $screen-xs-max) {
+//     .navbar-autotext {
+//       display: none;
+//     }
+//   }
+// }

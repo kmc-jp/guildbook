@@ -13,7 +13,7 @@ module GuildBook
     before do
       navlinks << {
         href: absolute_uri('/!adduser'),
-        icon: 'plus-sign',
+        icon: 'user-plus',
         text: 'ユーザ作成'
       }
     end

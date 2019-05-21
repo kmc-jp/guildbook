@@ -1,5 +1,6 @@
-//= require jquery
-//= require bootstrap
+import jQuery from 'jquery';
+import 'bootstrap';
+import '../src/app.scss';
 
 jQuery(document).ready(function($) {
   const pubkeyPattern = /^(?:ssh-rsa|ecdsa-sha2-nistp256|ecdsa-sha2-nistp384|ecdsa-sha2-nistp521|ssh-ed25519) /;

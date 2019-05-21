@@ -1,12 +1,12 @@
 %div.tabbable
   %ul.nav.nav-tabs
-    %li.active
-      %a{href: "#basic-list", data: {toggle: "tab"}} 一覧
-    %li
-      %a{href: "#detail-list", data: {toggle: "tab"}} 一覧(詳細)
+    %li.nav-item
+      %a.nav-link.active{href: "#basic-list", data: {toggle: "tab"}} 一覧
+    %li.nav-item
+      %a.nav-link{href: "#detail-list", data: {toggle: "tab"}} 一覧(詳細)
   %div.tab-content
     %div#basic-list.tab-pane.active
-      %table.table.table-striped.table-condensed
+      %table.table.table-striped.table-sm
         %thead
           %tr
             %th ログイン名
@@ -23,7 +23,7 @@
                 - if !user['telephoneNumber'].empty?
                   %a{href: "tel:#{user['telephoneNumber'].first}"} #{user['telephoneNumber'].first}
     %div#detail-list.tab-pane.table-responsive
-      %table.table.table-striped.table-condensed
+      %table.table.table-striped.table-sm
         %thead
           %tr
             %th ログイン名
