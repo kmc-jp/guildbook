@@ -20,7 +20,7 @@
         \
         |なまえ|#{columns}|h
         \
-        - us.each do |u|
+        - us.reject(&::GuildBook::ChecklistHelper.method(:outdated?)).each do |u|
           |#{u['uid'].first}|#{pipes}|
           \
       \
@@ -30,7 +30,7 @@
         \
         |なまえ|#{columns}|h
         \
-        - us.each do |u|
+        - us.reject(&::GuildBook::ChecklistHelper.method(:outdated?)).each do |u|
           |#{u['uid'].first}|#{pipes}|
           \
       - senior.each.select {|(c,_g),_us| c == :d }.sort.each do |(_c, g),us|
@@ -38,7 +38,7 @@
         \
         |なまえ|#{columns}|h
         \
-        - us.each do |u|
+        - us.reject(&::GuildBook::ChecklistHelper.method(:outdated?)).each do |u|
           |#{u['uid'].first}|#{pipes}|
           \
       \
