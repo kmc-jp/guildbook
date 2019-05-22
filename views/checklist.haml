@@ -15,7 +15,7 @@
       \
       - senior = senior.group_by(&::GuildBook::ChecklistHelper.method(:machine_grade))
       * 学部生
-      - senior.each.select {|(c,_g),_us| c == :u }.sort.each do |(_c, g),us|
+      - senior.select {|(c,_g),_us| c == :u }.sort.each do |(_c, g),us|
         ** B#{g}
         \
         |なまえ|#{columns}|h
@@ -25,7 +25,7 @@
           \
       \
       * 院生
-      - senior.each.select {|(c,_g),_us| c == :m }.sort.each do |(_c, g),us|
+      - senior.select {|(c,_g),_us| c == :m }.sort.each do |(_c, g),us|
         ** M#{g}
         \
         |なまえ|#{columns}|h
@@ -33,7 +33,7 @@
         - us.each do |u|
           |#{u['uid'].first}|#{pipes}|
           \
-      - senior.each.select {|(c,_g),_us| c == :d }.sort.each do |(_c, g),us|
+      - senior.select {|(c,_g),_us| c == :d }.sort.each do |(_c, g),us|
         ** D#{g}
         \
         |なまえ|#{columns}|h
