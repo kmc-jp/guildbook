@@ -5,25 +5,15 @@
         display: none;
     }
     a {
-        color: $black !important;
+        color: inherit;
     }
 }
 
 table {
-    box-sizing: content-box;
     line-height: 1;
 
-    * {
-        box-sizing: inherit !important;
-        line-height: inherit !important;
-    }
-
-    &, thead, tbody, tr, td, th {
-        border-color: black;
-    }
-
     page-break-after: always;
-    border-collapse:collapse;
+    border-collapse: collapse;
     border: solid 3px;
     width: 100%;
 
@@ -42,8 +32,8 @@ table {
     }
 
     caption {
-        color: $black;
-        font-size: 1.4em;
+        color: inherit;
+        font-size: 1.4rem;
         font-weight: bold;
         text-align: center;
         margin-bottom: 5px;
@@ -51,7 +41,7 @@ table {
     }
 
     td {
-        box-sizing: border-box;
+        box-sizing: content-box;
         page-break-inside: avoid;
         &.title { width: 3em; text-align: center; }
         &.department { width: 6em; text-align: center; }
@@ -65,7 +55,7 @@ table {
             margin: 3px 0;
         }
         &.name {
-            .yomi, .uid { font-size: 75%; }
+            .yomi, .uid { font-size: .75rem; }
             @media print {
                 .uid { display: none; }
             }
@@ -82,10 +72,10 @@ table {
     }
 
     thead {
-        th.lodging { font-size: .8em }
+        th.lodging { font-size: .8rem }
         td, th {
-            border: 1px solid black;
+            border: 1px solid;
         }
-        border-bottom: 3px double black;
+        border-bottom: 3px double;
     }
 }
