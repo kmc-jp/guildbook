@@ -55,7 +55,15 @@ module.exports = (env, argv) => {
                     use: [
                         {
                             loader: 'file-loader',
-                        }
+                        },
+                    ],
+                },
+                {
+                    test: /\.tsx?$/,
+                    use: [
+                        {
+                            loader: 'ts-loader',
+                        },
                     ],
                 },
                 {
@@ -94,6 +102,9 @@ module.exports = (env, argv) => {
                     ],
                 },
             ],
+        },
+        resolve: {
+            extensions: ['.ts', '.tsx', '.js'],
         },
         plugins: plugins,
         optimization: optimization,
