@@ -15,7 +15,7 @@
         %span.navbar-toggler-icon
       %div#navbarContent.collapse.navbar-collapse
         %ul.navbar-nav.mr-auto
-          - navlinks.each do |navlink|
+          - navlinks.sort_by{|navlink| navlink[:order] }.each do |navlink|
             %li.nav-item
               %a.nav-link{href: navlink[:href]}
                 %span.fas{class: "fa-#{navlink[:icon]}", title: navlink[:text]}

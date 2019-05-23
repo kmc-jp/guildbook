@@ -36,14 +36,16 @@ module GuildBook
       navlinks << {
         href: absolute_uri(),
         icon: 'users',
-        text: '一覧'
+        text: '一覧',
+        order: 0,
       }
 
       if remote_user
         navlinks << {
           href: absolute_uri(remote_user),
           icon: 'portrait',
-          text: remote_user
+          text: remote_user,
+          order: 1,
         }
       end
     end

@@ -14,7 +14,8 @@ module GuildBook
       navlinks << {
         href: absolute_uri('/!adduser'),
         icon: 'user-plus',
-        text: 'ユーザ作成'
+        text: 'ユーザ作成',
+        order: 20,
       }
     end
 
