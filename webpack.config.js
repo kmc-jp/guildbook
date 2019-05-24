@@ -16,7 +16,7 @@ module.exports = (env, argv) => {
         });
     }, {});
 
-    const publicPath = process.env.WEBPACK_DEV_SERVER_URL || '/assets/';
+    const devServerUrl = process.env.WEBPACK_DEV_SERVER_URL;
 
     const plugins = [
         new WebpackAssetsManifest({
@@ -49,7 +49,7 @@ module.exports = (env, argv) => {
         entry: entry,
         output: {
             path: path.join(__dirname, 'public/assets'),
-            publicPath: publicPath,
+            publicPath: devServerUrl,
         },
         module: {
             rules: [
@@ -117,7 +117,7 @@ module.exports = (env, argv) => {
         devtool: 'source-map',
         devServer: {
             contentBase: path.join(__dirname, 'public'),
-            publicPath: publicPath,
+            publicPath: devServerUrl,
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
