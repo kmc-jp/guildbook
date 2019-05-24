@@ -98,13 +98,16 @@ document.addEventListener('DOMContentLoaded', e => {
     form.querySelectorAll<HTMLInputElement>('input.form-control.password-confirm').forEach(confirmInput => {
       const passwordInput = document.querySelector<HTMLInputElement>(confirmInput.dataset.passwordConfirmFor);
 
-      setValidator(confirmInput, e => {
+      const validate = e => {
         if(confirmInput.value !== passwordInput.value) {
           confirmInput.setCustomValidity('パスワードが一致しません');
           return;
         }
         confirmInput.setCustomValidity('');
-      });
+      };
+
+      setValidator(confirmInput, validate);
+      setValidator(passwordInput, validate);
     });
 
     form.querySelectorAll<HTMLInputElement>('input.form-control.remote-validation').forEach(input => {
