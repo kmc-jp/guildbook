@@ -4,6 +4,9 @@
 
 body {
   padding-top: 5rem;
+  @media print {
+    padding-top: 0;
+  }
 }
 
 .form-required {
@@ -16,36 +19,28 @@ textarea.ssh-public-key {
   height: 5em;
 }
 
-form.edit-form {
-  div.container-fluid {
-    div.row {
-      margin-bottom: 4px;
-    }
-  }
+meter.password-strength {
+  margin: 0 auto;
+  width: 100%;
 
-  meter {
-    margin: 0 auto;
-    width: 100%;
+  // For Firefox
+  background: none;
+  background-color: rgba(0, 0, 0, 0.1);
 
-    /* for Firefox */
+  &::-webkit-meter-bar {
     background: none;
     background-color: rgba(0, 0, 0, 0.1);
-
-    &::-webkit-meter-bar {
-      background: none;
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    &[value="1"]::-webkit-meter-optimum-value { background: red; }
-    &[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-    &[value="3"]::-webkit-meter-optimum-value { background: orange; }
-    &[value="4"]::-webkit-meter-optimum-value { background: green; }
-
-    &[value="1"]::-moz-meter-bar { background: red; }
-    &[value="2"]::-moz-meter-bar { background: yellow; }
-    &[value="3"]::-moz-meter-bar { background: orange; }
-    &[value="4"]::-moz-meter-bar { background: green; }
   }
+
+  &[value="1"]::-webkit-meter-optimum-value { background: $red; }
+  &[value="2"]::-webkit-meter-optimum-value { background: $yellow; }
+  &[value="3"]::-webkit-meter-optimum-value { background: $orange; }
+  &[value="4"]::-webkit-meter-optimum-value { background: $green; }
+
+  &[value="1"]::-moz-meter-bar { background: $red; }
+  &[value="2"]::-moz-meter-bar { background: $yellow; }
+  &[value="3"]::-moz-meter-bar { background: $orange; }
+  &[value="4"]::-moz-meter-bar { background: $green; }
 }
 
 .glyphicon-lg {
@@ -54,15 +49,3 @@ form.edit-form {
   vertical-align: -.25em;
   line-height: 0;
 }
-
-// @media (min-width: $grid-float-breakpoint) {
-//   .navbar-form {
-//     width: 30ex;
-//   }
-
-//   @media (max-width: $screen-xs-max) {
-//     .navbar-autotext {
-//       display: none;
-//     }
-//   }
-// }

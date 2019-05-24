@@ -7,10 +7,10 @@ LDAP-based address book interface
 ```shell
 bundle install
 npm install
+export WEBPACK_DEV_SERVER_URL=http://localhost:8080/assets/
 npx webpack-dev-server --port=8080 &
-WEBPACK_DEV_SERVER_URL=http://localhost:8080/assets/ bundle exec rackup --port=9292 &
+bundle exec rackup --port=9292 &
 ```
-
 
 ## deployment
 

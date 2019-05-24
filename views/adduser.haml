@@ -1,47 +1,45 @@
-- content_for :html_head do
-  != javascript_tag('adduser-ui')
-
 - if err
   %p.alert.alert-danger
     = err
 
-%form.edit-form#form-adduser{action: absolute_uri('!adduser'), method: :POST}
+%form.edit-form.needs-validation{action: absolute_uri('!adduser'), method: :POST}
   %div.container-fluid
-    %div.row
-      %div.col-sm-2.col-xs-12
+    %div.form-row
+      %h2 ユーザ作成
+    %div.form-row
+      %div.form-group.col-sm-2.col-xs-12
         ログイン名
         %span.form-required *
-      %div.col-sm-5.col-xs-6
-        %input.form-control{name: '$uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat'}
-    %div.row
-      %div.col-sm-2.col-xs-12
+      %div.form-group.col-sm-5.col-xs-6
+        %input.form-control.password-userinput{name: '$uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat'}
+    %div.form-row
+      %div.form-group.col-sm-2.col-xs-12
         氏名(ローマ字)
         %span.form-required *
-      %div.col-sm-5.col-xs-6
-        %input.form-control{name: '$surname', value: surname, required: true, placeholder: 'ECHIZEN'}
-      %div.col-sm-5.col-xs-6
-        %input.form-control{name: '$givenname', value: givenname, required: true, placeholder: 'Kosuke'}
-    %div.row
-      %div.col-sm-2.col-xs-12
+      %div.form-group.col-sm-5.col-xs-6
+        %input.form-control.password-userinput{name: '$surname', value: surname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'ECHIZEN'}
+      %div.form-group.col-sm-5.col-xs-6
+        %input.form-control.password-userinput{name: '$givenname', value: givenname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'Kosuke'}
+    %div.form-row
+      %div.form-group.col-sm-2.col-xs-12
         パスワード
         %span.form-required *
-      %div.col-sm-5.col-xs-6
-        %input.form-control{type: :password, name: '$password', required: true, placeholder: 'Password'}
-        %meter.small{min: 0, max: 4}
-        %small.text-muted
-      %div.col-sm-5.col-xs-6
-        %input.form-control{type: :password, name: '$password_confirm', required: true, placeholder: 'Password(確認)'}
+      %div.form-group.col-sm-5.col-xs-6
+        %input.form-control.password{type: :password, id: 'new-password', name: '$password', required: true, placeholder: 'Password', data: {'password-strength-meter': '#password-strength'}}
+        %meter.password-strength.small{min: 0, max: 4, id: 'password-strength'}
+      %div.form-group.col-sm-5.col-xs-6
+        %input.form-control.password-confirm{type: :password, name: '$password_confirm', required: true, placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
     %hr
     %fieldset
-      %div.row
+      %div.form-row
         %legend.col-md-12.col-sm-12
           管理者
-      %div.row
-        %span.form-group.col-md-3.col-sm-12
+      %div.form-row
+        %span.form-group.col-lg-5.col-sm-4
           %label.sr-only ログイン名
-          %input.form-control{name: '$bind_uid', value: bind_uid, required: true, placeholder: 'administrator'}
-        %span.form-group.col-md-3.col-sm-12
+          %input.form-control.no-validation{name: '$bind_uid', value: bind_uid, required: true, placeholder: 'administrator'}
+        %span.form-group.col-lg-5.col-sm-4
           %label.sr-only パスワード
-          %input.form-control{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
-        %span.col-md-6.col-sm-12
-          %input.form-control.btn.btn-primary{type: :submit, value: 'アカウント作成'}
+          %input.form-control.no-validation{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
+        %span.form-group.col-lg-2.col-sm-4
+          %input.btn.btn-block.btn-primary{type: :submit, value: 'アカウント作成'}

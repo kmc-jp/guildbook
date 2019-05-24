@@ -2,123 +2,123 @@
   %p.alert.alert-danger
     = error
 
-%form.edit-form{action: absolute_uri(user['uid'].first, :edit), method: :POST}
+%form.edit-form.needs-validation{action: absolute_uri(user['uid'].first, :edit), method: :POST}
   %div.container-fluid
-    %div.row
-      %div.col-md-2.col-sm-12 ログイン名
-      %div.col-md-5.col-sm-6 #{user['uid'].first}
-      %div.col-md-5.col-sm-6 (UID: #{user['uidNumber'].first})
+    %div.form-row
+      %div.col-md-2.col-12 ログイン名
+      %div.col-md-5.col-6 #{user['uid'].first}
+      %div.col-md-5.col-6 (UID: #{user['uidNumber'].first})
     %hr
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         氏名(ローマ字)
         %span.form-required *
-      %div.col-md-5.col-sm-6
-        - input_userattr user, 'sn', required: true, placeholder: 'ECHIZEN'
-      %div.col-md-5.col-sm-6
-        - input_userattr user, 'givenName', required: true, placeholder: 'Kousuke'
-    %div.row
-      %div.col-md-2.col-sm-12
+      %div.form-group.col-md-5.col-sm-6
+        - input_userattr user, 'sn', required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'ECHIZEN'
+      %div.form-group.col-md-5.col-sm-6
+        - input_userattr user, 'givenName', required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'Kousuke'
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         氏名(漢字)
         %span.form-required *
-      %div.col-md-5.col-sm-6
+      %div.form-group.col-md-5.col-sm-6
         - input_userattr user, 'sn;lang-ja', required: true, placeholder: '越前'
-      %div.col-md-5.col-sm-6
+      %div.form-group.col-md-5.col-sm-6
         - input_userattr user, 'givenName;lang-ja', required: true, placeholder: '康介'
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         よみがな
         %span.form-required *
-      %div.col-md-5.col-sm-6
+      %div.form-group.col-md-5.col-sm-6
         - input_userattr user, 'x-kmc-PhoneticSurname', required: true, placeholder: 'えちぜん'
-      %div.col-md-5.col-sm-6
+      %div.form-group.col-md-5.col-sm-6
         - input_userattr user, 'x-kmc-PhoneticGivenName', required: true, placeholder: 'こうすけ'
-    %div.row
-      %div.col-md-2.col-sm-12 別名
-      %div.col-md-5.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12 別名
+      %div.form-group.col-md-5.col-sm-12
         - input_userattr user, 'x-kmc-Alias', placeholder: 'コンバット越前'
-    %div.row
-      %div.col-md-2.col-sm-12 役職
-      %div.col-md-5.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12 役職
+      %div.form-group.col-md-5.col-sm-12
         - input_userattr user, 'title', placeholder: '会長, 会計'
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         電話番号
         %span.form-required *
-      %div.col-md-5.col-sm-12
+      %div.form-group.col-md-5.col-sm-12
         - input_userattr user, 'telephoneNumber', type: :tel, required: true, placeholder: '090-XXXX-YYYY', pattern: '\d+-\d+-\d+'
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         住所
         %span.form-required *
-      %div.col-md-3.col-sm-12
+      %div.form-group.col-md-3.col-sm-12
         %span.input-group.postal-code
           %div.input-group-prepend
             %span.input-group-text 〒
           - input_userattr user, 'postalCode', required: true, placeholder: '606-8205', pattern: '\d{3}-\d{4}'
-      %div.col-md-7.col-sm-12
+      %div.form-group.col-md-7.col-sm-12
         %span.input-group
           - input_userattr user, 'postalAddress', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
           %div.input-group-append
             %label.input-group-text
               - input_userattr user, 'x-kmc-Lodging', type: :checkbox, value: 'true', checked: user['x-kmc-Lodging'].first == 'TRUE', class: ''
               下宿
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         所属
         %span.form-required *在学者は必須
-      %div.col-md-5.col-sm-6
+      %div.form-group.col-md-5.col-sm-6
         - input_userattr user, 'x-kmc-UniversityDepartment', placeholder: '工学部情報学科, 千葉電波大学理学部'
-      %div.col-md-5.col-sm-6
+      %div.form-group.col-md-5.col-sm-6
         %div.input-group
           - input_userattr user, 'x-kmc-UniversityStatus', placeholder: '1, M2, D3, 教授'
           %div.input-group-append
             %span.input-group-text 回生
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         入学年
         %span.form-required *
-      %div.col-md-5.col-sm-12
+      %div.form-group.col-md-5.col-sm-12
         %div.input-group
           %div.input-group-prepend
             %span.input-group-text 西暦
           - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number, placeholder: Date.today.academic_year, min: 1950, max: 2050
           %div.input-group-append
             %span.input-group-text 年度入学
-      %div.col-md-5.col-sm-12
+      %div.form-group.col-md-5.col-sm-12
         %div.input-group
           %div.input-group-prepend
             %span.input-group-text 第
           - input_userattr user, 'x-kmc-Generation', required: true, type: :number, placeholder: Date.today.academic_year - 1976, min: 1
           %div.input-group-append
             %span.input-group-text 代
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         メール転送先
-      %div.col-md-10.col-sm-12
+      %div.form-group.col-md-10.col-sm-12
         - input_userattr user, 'x-kmc-MailForwardingAddress', placeholder: "#{user['uid'].first}, combat@example.com"
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         SSH 公開鍵
-      %div.col-md-10.col-sm-12
+      %div.form-group.col-md-10.col-sm-12
         / Content must be on the same line to suppress indent in textarea.
         %textarea.form-control.ssh-public-key{name: 'sshPublicKey', placeholder: 'ssh-rsa XXXXXXX...'}= user['sshPublicKey'].join("\n")
-    %div.row
-      %div.col-md-2.col-sm-12
+    %div.form-row
+      %div.form-group.col-md-2.col-sm-12
         備考
-      %div.col-md-10.col-sm-12
+      %div.form-group.col-md-10.col-sm-12
         - input_userattr user, 'description'
     %hr
     %fieldset
-      %div.row
+      %div.form-row
         %legend.col-md-12.col-sm-12
           編集者
-      %div.row
-        %span.form-group.col-md-3.col-sm-12
+      %div.form-row
+        %span.form-group.col-lg-5.col-sm-4
           %label.sr-only ログイン名
-          %input.form-control{name: '$bind_uid', value: remote_user || user['uid'].first, placeholder: 'combat'}
-        %span.form-group.col-md-3.col-sm-12
+          %input.form-control.no-validation{name: '$bind_uid', value: remote_user || user['uid'].first, placeholder: 'combat'}
+        %span.form-group.col-lg-5.col-sm-4
           %label.sr-only パスワード
-          %input.form-control{type: :password, name: '$bind_password', placeholder: 'Password'}
-        %span.col-md-6.col-sm-12
-          %input.form-control.btn.btn-primary{type: :submit, value: '保存'}
+          %input.form-control.no-validation{type: :password, name: '$bind_password', placeholder: 'Password'}
+        %span.form-group.col-lg-2.col-sm-4
+          %input.btn.btn-block.btn-primary{type: :submit, value: '保存'}
