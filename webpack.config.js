@@ -82,7 +82,10 @@ module.exports = (env, argv) => {
                                 sourceMap: true,
                                 plugins: [
                                     require('cssnano')({
-                                        autoprefixer: false,
+                                        preset: require('cssnano-preset-default')({
+                                            autoprefixer: false,
+                                            normalizePositions: false, // Workaround for https://github.com/cssnano/cssnano/pull/750
+                                        }),
                                     }),
                                 ],
                             },
