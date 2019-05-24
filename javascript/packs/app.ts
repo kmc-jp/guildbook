@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', e => {
 			    (/[A-Z]/.test(password) ? 1 : 0) +
 			    (/[0-9]/.test(password) ? 1 : 0) +
 			    (/[^a-zA-Z0-9]/.test(password) ? 1 : 0);
-        if(kinds < 3 && strength.score !== 4) {
+        if(kinds < 3) {
           input.setCustomValidity('大文字・小文字・数字・記号のうち3種類以上を使ってください');
 			    return;
         }
