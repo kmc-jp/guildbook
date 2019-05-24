@@ -1,5 +1,5 @@
-import jQuery from 'jquery';
-import zxcvbn from 'zxcvbn';
+import * as jQuery from 'jquery';
+import * as zxcvbn from 'zxcvbn';
 
 jQuery(document).ready(function ($) {
 	const kmcDictionary = ["kmc"];
@@ -50,15 +50,15 @@ jQuery(document).ready(function ($) {
 	function getUserDictionaryFromForm() {
 		const form = $("#form-adduser");
 		return kmcDictionary.concat(
-			form.find("input[name='$uid']").val(),
-			form.find("input[name='$surname']").val(),
-			form.find("input[name='$givenname']").val()
+			form.find("input[name='$uid']").val().toString(),
+			form.find("input[name='$surname']").val().toString(),
+			form.find("input[name='$givenname']").val().toString(),
 		);
 	}
 
 	function checkStrength() {
 		const password = $("#form-adduser input[name='$password']");
-		const password_val = password.val();
+		const password_val = password.val().toString();
 		const meter = password.next("meter");
 		const message = meter.next("small");
 
