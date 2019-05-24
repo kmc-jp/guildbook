@@ -1,6 +1,6 @@
-- if err
+- if error
   %p.alert.alert-danger
-    = err
+    = error
 
 %form.edit-form.needs-validation{action: absolute_uri('!adduser'), method: :POST}
   %div.container-fluid
@@ -11,24 +11,24 @@
         ログイン名
         %span.form-required *
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-userinput{name: '$uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat'}
+        %input.form-control.password-userinput.remote-validation{name: 'uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat', data: {'remote-validation': {action: absolute_uri('!adduser/checkuid')}}}
     %div.form-row
       %div.form-group.col-sm-2.col-xs-12
         氏名(ローマ字)
         %span.form-required *
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-userinput{name: '$surname', value: surname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'ECHIZEN'}
+        %input.form-control.password-userinput{name: 'surname', value: surname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'ECHIZEN'}
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-userinput{name: '$givenname', value: givenname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'Kosuke'}
+        %input.form-control.password-userinput{name: 'givenname', value: givenname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'Kosuke'}
     %div.form-row
       %div.form-group.col-sm-2.col-xs-12
         パスワード
         %span.form-required *
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password{type: :password, id: 'new-password', name: '$password', required: true, placeholder: 'Password', data: {'password-strength-meter': '#password-strength'}}
+        %input.form-control.password{type: :password, id: 'new-password', name: 'password', required: true, placeholder: 'Password', data: {'password-strength-meter': '#password-strength'}}
         %meter.password-strength.small{min: 0, max: 4, id: 'password-strength'}
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-confirm{type: :password, name: '$password_confirm', required: true, placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
+        %input.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
     %hr
     %fieldset
       %div.form-row

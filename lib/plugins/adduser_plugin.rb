@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
+require 'sinatra/json'
+require 'smbhash'
+
 require_relative '../app'
 require_relative '../ssha'
 require_relative '../base'
-require 'smbhash'
 
 module GuildBook
   class App
+    class PasswordRestrictionError < StandardError; end
+    class UidRestrictionError < StandardError; end
+
     configure do
       @@locker = Mutex.new
     end
@@ -21,7 +26,7 @@ module GuildBook
 
     get '/!adduser' do
       haml :adduser, locals: {
-        err: nil,
+        error: nil,
         uid: '',
         givenname: '',
         surname: '',
@@ -29,15 +34,31 @@ module GuildBook
       }
     end
 
+    post '/!adduser/checkuid' do
+      result =
+        begin
+          uid = params.delete('value')
+          check_uid_valid(uid)
+          check_uid_unique(uid)
+
+          {ok: true, value: uid}
+        rescue UidRestrictionError => e
+          {ok: false, value: uid, message: e.message}
+        end
+
+      cache_control :no_store
+      json result
+    end
+
     post '/!adduser' do
       begin
-        uid = params.delete('$uid')
+        uid = params.delete('uid')
         check_uid_valid(uid)
         check_uid_unique(uid)
-        givenname = params.delete('$givenname')
-        surname = params.delete('$surname')
-        password = params.delete('$password')
-        password_confirm = params.delete('$password_confirm')
+        givenname = params.delete('givenname')
+        surname = params.delete('surname')
+        password = params.delete('password')
+        password_confirm = params.delete('password_confirm')
         bind_uid = params.delete('$bind_uid')
         bind_password = params.delete('$bind_password')
         raise "Password does not match" if password != password_confirm
@@ -46,7 +67,7 @@ module GuildBook
         redirect absolute_uri(uid)
       rescue
         haml :adduser, locals: {
-          err: $!,
+          error: $!,
           uid: uid,
           givenname: givenname,
           surname: surname,
@@ -83,7 +104,6 @@ module GuildBook
         rid_number = user_repo.get_max_rid + 1
         attrs[:uidNumber] = uid_number.to_s
         attrs[:sambaSID] = "#{domain_sid}-#{rid_number}"
-        puts attrs
         user_repo.add(uid, attrs, bind_uid, bind_password)
       end
     end
@@ -97,43 +117,44 @@ module GuildBook
     end
 
     def check_password_valid(password)
-      if (/\A[\x20-\x7e]+\z/.match(password).nil?)
-        raise UserRepo::Error, "Your password contains invalid letters"
+      unless /\A[\x20-\x7e]+\z/.match?(password)
+        raise PasswordRestrictionError, "Your password contains invalid letters"
       end
-      if (/\A[\x20-\x7e]{8,}\z/.match(password).nil?)
-        raise UserRepo::Error, "Your password is too short. You need at least 8 letters."
+      if password.length < 8
+        raise PasswordRestrictionError, "Your password is too short. You need at least 8 letters."
       end
 
-      kinds = (/[a-z]/.match(password).nil? ? 0 : 1) +
-        (/[A-Z]/.match(password).nil? ? 0 : 1) +
-        (/[0-9]/.match(password).nil? ? 0 : 1) +
-        (/[^a-zA-Z0-9]/.match(password).nil? ? 0 : 1)
-      if (kinds < 3)
-        raise UserRepo::Error, "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
+      kinds = (/[a-z]/.match?(password) ? 1 : 0) +
+        (/[A-Z]/.match?(password) ? 1 : 0) +
+        (/[0-9]/.match?(password) ? 1 : 0) +
+        (/[^a-zA-Z0-9]/.match?(password) ? 1 : 0)
+      if kinds < 3
+        raise PasswordRestrictionError, "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
       end
     end
 
     def check_uid_valid(uid)
-      unless (Range.new(3, 8) === uid.length)
-        raise UserRepo::Error, "Your login name should consist of at least 3 characters in length and at most 8."
+      unless (3..8) === uid.length
+        raise UidRestrictionError, "Your login name should consist of at least 3 characters in length and at most 8."
       end
-      if (/\A[a-z][a-z0-9]{2,7}\z/.match(uid).nil?)
-        raise UserRepo::Error, "Your login name should consist of alphanumeric characters."
+
+      unless /\A[a-z][a-z0-9]{2,7}\z/.match?(uid)
+        raise UidRestrictionError, "Your login name should consist of alphanumeric characters."
       end
     end
 
     def check_uid_unique(uid)
       blacklist = settings.adduser['login_blacklist'].flatten
       if blacklist.include?(uid)
-        raise UserRepo::Error, "Login name '#{uid}' is blacklisted"
+        raise UidRestrictionError, "Login name '#{uid}' is blacklisted"
       end
 
       if File.exist?(File.join('/home', uid))
-        raise UserRepo::Error, "Login name '#{uid}' found in /home"
+        raise UidRestrictionError, "Login name '#{uid}' found in /home"
       end
 
       if user_repo.do_search(Net::LDAP::Filter.eq('uid', uid)).first
-        raise UserRepo::Error, "Login name '#{uid}' found in LDAP"
+        raise UidRestrictionError, "Login name '#{uid}' found in LDAP"
       end
     end
   end

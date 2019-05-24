@@ -7,10 +7,8 @@ document.addEventListener('DOMContentLoaded', e => {
     type Control = HTMLInputElement | HTMLTextAreaElement;
     const validatingControls = form.querySelectorAll<Control>('.form-control:not(.no-validation)');
 
-    function setValidator(control: Control, fn: (e: Event) => any) {
-      control.addEventListener('input', fn);
-      control.addEventListener('keyup', fn);
-      control.addEventListener('blur', fn);
+    function setValidator(control: Control, fn: (e: Event) => any, events: string[] = ['input', 'keyup', 'blur']) {
+      events.forEach(event =>  control.addEventListener(event, fn))
     }
 
     form.addEventListener('submit', e => {
@@ -51,9 +49,6 @@ document.addEventListener('DOMContentLoaded', e => {
       });
     });
 
-
-    const kmcDictionary = ['KMC'];
-
     form.querySelectorAll<HTMLInputElement>('input.form-control.password').forEach(async input => {
       const {default: zxcvbn} = await import('zxcvbn') as any;  // XXX: why is this not typeable?
 
@@ -70,7 +65,7 @@ document.addEventListener('DOMContentLoaded', e => {
 		    }
 
         const dictionary = [...userInputs].map(input => input.value);
-        const strength = zxcvbn(password, kmcDictionary.concat(dictionary));
+        const strength = zxcvbn(password, dictionary);
         strengthMeter.value = strength.score;
 
         if(password.length < 8) {
@@ -109,6 +104,42 @@ document.addEventListener('DOMContentLoaded', e => {
           return;
         }
         confirmInput.setCustomValidity('');
+      });
+    });
+
+    form.querySelectorAll<HTMLInputElement>('input.form-control.remote-validation').forEach(input => {
+      const action = input.dataset.remoteValidationAction;
+
+      let previous_value: string | null = null;
+      setValidator(input, e => {
+        const value = input.value;
+
+        if(value !== '') {
+          if(value === previous_value) return;
+          previous_value = value;
+
+          const formdata = new FormData();
+          formdata.append('value', value);
+
+          fetch(action, {
+            method: 'POST',
+            mode: 'same-origin',
+            credentials: 'same-origin',
+            body: formdata,
+          }).then(response => response.json()).then(response => {
+            if(response.value === input.value) {
+              if(response.ok) {
+                input.setCustomValidity('');
+              } else {
+                input.setCustomValidity(response.message);
+              }
+            }
+          });
+
+          return;
+        }
+
+        input.setCustomValidity('');
       });
     });
   });
