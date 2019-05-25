@@ -43,7 +43,7 @@ module GuildBook
       if remote_user
         navlinks << {
           href: absolute_uri(remote_user),
-          icon: 'portrait',
+          icon: 'address-card',
           text: remote_user,
           order: 1,
         }
