@@ -20,8 +20,10 @@
               %a.nav-link{href: navlink[:href]}
                 %span.fas{class: "fa-#{navlink[:icon]}", title: navlink[:text]}
                 %span.navbar-autotext= navlink[:text]
-        %form.form-inline{action: absolute_uri(), role: 'search'}
-          %input.form-control.mr-sm-2{type: :search, name: 'q'}
-          %button.btn.btn-secondary{type: :submit} 検索
+        %form{action: absolute_uri(), role: 'search'}
+          %div.input-group
+            %input.form-control{type: :search, name: 'q'}
+            %div.input-group-append
+              %button.btn.btn-secondary{type: :submit} 検索
     %main.container{role: 'main'}
       != yield
