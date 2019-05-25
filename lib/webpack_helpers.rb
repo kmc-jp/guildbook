@@ -15,7 +15,7 @@ module WebpackHelpers
   end
 
   def asset_uris(name, type)
-    asset_paths(name, type).map {|path| "#{assets_base_uri}/#{path}" }
+    asset_paths(name, type).map {|path| "#{assets_base_uri}#{path}" }
   end
 
   private

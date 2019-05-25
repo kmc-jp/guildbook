@@ -1,6 +1,6 @@
 # -*- yaml -*-
 development:
-  assets_uri: '/members/assets'
+  assets_uri: '/assets/'
   ldap_uri:
     base: 'ldaps://ldap.box2.kmc.gr.jp/dc=box2,dc=kmc,dc=gr,dc=jp'
     users: 'ldaps://ldap.box2.kmc.gr.jp/ou=users,dc=box2,dc=kmc,dc=gr,dc=jp'

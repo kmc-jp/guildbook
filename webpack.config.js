@@ -1,12 +1,20 @@
+const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
+const yaml = require('js-yaml');
 
 const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
+const loadSettings = (mode) => {
+    const data = yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'config/guildbook.yml')));
+    return (data.production || data.development) ? data[mode] : data;
+}
+
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production';
+    const settings = loadSettings(argv.mode);
 
     const context = path.join(__dirname, 'javascript')
     const entry = glob.sync(path.join(context, 'packs/*')).reduce((entry, pack) => {
@@ -16,7 +24,7 @@ module.exports = (env, argv) => {
         });
     }, {});
 
-    const devServerUrl = process.env.WEBPACK_DEV_SERVER_URL;
+    const publicPath = process.env.WEBPACK_DEV_SERVER_URL || settings.assets_uri || '/assets/';
 
     const plugins = [
         new WebpackAssetsManifest({
@@ -49,7 +57,7 @@ module.exports = (env, argv) => {
         entry: entry,
         output: {
             path: path.join(__dirname, 'public/assets'),
-            publicPath: devServerUrl,
+            publicPath: publicPath,
         },
         module: {
             rules: [
@@ -117,7 +125,7 @@ module.exports = (env, argv) => {
         devtool: 'source-map',
         devServer: {
             contentBase: path.join(__dirname, 'public'),
-            publicPath: devServerUrl,
+            publicPath: publicPath,
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
