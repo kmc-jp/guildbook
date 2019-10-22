@@ -6,7 +6,7 @@ gem 'rack', '~> 1.5'
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib', '~> 1.4'
 
-gem 'haml', '~> 4.0'
+gem 'haml', '~> 5.0'
 
 gem 'net-ldap'
 gem 'smbhash'
