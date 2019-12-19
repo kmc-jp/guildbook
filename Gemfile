@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '~> 10.0'
-gem 'rack', '~> 1.5'
+gem 'rack', '~> 1.6'
 
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib', '~> 1.4'

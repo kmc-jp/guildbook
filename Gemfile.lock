@@ -7,7 +7,7 @@ GEM
       tilt
     multi_json (1.14.1)
     net-ldap (0.16.1)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-protection (1.5.5)
       rack
     rack-test (1.1.0)
@@ -34,7 +34,7 @@ PLATFORMS
 DEPENDENCIES
   haml (~> 5.0)
   net-ldap
-  rack (~> 1.5)
+  rack (~> 1.6)
   rake (~> 10.0)
   sinatra (~> 1.4)
   sinatra-contrib (~> 1.4)
