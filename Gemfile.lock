@@ -12,7 +12,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
-    rake (10.5.0)
+    rake (12.3.3)
     sinatra (1.4.8)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -35,7 +35,7 @@ DEPENDENCIES
   haml (~> 5.0)
   net-ldap
   rack (~> 1.6)
-  rake (~> 10.0)
+  rake (~> 12.3)
   sinatra (~> 1.4)
   sinatra-contrib (~> 1.4)
   smbhash
