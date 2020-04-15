@@ -26,12 +26,12 @@ module GuildBook
       do_search(uids.collect {|uid| Net::LDAP::Filter.eq('uid', uid) }.inject(:|))
     end
 
-    def edit(uid, bind_uid, bind_password, attrs)
+    def edit(uid, bind_uid, bind_password, attrs, update_last_modified: true)
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
       attrs['x-kmc-Lodging'] = attrs['x-kmc-Lodging'] ? 'TRUE' : 'FALSE' # fixme
 
       ssh_public_keys = attrs.delete('sshPublicKey')
-      ssh_public_keys.each do |key|
+      ssh_public_keys&.each do |key|
         unless ssh_public_key_valid?(key)
           raise Error, 'Unsupported ssh public key'
         end
@@ -45,7 +45,9 @@ module GuildBook
           raise Error, conn.get_operation_result.message
         end
 
-        update_attribute(conn, dn, 'sshPublicKey', ssh_public_keys)
+        if ssh_public_keys
+          update_attribute(conn, dn, 'sshPublicKey', ssh_public_keys)
+        end
 
         attrs.each do |key, value|
           if EDITABLE_ATTRS.include?(key.split(';').first)
@@ -53,7 +55,9 @@ module GuildBook
           end
         end
 
-        conn.replace_attribute(dn, 'x-kmc-LastModified', DateTime.now.generalized_time)
+        if update_last_modified
+          conn.replace_attribute(dn, 'x-kmc-LastModified', DateTime.now.generalized_time)
+        end
       end
     end
 

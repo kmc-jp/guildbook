@@ -76,6 +76,34 @@ module GuildBook
       end
     end
 
+    get '/!passwd/:uid' do
+      haml :passwd, locals: {
+        error: nil,
+        uid: params[:uid],
+        bind_uid: remote_user,
+      }
+    end
+
+    post '/!passwd/:uid' do
+      begin
+        uid = params.delete('uid')
+        password = params.delete('password')
+        password_confirm = params.delete('password_confirm')
+        bind_uid = params.delete('$bind_uid')
+        bind_password = params.delete('$bind_password')
+        raise "Password does not match" if password != password_confirm
+        check_password_valid(password)
+        chpasswd(uid, bind_uid, bind_password, password)
+        redirect absolute_uri(uid)
+      rescue
+        haml :passwd, locals: {
+          error: $!.inspect,
+          uid: uid,
+          bind_uid: remote_user,
+        }
+      end
+    end
+
     private
 
     def adduser(uid, givenname, surname, password, bind_uid, bind_password)
@@ -106,6 +134,20 @@ module GuildBook
         attrs[:sambaSID] = "#{domain_sid}-#{rid_number}"
         user_repo.add(uid, attrs, bind_uid, bind_password)
       end
+    end
+
+    def chpasswd(uid, bind_uid, bind_password, password)
+      unix_password = Sha1.ssha_hash password
+      samba_password = Smbhash.ntlm_hash password
+      unix_time = DateTime.now.to_time.to_i
+
+      attrs = {
+        :userPassword => unix_password,
+        :sambaNTPassword => samba_password,
+        :sambaPwdLastSet => unix_time.to_s
+      }
+
+      user_repo.edit(uid, bind_uid, bind_password, attrs, update_last_modified: false)
     end
 
     def base_repo
