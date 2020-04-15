@@ -161,7 +161,7 @@ module GuildBook
         :sambaPwdLastSet => unix_time.to_s
       }
 
-      user_repo.edit(uid, bind_uid, bind_password, attrs, update_last_modified: false)
+      user_repo.edit_raw(uid, bind_uid, bind_password, attrs)
     end
 
     def base_repo

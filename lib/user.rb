@@ -61,6 +61,21 @@ module GuildBook
       end
     end
 
+    def edit_raw(uid, bind_uid, bind_password, attrs)
+      Net::LDAP.open_uri(uri) do |conn|
+        dn = Net::LDAP::DN.new('uid', uid, conn.base)
+        bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
+
+        if !conn.bind(method: :simple, username: bind_dn, password: bind_password)
+          raise Error, conn.get_operation_result.message
+        end
+
+        attrs.each do |key, value|
+          update_attribute(conn, dn, key, value)
+        end
+      end
+    end
+
     def get_max_uid
       do_search(Net::LDAP::Filter.present('uidNumber'), ['uidNumber']).map {|u| u['uidNumber'].first.to_i }.max
     end
