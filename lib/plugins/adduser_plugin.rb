@@ -22,6 +22,12 @@ module GuildBook
         text: 'ユーザ作成',
         order: 20,
       }
+      navlinks << {
+        href: absolute_uri('/!passwd'),
+        icon: 'key',
+        text: 'パスワード変更',
+        order: 21,
+      }
     end
 
     get '/!adduser' do
@@ -73,6 +79,14 @@ module GuildBook
           surname: surname,
           bind_uid: bind_uid
         }
+      end
+    end
+
+    get '/!passwd' do
+      if remote_user
+        redirect absolute_uri("/!passwd/#{remote_user}")
+      else
+        halt 404
       end
     end
 
