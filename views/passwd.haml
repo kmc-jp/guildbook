@@ -17,10 +17,10 @@
         新しいパスワード
         %span.form-required *
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password{type: :password, id: 'new-password', name: 'password', required: true, placeholder: 'Password', data: {'password-strength-meter': '#password-strength'}}
+        %input.form-control.password{type: :password, id: 'new-password', name: 'password', required: true, autocomplete: 'new-password', placeholder: 'Password', data: {'password-strength-meter': '#password-strength'}}
         %meter.password-strength.small{min: 0, max: 4, id: 'password-strength'}
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
+        %input.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, autocomplete: 'new-password', placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
     %hr
     %fieldset
       %div.form-row
@@ -29,9 +29,9 @@
       %div.form-row
         %span.form-group.col-lg-5.col-sm-4
           %label.sr-only ログイン名
-          %input.form-control.no-validation{name: '$bind_uid', value: bind_uid, required: true, placeholder: 'combat'}
+          %input.form-control.no-validation{name: '$bind_uid', value: bind_uid, required: true, autocomplete: 'username', placeholder: 'combat'}
         %span.form-group.col-lg-5.col-sm-4
           %label.sr-only 現在のパスワード
-          %input.form-control.no-validation{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
+          %input.form-control.no-validation{type: :password, name: '$bind_password', required: true, autocomplete: 'current-password', placeholder: 'Password'}
         %span.form-group.col-lg-2.col-sm-4
           %input.btn.btn-block.btn-primary{type: :submit, value: 'パスワード変更'}
