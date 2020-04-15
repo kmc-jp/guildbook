@@ -146,4 +146,15 @@ document.addEventListener('DOMContentLoaded', e => {
       });
     });
   });
+
+  document.querySelectorAll<HTMLFormElement>('form.needs-confirmation').forEach(form => {
+    form.addEventListener('submit', e => {
+      if(confirm('入力内容が正しいことを確認しましたか？') && confirm('本当に確認しましたか？')) {
+        // default
+      } else {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+  });
 });
