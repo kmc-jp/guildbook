@@ -6,7 +6,7 @@
     %meta{name: 'viewport', content:'width=device-width,initial-scale=1'}
     %title #{settings.brand['name']}名簿システム
     != stylesheet_tag('app')
-    != javascript_tag('app')
+    != javascript_tag('app', defer: true)
     != yield_content :html_head
   %body
     %nav.navbar.navbar-expand-md.navbar-dark.bg-dark.fixed-top
