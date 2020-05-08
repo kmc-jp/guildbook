@@ -58,11 +58,11 @@ document.addEventListener('DOMContentLoaded', e => {
       setValidator(input, e => {
         const password = input.value;
 
-		    if(/[^\x20-\x7e]/.test(password)) {
+        if(/[^\x20-\x7e]/.test(password)) {
           input.setCustomValidity('パスワードにはASCII範囲の印字可能文字のみ使ってください');
           strengthMeter.value = 0;
-			    return;
-		    }
+          return;
+        }
 
         const dictionary = [...userInputs].map(input => input.value);
         const strength = zxcvbn(password, dictionary);
@@ -73,13 +73,13 @@ document.addEventListener('DOMContentLoaded', e => {
           return;
         }
 
-		    const kinds = (/[a-z]/.test(password) ? 1 : 0) +
-			    (/[A-Z]/.test(password) ? 1 : 0) +
-			    (/[0-9]/.test(password) ? 1 : 0) +
-			    (/[^a-zA-Z0-9]/.test(password) ? 1 : 0);
+        const kinds = (/[a-z]/.test(password) ? 1 : 0) +
+          (/[A-Z]/.test(password) ? 1 : 0) +
+          (/[0-9]/.test(password) ? 1 : 0) +
+          (/[^a-zA-Z0-9]/.test(password) ? 1 : 0);
         if(kinds < 3) {
           input.setCustomValidity('大文字・小文字・数字・記号のうち3種類以上を使ってください');
-			    return;
+          return;
         }
 
         if(strength.score <= 2) {
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', e => {
           } else {
             input.setCustomValidity('もうすこし強そうなパスワードにしてください');
           }
-			    return;
+          return;
         }
 
         input.setCustomValidity('');
