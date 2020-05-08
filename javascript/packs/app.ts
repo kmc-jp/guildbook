@@ -68,6 +68,11 @@ document.addEventListener('DOMContentLoaded', e => {
         const strength = zxcvbn(password, dictionary);
         strengthMeter.value = strength.score;
 
+        if(20 <= strength.guesses_log10) {
+          input.setCustomValidity('');
+          return;
+        }
+
         if(password.length < 8) {
           input.setCustomValidity('パスワードは8文字以上必要です');
           return;
@@ -77,7 +82,7 @@ document.addEventListener('DOMContentLoaded', e => {
           (/[A-Z]/.test(password) ? 1 : 0) +
           (/[0-9]/.test(password) ? 1 : 0) +
           (/[^a-zA-Z0-9]/.test(password) ? 1 : 0);
-        if(kinds < 3 && strength.guesses_log10 < 20) {
+        if(kinds < 3) {
           input.setCustomValidity('大文字・小文字・数字・記号のうち3種類以上を使ってください');
           return;
         }
