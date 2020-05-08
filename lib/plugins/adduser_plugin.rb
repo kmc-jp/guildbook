@@ -179,14 +179,6 @@ module GuildBook
       if password.length < 8
         raise PasswordRestrictionError, "Your password is too short. You need at least 8 letters."
       end
-
-      kinds = (/[a-z]/.match?(password) ? 1 : 0) +
-        (/[A-Z]/.match?(password) ? 1 : 0) +
-        (/[0-9]/.match?(password) ? 1 : 0) +
-        (/[^a-zA-Z0-9]/.match?(password) ? 1 : 0)
-      if kinds < 3
-        raise PasswordRestrictionError, "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
-      end
     end
 
     def check_uid_valid(uid)
