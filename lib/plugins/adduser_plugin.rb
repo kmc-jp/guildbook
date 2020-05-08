@@ -68,7 +68,6 @@ module GuildBook
         bind_uid = params.delete('$bind_uid')
         bind_password = params.delete('$bind_password')
         raise "Password does not match" if password != password_confirm
-        check_password_valid(password)
         adduser(uid, givenname, surname, password, bind_uid, bind_password)
         redirect absolute_uri(uid)
       rescue
@@ -106,7 +105,6 @@ module GuildBook
         bind_uid = params.delete('$bind_uid')
         bind_password = params.delete('$bind_password')
         raise "Password does not match" if password != password_confirm
-        check_password_valid(password)
         chpasswd(uid, bind_uid, bind_password, password)
         redirect absolute_uri(uid)
       rescue
@@ -170,23 +168,6 @@ module GuildBook
 
     def samba_domain_name
       settings.samba_domain_name
-    end
-
-    def check_password_valid(password)
-      unless /\A[\x20-\x7e]+\z/.match?(password)
-        raise PasswordRestrictionError, "Your password contains invalid letters"
-      end
-      if password.length < 8
-        raise PasswordRestrictionError, "Your password is too short. You need at least 8 letters."
-      end
-
-      kinds = (/[a-z]/.match?(password) ? 1 : 0) +
-        (/[A-Z]/.match?(password) ? 1 : 0) +
-        (/[0-9]/.match?(password) ? 1 : 0) +
-        (/[^a-zA-Z0-9]/.match?(password) ? 1 : 0)
-      if kinds < 3
-        raise PasswordRestrictionError, "Your password should contain at least three of lower letters, upper letters, numbers and symbols"
-      end
     end
 
     def check_uid_valid(uid)
