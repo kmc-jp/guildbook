@@ -1,29 +1,31 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    backports (3.15.0)
+    backports (3.18.1)
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
-    multi_json (1.14.1)
-    net-ldap (0.16.1)
-    rack (1.6.12)
-    rack-protection (1.5.5)
+    multi_json (1.15.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
+    net-ldap (0.16.2)
+    rack (2.2.3)
+    rack-protection (2.0.8.1)
       rack
-    rack-test (1.1.0)
-      rack (>= 1.0, < 3)
-    rake (12.3.3)
-    sinatra (1.4.8)
-      rack (~> 1.5)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
-    sinatra-contrib (1.4.7)
-      backports (>= 2.0)
+    rake (13.0.1)
+    ruby2_keywords (0.0.2)
+    sinatra (2.0.8.1)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.8.1)
+      tilt (~> 2.0)
+    sinatra-contrib (2.0.8.1)
+      backports (>= 2.8.2)
       multi_json
-      rack-protection
-      rack-test
-      sinatra (~> 1.4.0)
-      tilt (>= 1.3, < 3)
+      mustermann (~> 1.0)
+      rack-protection (= 2.0.8.1)
+      sinatra (= 2.0.8.1)
+      tilt (~> 2.0)
     smbhash (1.0.2)
     temple (0.8.2)
     tilt (2.0.10)
@@ -34,10 +36,10 @@ PLATFORMS
 DEPENDENCIES
   haml (~> 5.0)
   net-ldap
-  rack (~> 1.6)
-  rake (~> 12.3)
-  sinatra (~> 1.4)
-  sinatra-contrib (~> 1.4)
+  rack
+  rake
+  sinatra (~> 2.0)
+  sinatra-contrib
   smbhash
 
 BUNDLED WITH

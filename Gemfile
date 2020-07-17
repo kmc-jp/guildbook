@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rake', '~> 12.3'
-gem 'rack', '~> 1.6'
+gem 'rake'
+gem 'rack'
 
-gem 'sinatra', '~> 1.4'
-gem 'sinatra-contrib', '~> 1.4'
+gem 'sinatra', '~> 2.0'
+gem 'sinatra-contrib'
 
 gem 'haml', '~> 5.0'
 
