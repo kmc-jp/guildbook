@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', e => {
           return;
         }
 
+        let validateMessages : string[] = [];
         if(password.length < 8) {
-          input.setCustomValidity('パスワードは8文字以上必要です');
-          return;
+          validateMessages.push('パスワードは8文字以上必要です。');
         }
 
         const kinds = (/[a-z]/.test(password) ? 1 : 0) +
@@ -83,20 +83,20 @@ document.addEventListener('DOMContentLoaded', e => {
           (/[0-9]/.test(password) ? 1 : 0) +
           (/[^a-zA-Z0-9]/.test(password) ? 1 : 0);
         if(kinds < 3) {
-          input.setCustomValidity('大文字・小文字・数字・記号のうち3種類以上を使ってください');
+          validateMessages.push('大文字・小文字・数字・記号のうち3種類以上を使ってください。');
           return;
         }
 
         if(strength.score <= 2) {
           if(strength.feedback.warning !== '') {
-            input.setCustomValidity(strength.feedback.warning);
+            validateMessages.push(strength.feedback.warning);
           } else {
-            input.setCustomValidity('もうすこし強そうなパスワードにしてください');
+            validateMessages.push('もうすこし強そうなパスワードにしてください。');
           }
           return;
         }
 
-        input.setCustomValidity('');
+        input.setCustomValidity(validateMessages.join());
       });
     });
 
