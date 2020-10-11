@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  push:
+    branches: '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.7'
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+    - uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+    - uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+    - name: bundle install
+      run: |
+        bundle config set path vendor/bundle
+        bundle install -j3
+    - name: npm install
+      run: |
+        npm install
+    - name: Copy config
+      run: |
+        sed 's/development:/production:/' config/guildbook.yml.example > config/guildbook.yml
+    - name: Build
+      run: |
+        npm run build
