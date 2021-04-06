@@ -37,7 +37,7 @@ module WebpackHelpers
   end
 
   def asset_paths(name, type)
-    entrypoints.fetch(name).fetch(type)
+    entrypoints.dig(name, 'assets').fetch(type)
   end
 
   def assets_base_uri
