@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 const loadSettings = (mode) => {
-    const data = yaml.safeLoad(fs.readFileSync(path.join(__dirname, 'config/guildbook.yml')));
+    const data = yaml.load(fs.readFileSync(path.join(__dirname, 'config/guildbook.yml')));
     return (data.production || data.development) ? data[mode] : data;
 }
 
@@ -40,7 +40,6 @@ module.exports = (env, argv) => {
         plugins.push(
             new CompressionPlugin({
                 test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/,
-                cache: true,
             })
         );
     }
@@ -91,14 +90,15 @@ module.exports = (env, argv) => {
                             loader: 'postcss-loader',
                             options: {
                                 sourceMap: true,
-                                plugins: [
-                                    require('cssnano')({
-                                        preset: require('cssnano-preset-default')({
-                                            autoprefixer: false,
-                                            normalizePositions: false, // Workaround for https://github.com/cssnano/cssnano/pull/750
+                                postcssOptions: {
+                                    plugins: [
+                                        require('cssnano')({
+                                            preset: require('cssnano-preset-default')({
+                                                autoprefixer: false,
+                                            }),
                                         }),
-                                    }),
-                                ],
+                                    ],
+                                },
                             },
                         },
                         {
