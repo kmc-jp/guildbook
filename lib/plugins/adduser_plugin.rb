@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'sinatra/json'
-require 'smbhash'
+require_relative 'smbhash_compat'
 
 require_relative '../app'
 require_relative '../ssha'
