@@ -40,6 +40,7 @@ GEM
       tilt (~> 2.0)
     temple (0.8.2)
     tilt (2.0.10)
+    webrick (1.7.0)
 
 PLATFORMS
   ruby
@@ -52,6 +53,7 @@ DEPENDENCIES
   rspec
   sinatra (~> 2.0)
   sinatra-contrib
+  webrick
 
 BUNDLED WITH
    2.2.15

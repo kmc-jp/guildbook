@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "LDAP-based address book interface",
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "serve": "webpack serve --mode development"
   },
   "repository": {
     "type": "git",

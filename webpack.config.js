@@ -47,7 +47,6 @@ module.exports = (env, argv) => {
     const optimization = {
         splitChunks: {
             chunks: 'all',
-            name: !isProduction,
         },
     };
 
