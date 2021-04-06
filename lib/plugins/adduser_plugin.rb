@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 require 'sinatra/json'
-require_relative 'smbhash_compat'
 
 require_relative '../app'
 require_relative '../ssha'
+require_relative '../ntlm_hash'
 require_relative '../base'
 
 module GuildBook
@@ -122,7 +122,7 @@ module GuildBook
 
     def adduser(uid, givenname, surname, password, bind_uid, bind_password)
       unix_password = Sha1.ssha_hash password
-      samba_password = Smbhash.ntlm_hash password
+      samba_password = NtlmHash.ntlm_hash password
       unix_time = DateTime.now.to_time.to_i
       gid_number = 200 # kmc
       domain_sid = base_repo.get_domain_sid(samba_domain_name)
@@ -152,7 +152,7 @@ module GuildBook
 
     def chpasswd(uid, bind_uid, bind_password, password)
       unix_password = Sha1.ssha_hash password
-      samba_password = Smbhash.ntlm_hash password
+      samba_password = NtlmHash.ntlm_hash password
       unix_time = DateTime.now.to_time.to_i
 
       attrs = {
@@ -178,6 +178,9 @@ module GuildBook
       end
       if password.length < 8
         raise PasswordRestrictionError, "Your password is too short. You need at least 8 letters."
+      end
+      if password.length > 127  # Windows restriction
+        raise PasswordRestrictionError, "Your password is too long. You can use at most 127 letters."
       end
     end
 

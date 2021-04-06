@@ -9,4 +9,7 @@ gem 'sinatra-contrib'
 gem 'haml', '~> 5.0'
 
 gem 'net-ldap'
-gem 'smbhash'
+
+group :test do
+  gem 'rspec'
+end
