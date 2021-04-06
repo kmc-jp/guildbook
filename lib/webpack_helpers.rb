@@ -20,7 +20,7 @@ module WebpackHelpers
 
   private
 
-  MANIFEST_PATH = 'public/assets/manifest.json'.freeze
+  MANIFEST_PATH = 'public/assets/assets-manifest.json'.freeze
   def manifest
     if !@manifest || (settings.development? && @manifest_mtime < File.stat(MANIFEST_PATH).mtime)
       File.open(MANIFEST_PATH) do |f|
