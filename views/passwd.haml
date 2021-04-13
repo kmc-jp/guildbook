@@ -17,7 +17,7 @@
         新しいパスワード
         %span.form-required *
       %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password{type: :password, id: 'new-password', name: 'password', required: true, autocomplete: 'new-password', placeholder: 'Password', data: {'password-strength-meter': '#password-strength'}}
+        %input.form-control.password{type: :password, id: 'new-password', name: 'password', required: true, autocomplete: 'new-password', placeholder: 'Password', minlength: 8, maxlength: 127, data: {'password-strength-meter': '#password-strength'}}
         %meter.password-strength.small{min: 0, max: 4, id: 'password-strength'}
       %div.form-group.col-sm-5.col-xs-6
         %input.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, autocomplete: 'new-password', placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
