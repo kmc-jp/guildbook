@@ -1,4 +1,3 @@
-import * as jQuery from 'jquery';
 import 'bootstrap';
 import '../src/app.scss';
 
