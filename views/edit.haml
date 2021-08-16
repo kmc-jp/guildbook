@@ -104,11 +104,10 @@
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-university-matric-year'}
           入学年
-          %span.form-required *
         %div.input-group
           %span.input-group-prepend
             %span.input-group-text 西暦
-          - input_userattr user, 'x-kmc-UniversityMatricYear', required: true, type: :number, placeholder: Date.today.academic_year, min: 1950, max: 2050
+          - input_userattr user, 'x-kmc-UniversityMatricYear', type: :number, placeholder: Date.today.academic_year, min: 1950, max: 2050
           %span.input-group-append
             %span.input-group-text 年度入学
       %div.col-12.col-lg-6.mb-2
