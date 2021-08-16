@@ -3,43 +3,52 @@
     = error
 
 %form.edit-form.needs-validation.needs-confirmation{action: absolute_uri('!adduser'), method: :POST}
-  %div.container-fluid
-    %div.form-row
-      %h2 ユーザ作成
-    %div.form-row
-      %div.form-group.col-sm-2.col-xs-12
-        ログイン名
-        %span.form-required *
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-userinput.remote-validation{name: 'uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat', data: {'remote-validation': {action: absolute_uri('!adduser/checkuid')}}}
-    %div.form-row
-      %div.form-group.col-sm-2.col-xs-12
-        氏名(ローマ字)
-        %span.form-required *
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-userinput{name: 'surname', value: surname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'ECHIZEN'}
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-userinput{name: 'givenname', value: givenname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'Kosuke'}
-    %div.form-row
-      %div.form-group.col-sm-2.col-xs-12
-        パスワード
-        %span.form-required *
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password{type: :password, id: 'new-password', name: 'password', required: true, placeholder: 'Password', minlength: 8, maxlength: 127, data: {'password-strength-meter': '#password-strength'}}
-        %meter.password-strength.small{min: 0, max: 4, id: 'password-strength'}
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
-    %hr
-    %fieldset
-      %div.form-row
-        %legend.col-md-12.col-sm-12
-          管理者
-      %div.form-row
-        %span.form-group.col-lg-5.col-sm-4
-          %label.sr-only ログイン名
-          %input.form-control.no-validation{name: '$bind_uid', value: bind_uid, required: true, placeholder: 'administrator'}
-        %span.form-group.col-lg-5.col-sm-4
-          %label.sr-only パスワード
-          %input.form-control.no-validation{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
-        %span.form-group.col-lg-2.col-sm-4
-          %input.btn.btn-block.btn-primary{type: :submit, value: 'アカウント作成'}
+  %h2 ユーザ作成
+  %div.container.mb-2
+    %div.row
+      %div.col-12.mb-2
+        %label{for: 'edit-uid'}
+          ログイン名
+          %span.form-required *
+        %div
+          %input#edit-uid.form-control.password-userinput.remote-validation{name: 'uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat', data: {'remote-validation': {action: absolute_uri('!adduser/checkuid')}}}
+    %div.row
+      %div.col-12.col-lg-6.mb-2
+        %label{for: 'edit-surname'}
+          氏 (ローマ字)
+          %span.form-required *
+        %div
+          %input#edit-surname.form-control.password-userinput{name: 'surname', value: surname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'ECHIZEN'}
+      %div.col-12.col-lg-6.mb-2
+        %label{for: 'edit-givenname'}
+          名 (ローマ字)
+          %span.form-required *
+        %input#edit-givenname.form-control.password-userinput{name: 'givenname', value: givenname, required: true, pattern: '^[\x20-\x7e]*$', placeholder: 'Kosuke'}
+    %div.row
+      %div.col-12.col-lg-6.mb-2
+        %label{for: 'edit-password'}
+          パスワード
+          %span.form-required *
+        %div
+          %input#edit-password.form-control.password{type: :password, name: 'password', required: true, placeholder: 'Password', minlength: 8, maxlength: 127, data: {'password-strength-meter': '#edit-password-strength'}}
+          %meter#edit-password-strength.password-strength.small{min: 0, max: 4}
+      %div.col-12.col-lg-6.mb-2
+        %label{for: 'edit-password-confirm'}
+          パスワード (確認)
+          %span.form-required *
+        %div
+          %input#edit-password-confirm.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, placeholder: 'Password', data: {'password-confirm-for': '#edit-password'}}
+
+  %fieldset
+    %legend
+      管理者
+    %div.container
+      %div.row
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-uid'} ログイン名
+          %input#bind-uid.form-control.no-validation{name: '$bind_uid', value: bind_uid, required: true, placeholder: 'admin'}
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-password'} パスワード
+          %input#bind-password.form-control.no-validation{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
+        %div.col-12.col-lg-2.mb-2.d-grid
+          %input.btn.btn-primary{type: :submit, value: 'アカウント作成'}

@@ -3,35 +3,38 @@
     = error
 
 %form.edit-form.needs-validation{action: absolute_uri("!passwd/#{uid}"), method: :POST}
-  %div.container-fluid
-    %div.form-row
-      %h2 パスワード変更
-    %div.form-row
-      %div.form-group.col-sm-2.col-xs-12
+  %h2 パスワード変更
+  %div.container
+    %div.row
+      %div.col-12.mb-2
         ログイン名
         %span.form-required *
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-userinput{value: uid, readonly: true}
-    %div.form-row
-      %div.form-group.col-sm-2.col-xs-12
-        新しいパスワード
-        %span.form-required *
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password{type: :password, id: 'new-password', name: 'password', required: true, autocomplete: 'new-password', placeholder: 'Password', minlength: 8, maxlength: 127, data: {'password-strength-meter': '#password-strength'}}
-        %meter.password-strength.small{min: 0, max: 4, id: 'password-strength'}
-      %div.form-group.col-sm-5.col-xs-6
-        %input.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, autocomplete: 'new-password', placeholder: 'Password(確認)', data: {'password-confirm-for': '#new-password'}}
-    %hr
-    %fieldset
-      %div.form-row
-        %legend.col-md-12.col-sm-12
-          編集者
-      %div.form-row
-        %span.form-group.col-lg-5.col-sm-4
-          %label.sr-only ログイン名
-          %input.form-control.no-validation{name: '$bind_uid', value: bind_uid, required: true, autocomplete: 'username', placeholder: 'combat'}
-        %span.form-group.col-lg-5.col-sm-4
-          %label.sr-only 現在のパスワード
-          %input.form-control.no-validation{type: :password, name: '$bind_password', required: true, autocomplete: 'current-password', placeholder: 'Password'}
-        %span.form-group.col-lg-2.col-sm-4
-          %input.btn.btn-block.btn-primary{type: :submit, value: 'パスワード変更'}
+        %div
+          %input.form-control.password-userinput{value: uid, readonly: true}
+      %div.col-12.col-lg-6.mb-2
+        %label{for: 'edit-password'}
+          新しいパスワード
+          %span.form-required *
+        %div
+          %input#edit-password.form-control.password{type: :password, name: 'password', required: true, autocomplete: 'new-password', placeholder: 'Password', minlength: 8, maxlength: 127, data: {'password-strength-meter': '#edit-password-strength'}}
+          %meter#edit-password-strength.password-strength.small{min: 0, max: 4}
+      %div.col-12.col-lg-6.mb-2
+        %label{for: 'edit-password-confirm'}
+          新しいパスワード (確認)
+          %span.form-required *
+        %div
+          %input#edit-password-confirm.form-control.password-confirm{type: :password, name: 'password_confirm', required: true, autocomplete: 'new-password', placeholder: 'Password', data: {'password-confirm-for': '#edit-password'}}
+
+  %fieldset
+    %legend
+      編集者
+    %div.container
+      %div.row
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-uid'} ログイン名
+          %input#bind-uid.form-control.no-validation{name: '$bind_uid', value: bind_uid, required: true, autocomplete: 'username', placeholder: 'combat'}
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-password'} 現在のパスワード
+          %input#bind-password.form-control.no-validation{type: :password, name: '$bind_password', required: true, autocomplete: 'current-password', placeholder: 'Password'}
+        %div.col-12.col-lg-2.mb-2.d-grid
+          %input.btn.btn-primary{type: :submit, value: 'パスワード変更'}

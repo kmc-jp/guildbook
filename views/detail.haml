@@ -37,4 +37,5 @@
       - if user['x-kmc-LastModified'].first
         = DateTime.parse(user['x-kmc-LastModified'].first).strftime('%F %T')
 
-%a.btn.btn-primary.btn-block.btn-lg{href: absolute_uri(user['uid'].first, 'edit')} 編集
+%div.d-grid
+  %a.btn.btn-primary.btn-lg{href: absolute_uri(user['uid'].first, 'edit')} 編集
