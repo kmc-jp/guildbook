@@ -28,7 +28,12 @@ document.addEventListener('DOMContentLoaded', e => {
           }
         } else {
           feedback.textContent = control.validationMessage;
-          control.parentElement.insertBefore(feedback, control.nextSibling);
+
+          if (control.parentElement.classList.contains('input-group')) {
+            control.parentElement.append(feedback);
+          } else {
+            control.parentElement.insertBefore(feedback, control.nextSibling);
+          }
         }
         control.parentElement.classList.add('was-validated');
       });
