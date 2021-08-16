@@ -61,11 +61,7 @@ module.exports = (env, argv) => {
             rules: [
                 {
                     test: /\.(svg|eot|ttf|woff2?)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                        },
-                    ],
+                    type: 'asset/resource',
                 },
                 {
                     test: /\.tsx?$/,
