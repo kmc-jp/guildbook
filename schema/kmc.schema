@@ -98,4 +98,5 @@ objectClass ( kmcObjectClass:1
         x-kmc-Generation $ x-kmc-Alias $ x-kmc-Lodging $
         x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
         x-kmc-UniversityMatricYear $
-        x-kmc-MailForwardingAddress $ x-kmc-MailNotificationAddress) )
+        x-kmc-MailForwardingAddress $ x-kmc-MailNotificationAddress $
+        x-kmc-DiscordUserID ) )
