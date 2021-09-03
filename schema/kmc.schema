@@ -56,7 +56,7 @@ attributeType ( kmcAttributeType:8
   EQUALITY caseIgnoreMatch
   SUBSTR caseIgnoreSubstringsMatch
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
-  SINGLE-VALUE )
+)
 
 attributeType ( kmcAttributeType:9
   NAME 'x-kmc-UniversityMatricYear'
@@ -81,6 +81,14 @@ attributeType ( kmcAttributeType:11
   SUBSTR caseIgnoreIA5SubstringsMatch
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.26
   SUP mail )
+
+attributeType ( kmcAttributeType:12
+  NAME 'x-kmc-DiscordUserID'
+  DESC 'Discord user id of the person'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE )
 
 objectClass ( kmcObjectClass:1
   NAME 'x-kmc-Person'
