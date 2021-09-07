@@ -49,3 +49,15 @@ meter.password-strength {
   vertical-align: -.25em;
   line-height: 0;
 }
+
+ul.inline-list {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  li {
+    display: inline;
+    &:not(:last-child)::after {
+      content: ", ";
+    }
+  }
+}

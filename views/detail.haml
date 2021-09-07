@@ -31,6 +31,15 @@
     %tr
       %th 備考
       %td= user['description'].first
+  - unless user['x-kmc-DiscordUserID'].empty?
+    %tr
+      %th Discord
+      %td
+        %ul.inline-list
+          - user['x-kmc-DiscordUserID'].each do |idname|
+            - id, name = idname.split(?,, 2)
+            %li
+              %a{href: "https://discord.com/users/#{id}"}>= name
   %tr
     %th 最終更新
     %td
