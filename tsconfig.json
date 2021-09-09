@@ -4,5 +4,12 @@
     "target": "es2017",
     "module": "esNext",
     "esModuleInterop": true,
+    "moduleResolution": "node"
+  },
+
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
   }
 }
