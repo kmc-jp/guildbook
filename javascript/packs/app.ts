@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', e => {
     });
 
     form.querySelectorAll<HTMLInputElement>('input.form-control.password').forEach(async input => {
-      const {default: zxcvbn} = await import('zxcvbn') as any;  // XXX: why is this not typeable?
+      const { default: zxcvbn } = await import('zxcvbn');
 
       const userInputs = input.form.querySelectorAll<HTMLInputElement>('input.password-userinput');
       const strengthMeter = document.querySelector<HTMLMeterElement>(input.dataset.passwordStrengthMeter);
