@@ -119,8 +119,10 @@ module.exports = (env, argv) => {
         optimization: optimization,
         devtool: 'source-map',
         devServer: {
-            contentBase: path.join(__dirname, 'public'),
-            publicPath: publicPath,
+            static: {
+                directory: path.join(__dirname, 'public'),
+                publicPath: publicPath,
+            },
             headers: {
                 "Access-Control-Allow-Origin": "*",
             },
