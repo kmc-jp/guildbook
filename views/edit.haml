@@ -82,7 +82,7 @@
           住所
           %span.form-required *
         %div.input-group
-          - input_userattr user, 'postalAddress', id: 'edit-postal-address', required: true, placeholder: '京都市左京区吉田本町'
+          - input_userattr user, 'postalAddress', id: 'edit-postal-address', required: true, placeholder: '京都市左京区吉田本町 工学部10号館アパート123号'
           %span.input-group-append
             %label.input-group-text
               - input_userattr user, 'x-kmc-Lodging', type: :checkbox, value: 'true', checked: user['x-kmc-Lodging'].first == 'TRUE', class: ''
