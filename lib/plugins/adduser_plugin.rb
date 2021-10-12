@@ -185,11 +185,11 @@ module GuildBook
     end
 
     def check_uid_valid(uid)
-      unless (3..8) === uid.length
-        raise UidRestrictionError, "Your login name should consist of at least 3 characters in length and at most 8."
+      unless (3..20) === uid.length
+        raise UidRestrictionError, "Your login name should consist of at least 3 characters in length and at most 20."
       end
 
-      unless /\A[a-z][a-z0-9]{2,7}\z/.match?(uid)
+      unless /\A[a-z][a-z0-9]{2,19}\z/.match?(uid)
         raise UidRestrictionError, "Your login name should consist of alphanumeric characters."
       end
     end
