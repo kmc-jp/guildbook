@@ -11,11 +11,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import WebpackAssetsManifest from 'webpack-assets-manifest';
 
 declare module 'webpack' {
-  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/43232
-  interface Configuration {
-    devServer?: WebpackDevServer.Configuration | undefined;
-  }
-
   // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/51091
   interface CliConfigOptions {
     mode?: webpack.Configuration['mode'];
@@ -61,7 +56,7 @@ const genConfig: webpack.ConfigurationFactory = (_env, argv) => {
     plugins.push(
       new CompressionPlugin({
         test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/,
-      }) as any as webpack.WebpackPluginInstance  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52847
+      })
     );
   }
 

@@ -76,13 +76,13 @@
           郵便番号
           %span.form-required *
         %div
-          - input_userattr user, 'postalCode', id: 'edit-postal-code', required: true, placeholder: '606-8205', pattern: '\d{3}-\d{4}'
+          - input_userattr user, 'postalCode', id: 'edit-postal-code', required: true, placeholder: '606-8501', pattern: '\d{3}-\d{4}'
       %div.col-12.col-lg-10.mb-2
         %label{for: 'edit-postal-address'}
           住所
           %span.form-required *
         %div.input-group
-          - input_userattr user, 'postalAddress', id: 'edit-postal-address', required: true, placeholder: '京都市左京区田中上柳町108 第3岡田荘31号'
+          - input_userattr user, 'postalAddress', id: 'edit-postal-address', required: true, placeholder: '京都市左京区吉田本町 工学部10号館アパート123号'
           %span.input-group-append
             %label.input-group-text
               - input_userattr user, 'x-kmc-Lodging', type: :checkbox, value: 'true', checked: user['x-kmc-Lodging'].first == 'TRUE', class: ''
@@ -135,7 +135,7 @@
           SSH 公開鍵
         %div
           / Content must be on the same line to suppress indent in textarea.
-          %textarea#edit-ssh-public-key.form-control.ssh-public-key{name: 'sshPublicKey', placeholder: 'ssh-rsa XXXXXXX...'}= user['sshPublicKey'].join("\n")
+          %textarea#edit-ssh-public-key.form-control.ssh-public-key{name: 'sshPublicKey', placeholder: "ssh-rsa XXXXXXX...\necdsa-sha2-nistp256 XXXXXXX..."}= user['sshPublicKey'].join("\n")
     %div.row
       %div.col-12.mb-2
         %label{for: 'edit-description'}

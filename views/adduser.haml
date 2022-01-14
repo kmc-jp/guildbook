@@ -11,7 +11,7 @@
           ログイン名
           %span.form-required *
         %div
-          %input#edit-uid.form-control.password-userinput.remote-validation{name: 'uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,7}$', placeholder: 'combat', data: {'remote-validation': {action: absolute_uri('!adduser/checkuid')}}}
+          %input#edit-uid.form-control.password-userinput.remote-validation{name: 'uid', value: uid, required: true, pattern: '^[a-z][a-z0-9]{2,19}$', placeholder: 'combat', data: {'remote-validation': {action: absolute_uri('!adduser/checkuid')}}}
     %div.row
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-surname'}
