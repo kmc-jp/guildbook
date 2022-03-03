@@ -1,0 +1,15 @@
+%form.edit-form.needs-validation{action: absolute_uri(user['uid'].first, :edit), method: :POST}
+  %h2 ユーザー情報の編集にはパスワードが必要です
+  %fieldset
+    %legend.col-md-12.col-sm-12
+      アカウント情報を入力してください
+    %div.container
+      %div.row
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-uid'} ログイン名
+          %input#bind-uid.form-control.no-validation{name: '$bind_uid', value: remote_user || user['uid'].first, required: true, placeholder: 'combat'}
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-password'} パスワード
+          %input#bind-password.form-control.no-validation{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
+        %div.col-12.col-lg-2.mb-2.d-grid
+          %input.btn.btn-primary{type: :submit, value: '保存'}

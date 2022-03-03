@@ -69,24 +69,48 @@ module GuildBook
 
     get '/:uid/edit' do |uid|
       pass if uid =~ /^!/
-      haml :edit, locals: {user: user_repo.get(uid), error: nil}
+      #haml :edit, locals: {user: user_repo.get(uid), error: nil}
+      haml :editauth, locals: {user: user_repo.get(uid), error: nil}
     end
+
+    #post '/:uid/editauth' do |uid|
+    #  pass if uid =~ /^!/
+    #  haml :editauth, locals: {user: user_repo.get(uid), error: nil}
+    #end
 
     post '/:uid/edit' do |uid|
       pass if uid =~ /^!/
-      begin
-        bind_uid = params.delete('$bind_uid')
-        bind_password = params.delete('$bind_password')
-        # textinput to lines
-        params['sshPublicKey'] = params['sshPublicKey'].strip().split(/\r?\n/)
-        user_repo.edit(uid, bind_uid, bind_password, params)
-        redirect absolute_uri(uid)
-      rescue
-        user = user_repo.get(uid)
-        params.each do |k, v|
-          user[k] = [v]
+      bind_uid = params.delete('$bind_uid')
+      bind_password = params.delete('$bind_password')
+      #redirect '/:uid/edit'
+      if not params['sshPublicKey']
+        puts "editauth"
+        begin
+          user_info = user_repo.get_auth(uid, bind_uid, bind_password)
+          haml :edit, locals: {user: user_info, error: nil}
+        rescue
+          user = user_repo.get(uid)
+          params.each do |k, v|
+            user[k] = [v]
+          end
+          haml :editauth, locals: {user: user, error: $!}
         end
-        haml :edit, locals: {user: user, error: $!}
+      else
+        puts "edit"
+        #begin
+          #bind_uid = params.delete('$bind_uid')
+          #bind_password = params.delete('$bind_password')
+          # textinput to lines
+          params['sshPublicKey'] = params['sshPublicKey'].strip().split(/\r?\n/)
+          user_repo.edit(uid, bind_uid, bind_password, params)
+          redirect absolute_uri(uid)
+        #rescue
+        #  user = user_repo.get(uid)
+        #  params.each do |k, v|
+        #    user[k] = [v]
+        #  end
+        #  haml :edit, locals: {user: user, error: $!}
+        #end
       end
     end
 

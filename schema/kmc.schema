@@ -90,6 +90,13 @@ attributeType ( kmcAttributeType:12
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 attributeType ( kmcAttributeType:13
+  NAME 'x-kmc-SlackUserID'
+  DESC 'Slack user id'
+  EQUALITY caseExactMatch
+  SUBSTR caseExactSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributeType ( kmcAttributeType:14
   NAME 'x-kmc-MakeAddressPublic'
   DESC 'Public postalcode and address to all users'
   EQUALITY booleanMatch
@@ -105,4 +112,4 @@ objectClass ( kmcObjectClass:1
         x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
         x-kmc-UniversityMatricYear $
         x-kmc-MailForwardingAddress $ x-kmc-MailNotificationAddress $
-        x-kmc-DiscordUserID ) )
+        x-kmc-DiscordUserID $ x-kmc-SlackUserID $ x-kmc-MakeAddressPublic) )

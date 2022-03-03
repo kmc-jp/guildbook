@@ -22,6 +22,22 @@ module GuildBook
       do_search(Net::LDAP::Filter.eq('uid', uid)).first or raise Sinatra::NotFound
     end
 
+    def get_auth(uid, bind_uid, bind_password)
+      attributes = ['*']
+      filter = Net::LDAP::Filter.eq('uid', uid)
+
+      # or raise Sinatra::NotFound
+      Net::LDAP.open_uri(uri) do |conn|
+        dn = Net::LDAP::DN.new('uid', uid, conn.base)
+        bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
+
+        if !conn.bind(method: :simple, username: bind_dn, password: bind_password)
+          raise Error, conn.get_operation_result.message
+        end
+        conn.search(filter: filter, attributes: attributes)
+      end.collect(&:fix_encoding!).first or raise Sinatra::NotFound
+    end
+
     def get_many(uids)
       do_search(uids.collect {|uid| Net::LDAP::Filter.eq('uid', uid) }.inject(:|))
     end
@@ -29,6 +45,7 @@ module GuildBook
     def edit(uid, bind_uid, bind_password, attrs, update_last_modified: true)
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
       attrs['x-kmc-Lodging'] = attrs['x-kmc-Lodging'] ? 'TRUE' : 'FALSE' # fixme
+      attrs['x-kmc-MakeAddressPublic'] = attrs['x-kmc-MakeAddressPublic'] ? 'TRUE' : 'FALSE' # fixme
 
       ssh_public_keys = attrs.delete('sshPublicKey')
       ssh_public_keys&.each do |key|
@@ -115,6 +132,7 @@ module GuildBook
       x-kmc-Alias title x-kmc-Generation description
       postalCode postalAddress x-kmc-Lodging
       telephoneNumber x-kmc-MailForwardingAddress
+      x-kmc-MakeAddressPublic
     ]
 
     def update_attribute(conn, dn, key, value)
