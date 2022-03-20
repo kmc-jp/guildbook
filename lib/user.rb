@@ -26,7 +26,6 @@ module GuildBook
       attributes = ['*']
       filter = Net::LDAP::Filter.eq('uid', uid)
 
-      # or raise Sinatra::NotFound
       Net::LDAP.open_uri(uri) do |conn|
         dn = Net::LDAP::DN.new('uid', uid, conn.base)
         bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
