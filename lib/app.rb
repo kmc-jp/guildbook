@@ -74,7 +74,11 @@ module GuildBook
 
     post '/:uid/edit' do |uid|
       pass if uid =~ /^!/
-      if not params['sshPublicKey']
+
+      bind_uid = params.delete('$bind_uid')
+      bind_password = params.delete('$bind_password')
+      puts params
+      if params['action'] == '送信'
         begin
           user_info = user_repo.get_auth(uid, bind_uid, bind_password)
           haml :edit, locals: {user: user_info, error: nil}
@@ -87,8 +91,6 @@ module GuildBook
         end
       else
         begin
-          bind_uid = params.delete('$bind_uid')
-          bind_password = params.delete('$bind_password')
           # textinput to lines
           params['sshPublicKey'] = params['sshPublicKey'].strip().split(/\r?\n/)
           user_repo.edit(uid, bind_uid, bind_password, params)
