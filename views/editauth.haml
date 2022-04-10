@@ -1,3 +1,7 @@
+- if error
+  %p.alert.alert-danger
+    = error
+
 %form.edit-form.needs-validation{action: absolute_uri(user['uid'].first, :edit), method: :POST}
   %h2 ユーザー情報の編集にはパスワードが必要です
   %fieldset
