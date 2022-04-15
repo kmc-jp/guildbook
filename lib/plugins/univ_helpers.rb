@@ -19,7 +19,7 @@ module GuildBook
       def kyotou_student?(u)
         status = u['x-kmc-UniversityStatus'].first
         department = u['x-kmc-UniversityDepartment'].first
-        status and department and status =~/^[BMD]?\d+$/ and department.gsub(/(?<=大学)[[:space:]]*大学院/, '') !~ /(?<!京都)大学|高等学校/  # FIXME
+        status and department and status =~/^[BMD]?\d+$/ and department.gsub(/(?<=大学)[[:space:]]*大学院/, '') !~ /(?<!京都)大学|高等学校|中学/  # FIXME
       end
 
       def kyotou_department(u)
