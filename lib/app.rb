@@ -77,7 +77,6 @@ module GuildBook
 
       bind_uid = params.delete('$bind_uid')
       bind_password = params.delete('$bind_password')
-      puts params
       if params['action'] == '送信'
         begin
           user_info = user_repo.get_auth(uid, bind_uid, bind_password)
