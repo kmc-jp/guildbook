@@ -77,7 +77,7 @@ module GuildBook
 
       bind_uid = params.delete('$bind_uid')
       bind_password = params.delete('$bind_password')
-      if params['action'] == '送信'
+      if params['action'] == 'auth'
         begin
           user_info = user_repo.get_auth(uid, bind_uid, bind_password)
           haml :edit, locals: {user: user_info, error: nil}
