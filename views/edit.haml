@@ -88,7 +88,7 @@
               - input_userattr user, 'x-kmc-Lodging', type: :checkbox, value: 'true', checked: user['x-kmc-Lodging'].first == 'TRUE', class: ''
               下宿
         %label.input-group-text
-          - input_userattr user, 'x-kmc-MakeAddressPublic', type: :checkbox, value: 'true', checked: user['x-kmc-MakeAddressPublic'].first == 'TRUE', class: ''
+          - input_userattr user, 'x-kmc-AddressIsPublic', type: :checkbox, value: 'true', checked: user['x-kmc-AddressIsPublic'].first == 'TRUE', class: ''
           全員に住所を公開
     %div.row
       %div.col-12.col-lg-8.mb-2

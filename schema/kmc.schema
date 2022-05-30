@@ -97,7 +97,7 @@ attributeType ( kmcAttributeType:13
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 attributeType ( kmcAttributeType:14
-  NAME 'x-kmc-MakeAddressPublic'
+  NAME 'x-kmc-AddressIsPublic'
   DESC 'Public postalcode and address to all users'
   EQUALITY booleanMatch
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
@@ -112,4 +112,4 @@ objectClass ( kmcObjectClass:1
         x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
         x-kmc-UniversityMatricYear $
         x-kmc-MailForwardingAddress $ x-kmc-MailNotificationAddress $
-        x-kmc-DiscordUserID $ x-kmc-SlackUserID $ x-kmc-MakeAddressPublic) )
+        x-kmc-DiscordUserID $ x-kmc-SlackUserID $ x-kmc-AddressIsPublic) )
