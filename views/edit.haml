@@ -87,9 +87,9 @@
             %label.input-group-text
               - input_userattr user, 'x-kmc-Lodging', type: :checkbox, value: 'true', checked: user['x-kmc-Lodging'].first == 'TRUE', class: ''
               下宿
-      %div.col-12.col-lg-10.mb-2
+      %div.col-12.mb-2
         - input_userattr user, 'x-kmc-AddressIsPublic', type: :checkbox, value: 'true', checked: user['x-kmc-AddressIsPublic'].first == 'TRUE', class: ''
-        郵便番号と住所を全員に公開
+        郵便番号と住所を他の部員に公開
     %div.row
       %div.col-12.col-lg-8.mb-2
         %label{for: 'edit-university-department'}
