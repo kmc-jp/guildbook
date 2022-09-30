@@ -12,6 +12,8 @@ development:
   ui:
     default_sort_keys: -uidNumber
   samba_domain_name: KMC
+  slack:
+    workspace_name: kmc-jp
 
   adduser:
     login_blacklist:

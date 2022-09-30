@@ -1,3 +1,5 @@
+- slack_workspace = settings.slack['workspace_name']
+
 %table.table.table-striped
   %tr
     %th ログイン名
@@ -31,15 +33,25 @@
     %tr
       %th 備考
       %td= user['description'].first
-  - unless user['x-kmc-DiscordUserID'].empty?
-    %tr
-      %th Discord
-      %td
-        %ul.inline-list
-          - user['x-kmc-DiscordUserID'].each do |idname|
-            - id, name = idname.split(?,, 2)
-            %li
-              %a{href: "https://discord.com/users/#{id}"}>= name
+  %tr
+    %th Slack
+    %td
+      %ul.inline-list
+        - user['x-kmc-SlackUserID'].each do |idname|
+          - id, name = idname.split(?,, 2)
+          %li
+            - if slack_workspace
+              %a{href: "https://#{slack_workspace}.slack.com/team/#{id}"}>= name || id
+            - else
+              = name || id
+  %tr
+    %th Discord
+    %td
+      %ul.inline-list
+        - user['x-kmc-DiscordUserID'].each do |idname|
+          - id, name = idname.split(?,, 2)
+          %li
+            %a{href: "https://discord.com/users/#{id}"}>= name
   %tr
     %th 最終更新
     %td
