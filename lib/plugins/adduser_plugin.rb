@@ -195,9 +195,9 @@ module GuildBook
     end
 
     def check_uid_unique(uid)
-      blacklist = settings.adduser['login_blacklist'].flatten
-      if blacklist.include?(uid)
-        raise UidRestrictionError, "Login name '#{uid}' is blacklisted"
+      denylist = settings.adduser['login_denylist'].flatten
+      if denylist.include?(uid)
+        raise UidRestrictionError, "Login name '#{uid}' is denylisted"
       end
 
       if File.exist?(File.join('/home', uid))

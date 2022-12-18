@@ -16,5 +16,5 @@ development:
     workspace_name: kmc-jp
 
   adduser:
-    login_blacklist:
+    login_denylist:
       - [root, daemon, bin, sys, sync, games, man, mail, news, uucp, proxy, backup, list, irc, gnats, nobody]  # Debian default sysusers
