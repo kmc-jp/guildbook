@@ -195,7 +195,7 @@ module GuildBook
     end
 
     def check_uid_unique(uid)
-      denylist = settings.adduser['login_denylist'].flatten + settings.adduser['login_blacklist'].flatten
+      denylist = settings.adduser['login_denylist'].flatten
       if denylist.include?(uid)
         raise UidRestrictionError, "Login name '#{uid}' is denylisted"
       end
