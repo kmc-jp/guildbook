@@ -62,7 +62,7 @@
         %label{for: 'edit-title'}
           役職
         %div
-          - input_userattr user, 'title', id: 'edit-title', placeholder: '会長, 会計'
+          - input_userattr user, 'title', id: 'edit-title', pattern: '会長|副会長|代表|副代表|会計',placeholder: '会長, 副会長, 代表, 副代表, 会計'
     %div.row
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-telephone-number'}
