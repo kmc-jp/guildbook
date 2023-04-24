@@ -62,7 +62,7 @@
         %label{for: 'edit-title'}
           役職
         %div
-          - input_userattr user, 'title', id: 'edit-title', pattern: '会長|副会長|代表|副代表|会計',placeholder: '会長, 副会長, 代表, 副代表, 会計'
+          - input_userattr user, 'title', id: 'edit-title', pattern: '会長|副会長|代表|副代表|会計|NF委員|広報|文レク|',placeholder: '会長, 副会長, 代表, 副代表, 会計, NF委員, 広報, 文レク'
     %div.row
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-telephone-number'}
@@ -92,22 +92,29 @@
           - input_userattr user, 'x-kmc-AddressIsPublic', type: :checkbox, value: 'true', checked: user['x-kmc-AddressIsPublic'].first == 'TRUE', class: ''
           郵便番号と住所を他の部員に公開
     %div.row
-      %div.col-12.col-lg-8.mb-2
-        %label{for: 'edit-university-department'}
+      %div.col-12.col-lg-4.mb-2
+        %label{for: 'edit-is-kyoto-university'}
           所属
           %span.form-required *在学者は必須
+          %div
+          - select_userattr user, 'x-kmc-UniversityDepartment', id: 'edit-is-kyoto-university'
+      %div.col-12.col-lg-6.mb-2
+        %label{for: 'edit-university-department'}
+          学部・学科
+          %span.form-required *必須
         %div
           - input_userattr user, 'x-kmc-UniversityDepartment', id: 'edit-university-department', placeholder: '工学部情報学科, 千葉電波大学理学部'
-      %div.col-12.col-lg-4.mb-2
+      %div.col-12.col-lg-2.mb-2
         %label{for: 'edit-university-status'}
           学年
-          %span.form-required *在学者は必須
+          %span.form-required *必須
         %div
           - input_userattr user, 'x-kmc-UniversityStatus', id: 'edit-university-status', placeholder: '1, M2, D3, 教授'
     %div.row
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-university-matric-year'}
           入学年
+          %span.form-required *必須
         %div.input-group
           %span.input-group-prepend
             %span.input-group-text 西暦

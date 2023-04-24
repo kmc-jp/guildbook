@@ -132,7 +132,7 @@ module GuildBook
       x-kmc-Alias title x-kmc-Generation description
       postalCode postalAddress x-kmc-Lodging
       telephoneNumber x-kmc-MailForwardingAddress
-      x-kmc-AddressIsPublic
+      x-kmc-AddressIsPublic x-kmc-IsKUMember x-kmc-KUDepartment x-kmc-KUStudentNumber
     ]
 
     def update_attribute(conn, dn, key, value)
