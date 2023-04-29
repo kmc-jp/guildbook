@@ -131,8 +131,8 @@ objectClass ( kmcObjectClass:1
   MAY ( x-kmc-LastModified $
         x-kmc-PhoneticSurname $ x-kmc-PhoneticGivenName $
         x-kmc-Generation $ x-kmc-Alias $ x-kmc-Lodging $
-        x-kmc-IsKUMember $ x-kmc-KUDepartment $ x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
+        x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
         x-kmc-UniversityMatricYear $
         x-kmc-KUStudentNumber $
         x-kmc-MailForwardingAddress $ x-kmc-MailNotificationAddress $
-        x-kmc-DiscordUserID $ x-kmc-SlackUserID $ x-kmc-AddressIsPublic) )
+        x-kmc-DiscordUserID $ x-kmc-SlackUserID $ x-kmc-AddressIsPublic $ x-kmc-IsKUMember $ x-kmc-KUDepartment) )

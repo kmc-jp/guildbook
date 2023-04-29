@@ -46,6 +46,7 @@ module GuildBook
       attrs['cn'] = "#{attrs['givenName']} #{attrs['sn']}"
       attrs['x-kmc-Lodging'] = attrs['x-kmc-Lodging'] ? 'TRUE' : 'FALSE' # fixme
       attrs['x-kmc-AddressIsPublic'] = attrs['x-kmc-AddressIsPublic'] ? 'TRUE' : 'FALSE' # fixme
+      attrs['x-kmc-IsKUMember'] = attrs['x-kmc-IsKUMember']=="TRUE" ? 'TRUE' : 'FALSE' # fixme
 
       ssh_public_keys = attrs.delete('sshPublicKey')
       ssh_public_keys&.each do |key|
