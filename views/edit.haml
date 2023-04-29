@@ -2,6 +2,8 @@
   %p.alert.alert-danger
     = error
 
+-kuDepartments={"工学部情報学科": "工学部情報学科", "工学部電気電子工学科": "工学部電気電子工学科", "工学部物理工学科": "工学部物理工学科", "工学部地球工学科": "工学部地球工学科", "工学部建築学科": "工学部建築学科", "工学部工業化学科": "工学部工業化学科", "理学部": "理学部", "医学部医学科": "医学部医学科", "医学部人間健康科学科": "医学部人間健康科学科", "総合人間学部": "総合人間学部", "文学部": "文学部", "教育学部": "教育学部", "法学部": "法学部", "経済学部": "経済学部", "薬学部薬科学科": "薬学部薬科学科", "薬学部薬学科": "薬学部薬学科", "農学部資源生物科学科": "農学部資源生物科学科", "農学部応用生命科学科": "農学部応用生命科学科", "農学部地域環境工学科": "農学部地域環境工学科", "農学部食料・環境経済学科": "農学部食料・環境経済学科", "農学部森林科学科": "農学部森林科学科", "農学部食品生物科学科": "農学部食品生物科学科"}
+
 %form.edit-form.needs-validation{action: absolute_uri(user['uid'].first, :edit), method: :POST}
   %h2 ユーザ情報編集
   %div.container
@@ -95,26 +97,37 @@
       %div.col-12.col-lg-4.mb-2
         %label{for: 'edit-is-kyoto-university'}
           所属
-          %span.form-required *在学者は必須
+          %span.form-required *必須
           %div
-          - select_userattr user, 'x-kmc-IsKUMember', id: 'edit-is-kyoto-university'
-      %div.col-12.col-lg-6.mb-2
-        %label{for: 'edit-university-department'}
+          - select_userattr user, 'x-kmc-IsKUMember', {"TRUE": "京都大学", "FALSE": "その他"} , id: 'edit-is-kyoto-university'
+      %div.col-12.col-lg-6.mb-2.is-ku
+        %label{for: 'edit-ku-department'}
           学部・学科
           %span.form-required *必須
         %div
-          - input_userattr user, 'x-kmc-UniversityDepartment', id: 'edit-university-department', placeholder: '工学部情報学科, 千葉電波大学理学部'
-      %div.col-12.col-lg-2.mb-2
+          - select_userattr user, 'x-kmc-KUDepartment',  kuDepartments ,id: 'edit-ku-department'
+      %div.col-12.col-lg-6.mb-2.is-ku
+        %label{for: 'edit-ku-student-number'}
+          学生番号
+          %span.form-required *必須
+        %div
+          - input_userattr user, 'x-kmc-KUStudentNumber', id: 'edit-ku-student-number', type: :text, required: true, placeholder: '1026-XX-YYYY', pattern: '\d+-\d+-\d+'
+      %div.col-12.col-lg-2.mb-2.is-ku
         %label{for: 'edit-university-status'}
           学年
           %span.form-required *必須
         %div
           - input_userattr user, 'x-kmc-UniversityStatus', id: 'edit-university-status', placeholder: '1, M2, D3, 教授'
+      %div.col-12.col-lg-6.mb-2.not-ku
+        %label{for: 'edit-university-department'}
+          所属組織・学部・学科
+          %span.form-required *必須
+        %div
+          - input_userattr user, 'x-kmc-UniversityDepartment', id: 'edit-university-department', placeholder: '千葉電波大学理学部, 社会人'
     %div.row
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-university-matric-year'}
           入学年
-          %span.form-required *必須
         %div.input-group
           %span.input-group-prepend
             %span.input-group-text 西暦
