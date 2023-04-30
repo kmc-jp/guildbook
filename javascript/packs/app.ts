@@ -53,6 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    form.querySelectorAll<HTMLSelectElement>('form #edit-is-kyoto-university').forEach(select => {
+      select.addEventListener('change', function(){
+        var isKUMember = (select.value==="TRUE");
+        form.querySelectorAll<HTMLDivElement>('form div.is-ku').forEach(div => {
+          div.hidden = !isKUMember;
+        })
+        form.querySelectorAll<HTMLDivElement>('form div.not-ku').forEach(div => {
+          div.hidden = isKUMember;
+        })
+      })
+    });
+
     form.querySelectorAll<HTMLInputElement>('form input.form-control.password').forEach(async input => {
       const { default: zxcvbn } = await import('zxcvbn');
 
