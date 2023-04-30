@@ -50,7 +50,9 @@
             %td
               #{user['x-kmc-UniversityMatricYear'].first}
             %td
+              - if !user['x-kmc-KUDepartment'].empty?
+                京都大学 #{user['x-kmc-KUDepartment'].first} #{user['x-kmc-UniversityStatus'].first}
               - if !user['x-kmc-UniversityDepartment'].empty?
-                #{user['x-kmc-UniversityDepartment'].first} #{user['x-kmc-UniversityStatus'].first}
+                #{user['x-kmc-UniversityDepartment'].first}
             %td
               #{user['title'].first}
