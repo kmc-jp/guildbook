@@ -106,7 +106,8 @@ attributeType ( kmcAttributeType:15
   NAME 'x-kmc-IsKUMember'
   DESC 'Whether the associated person belongs to Kyoto University'
   EQUALITY booleanMatch
-  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE )
 
 attributeType ( kmcAttributeType:16
   NAME 'x-kmc-KUStudentNumber'
