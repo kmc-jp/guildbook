@@ -12,7 +12,7 @@ module Haml
         end
         current_value = user[attr].first
         values.each do |k, v|
-          selected = v == current_value
+          selected = k == current_value
           haml_tag :option, value: k, selected: selected do haml_concat v end
         end
       end
