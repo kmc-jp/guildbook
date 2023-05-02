@@ -25,10 +25,13 @@
   %tr
     %th 住所
     %td #{user['postalCode'].first} #{user['postalAddress'].first}
-  - if user['x-kmc-UniversityDepartment'].first
+  - if user['x-kmc-KUDepartment'].first||user['x-kmc-UniversityDepartment'].first
     %tr
       %th 所属
-      %td #{user['x-kmc-UniversityDepartment'].first} #{user['x-kmc-UniversityStatus'].first}
+      -if user['x-kmc-isKUMember'].first=="TRUE"
+        %td 京都大学 #{user['x-kmc-KUDepartment'].first} #{user['x-kmc-UniversityStatus'].first}
+      -else
+        %td #{user['x-kmc-UniversityDepartment'].first}
   - if user['description'].first
     %tr
       %th 備考

@@ -102,6 +102,29 @@ attributeType ( kmcAttributeType:14
   EQUALITY booleanMatch
   SYNTAX 1.3.6.1.4.1.1466.115.121.1.7 )
 
+attributeType ( kmcAttributeType:15
+  NAME 'x-kmc-IsKUMember'
+  DESC 'Whether the associated person belongs to Kyoto University'
+  EQUALITY booleanMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.7
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:16
+  NAME 'x-kmc-KUStudentNumber'
+  DESC 'Kyoto University Student Number'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE )
+
+attributeType ( kmcAttributeType:17
+  NAME 'x-kmc-KUDepartment'
+  DESC 'the department and faculty of Kyoto University to which the associated person belongs'
+  EQUALITY caseIgnoreMatch
+  SUBSTR caseIgnoreSubstringsMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+  SINGLE-VALUE )
+
 objectClass ( kmcObjectClass:1
   NAME 'x-kmc-Person'
   DESC 'Additional informations for a member of KMC'
@@ -112,4 +135,4 @@ objectClass ( kmcObjectClass:1
         x-kmc-UniversityDepartment $ x-kmc-UniversityStatus $
         x-kmc-UniversityMatricYear $
         x-kmc-MailForwardingAddress $ x-kmc-MailNotificationAddress $
-        x-kmc-DiscordUserID $ x-kmc-SlackUserID $ x-kmc-AddressIsPublic) )
+        x-kmc-DiscordUserID $ x-kmc-SlackUserID $ x-kmc-AddressIsPublic $ x-kmc-IsKUMember $ x-kmc-KUDepartment $ x-kmc-KUStudentNumber) )

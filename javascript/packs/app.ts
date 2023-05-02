@@ -186,4 +186,47 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  document.querySelectorAll<HTMLFormElement>('form.edit-is-ku').forEach(form => {
+    form.addEventListener('submit', e => {
+      // 保存時に選択されていない方の所属情報を削除
+      form.querySelectorAll<HTMLSelectElement>('form #edit-is-kyoto-university').forEach(select => {
+        var isKUMember = (select.value==="TRUE");
+        form.querySelectorAll<HTMLSelectElement>('form #edit-ku-department').forEach(selectDepartment => {
+          if (!isKUMember) selectDepartment.value="";
+        });
+        form.querySelectorAll<HTMLInputElement>('form div.is-ku .form-control').forEach(input => {
+          if (!isKUMember) input.value="";
+        });
+        form.querySelectorAll<HTMLInputElement>('form div.not-ku .form-control').forEach(input => {
+          if (isKUMember) input.value="";
+        });
+      });
+
+      if (!form.reportValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+
+    form.querySelectorAll<HTMLSelectElement>('form #edit-is-kyoto-university').forEach(select => {
+      function rewrite(){
+        var isKUMember = (select.value==="TRUE");
+        form.querySelectorAll<HTMLDivElement>('form div.is-ku').forEach(div => {
+          div.hidden = !isKUMember;
+        })
+        form.querySelectorAll<HTMLDivElement>('form div.not-ku').forEach(div => {
+          div.hidden = isKUMember;
+        })
+        form.querySelectorAll<HTMLInputElement>('form div.is-ku .form-control').forEach(input => {
+          input.required=isKUMember;
+        })
+        form.querySelectorAll<HTMLInputElement>('form div.not-ku .form-control').forEach(input => {
+          input.required=!isKUMember;
+        })
+      }
+      rewrite();
+      select.addEventListener('change', rewrite);
+    });
+  });
 });
