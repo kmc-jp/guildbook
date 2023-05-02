@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.querySelectorAll<HTMLInputElement>('form div.is-ku .form-control, form div.is-ku .form-select').forEach(input => {
           input.required=isKUMember;
         })
-        form.querySelectorAll<HTMLInputElement>('form div.not-ku .form-control, .form-select').forEach(input => {
+        form.querySelectorAll<HTMLInputElement>('form div.not-ku .form-control, form div.not-ku .form-select').forEach(input => {
           input.required=!isKUMember;
         })
       }
