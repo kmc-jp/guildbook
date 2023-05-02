@@ -10,18 +10,10 @@ module Haml
         if show_default
           haml_tag :option, selected: true, hidden: true, value: "" do haml_concat "--選択してください--" end
         end
-        if (user[attr].size==0) then
-          values.each{|k, v|
-            haml_tag :option, value: k do haml_concat v end
-          }
-        else
-          values.each{|k, v|
-            if (user[attr].first.to_sym==k) then
-              haml_tag :option, selected: true, value: k do haml_concat v end
-            else
-              haml_tag :option, value: k do haml_concat v end
-            end
-          }
+        current_value = user[attr].first
+        values.each do |k, v|
+          selected = v == current_value
+          haml_tag :option, value: k, selected: selected do haml_concat v end
         end
       end
     end
