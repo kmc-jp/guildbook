@@ -218,10 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
         form.querySelectorAll<HTMLDivElement>('form div.not-ku').forEach(div => {
           div.hidden = isKUMember;
         })
-        form.querySelectorAll<HTMLInputElement>('form div.is-ku .form-control, form div.is-ku .form-select').forEach(input => {
+        form.querySelectorAll<HTMLInputElement>('form div.is-ku .form-control:not(.not-required), form div.is-ku .form-select:not(.not-required)').forEach(input => {
           input.required=isKUMember;
         })
-        form.querySelectorAll<HTMLInputElement>('form div.not-ku .form-control, form div.not-ku .form-select').forEach(input => {
+        form.querySelectorAll<HTMLInputElement>('form div.not-ku .form-control:not(.not-required), form div.not-ku .form-select:not(.not-required)').forEach(input => {
           input.required=!isKUMember;
         })
       }

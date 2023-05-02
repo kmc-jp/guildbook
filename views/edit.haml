@@ -118,10 +118,9 @@
           %span.form-required *京大所属者は必須
         %div
           - input_userattr user, 'x-kmc-UniversityStatus', id: 'edit-university-status', required: true, placeholder: '1, M2, D3, 教授'
-      %div.col-12.col-lg-10.mb-2.not-ku{hidden: "hidden"}
+      %div.col-12.col-lg-10.mb-2.not-ku.not-required{hidden: "hidden"}
         %label{for: 'edit-university-department'}
           所属組織・学部・学科
-          %span.form-required *必須
         %div
           - input_userattr user, 'x-kmc-UniversityDepartment', id: 'edit-university-department', required: false, placeholder: '千葉電波大学理学部, 社会人'
     %div.row
