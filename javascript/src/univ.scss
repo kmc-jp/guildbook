@@ -4,9 +4,17 @@
     p.notice {
         display: none;
     }
+    button.btn {
+        display: none;
+    }
     a {
         color: inherit;
     }
+}
+
+.util {
+  display: flex;
+  justify-content: space-between
 }
 
 table {
@@ -48,8 +56,10 @@ table {
         &.grade { width: 2.2em; text-align: center; }
         &.student-number { width: 8em; text-align: center;}
         &.name { width: 8em; text-align: center; }
-        &.contacts { width: auto; }
+        &.address { width: auto; }
+        &.tel { width: 8em; text-align: center;}
         &.lodging { width: 2.5em; text-align: center; }
+        &.mail { width: 12em; text-align: center;}
         border: solid 1px;
 
         div {

@@ -5,9 +5,11 @@
     != stylesheet_tag('univ')
     != javascript_tag('univ')
   %body
-    %p.notice 赤色背景は今年度に入ってから更新されていません．
+    %div.util
+      %p.notice ※赤色背景は今年度に入ってから更新されていません．
+      %button.btn#export{type: 'button'} CSV出力
     %table#executives
-      %caption 代表者の役員名簿
+      %caption 役員名簿
       %thead
         %tr
           %th.title 役職
@@ -15,8 +17,10 @@
           %th.grade 回生
           %th.student-number 学生番号
           %th.name 氏名
-          %th.contacts 現住所及び電話番号
+          %th.address 住所
+          %th.tel 電話番号
           %th.lodging 下宿・自宅の別
+          %th.mail 連絡先E-mail:
       %tbody
         - users.each do |u|
           - if ::GuildBook::UnivHelper.executive?(u)
@@ -29,17 +33,11 @@
                 %div.yomi #{::GuildBook::UnivHelper.yomi(u)}
                 %div= ::GuildBook::UnivHelper.name(u)
                 %div.uid #{::GuildBook::UnivHelper.uid(u)}
-              %td.contacts
-                %div
-                  %span.label 現住所:
-                  %span.value= ::GuildBook::UnivHelper.address(u)
-                %div
-                  %span.label 電話番号:
-                  %span.value= ::GuildBook::UnivHelper.tel(u)
-                %div
-                  %span.label 電子メール:
-                  %a.value{href: ::GuildBook::UnivHelper.mailto_email(u)}= ::GuildBook::UnivHelper.email(u)
+              %td.address= ::GuildBook::UnivHelper.address(u)
+              %td.tel= ::GuildBook::UnivHelper.tel(u)
               %td.lodging= ::GuildBook::UnivHelper.lodging(u)
+              %td.mail
+                %a.value{href: ::GuildBook::UnivHelper.mailto_email(u)}= ::GuildBook::UnivHelper.email(u)
 
     %table#members
       %caption 構成員名簿
@@ -50,7 +48,8 @@
           %th.grade 回生
           %th.student-number 学生番号
           %th.name 氏名
-          %th.contacts 現住所及び電話番号
+          %th.address 住所
+          %th.tel 電話番号
           %th.lodging 下宿・自宅の別
       %tbody
         - users.each do |u|
@@ -64,15 +63,6 @@
                 %div.yomi #{::GuildBook::UnivHelper.yomi(u)}
                 %div= ::GuildBook::UnivHelper.name(u)
                 %div.uid #{::GuildBook::UnivHelper.uid(u)}
-              %td.contacts
-                %div
-                  %span.label 現住所:
-                  %span.value= ::GuildBook::UnivHelper.address(u)
-                %div
-                  %span.label 電話番号:
-                  %span.value= ::GuildBook::UnivHelper.tel(u)
-                - if ::GuildBook::UnivHelper.outdated?(u)
-                  %div
-                    %span.label 電子メール:
-                    %a.value{href: ::GuildBook::UnivHelper.mailto_email(u)}= ::GuildBook::UnivHelper.email(u)
+              %td.address= ::GuildBook::UnivHelper.address(u)
+              %td.tel= ::GuildBook::UnivHelper.tel(u)
               %td.lodging= ::GuildBook::UnivHelper.lodging(u)
