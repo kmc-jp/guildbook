@@ -30,6 +30,8 @@ module GuildBook
 
     helpers Sinatra::ContentFor
     helpers WebpackHelpers
+    helpers DepartmentHelpers
+    helpers ViewHelpers
 
     set :haml, escape_html: true
 
