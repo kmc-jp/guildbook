@@ -1,0 +1,19 @@
+- if error
+  %p.alert.alert-danger
+    = error
+
+%form.edit-form.needs-validation{action: :"!univ", method: :POST}
+  %h2 大学提出名簿の閲覧にはパスワードが必要です
+  %fieldset
+    %legend.col-md-12.col-sm-12
+      アカウント情報を入力してください
+    %div.container
+      %div.row
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-uid'} ログイン名
+          %input#bind-uid.form-control.no-validation{name: '$bind_uid', required: true, placeholder: 'combat'}
+        %div.col-12.col-lg-5.mb-2
+          %label.sr-only{for: 'bind-password'} パスワード
+          %input#bind-password.form-control.no-validation{type: :password, name: '$bind_password', required: true, placeholder: 'Password'}
+        %div.col-12.col-lg-2.mb-2.d-grid
+          %button.btn.btn-primary{type: :submit, name: 'action', value: 'auth'} 送信

@@ -18,6 +18,28 @@ module GuildBook
       return do_search(filter)
     end
 
+    def search_auth(bind_uid, bind_password, query = nil, include_inactive = true)
+      attributes = ['*']
+      filter = Net::LDAP::Filter.present('uid')
+
+      if query and (query = query.strip) and !query.empty?
+        filter &= SEARCH_ATTRS.collect {|attr| Net::LDAP::Filter.contains(attr, query) }.inject(:|)
+      end
+
+      if !include_inactive
+        filter &= ~Net::LDAP::Filter.present('shadowExpire')
+      end
+
+      Net::LDAP.open_uri(uri) do |conn|
+        bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
+
+        if !conn.bind(method: :simple, username: bind_dn, password: bind_password)
+          raise Error, conn.get_operation_result.message
+        end
+        conn.search(filter: filter, attributes: attributes)
+      end.collect(&:fix_encoding!) or raise Sinatra::NotFound
+    end
+
     def get(uid)
       do_search(Net::LDAP::Filter.eq('uid', uid)).first or raise Sinatra::NotFound
     end

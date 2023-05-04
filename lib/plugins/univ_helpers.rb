@@ -17,17 +17,30 @@ module GuildBook
       end
 
       def kyotou_student?(u)
+        is_ku_member=u['x-kmc-isKUMember'].first == "TRUE"
         status = u['x-kmc-UniversityStatus'].first
         department = u['x-kmc-UniversityDepartment'].first
-        status and department and status =~/^[BMD]?\d+$/ and department.gsub(/(?<=大学)[[:space:]]*大学院/, '') !~ /(?<!京都)大学|高等学校|中学/  # FIXME
+        is_ku_member or (status and department and status =~/^[BMD]?\d+$/ and department.gsub(/(?<=大学)[[:space:]]*大学院/, '') !~ /(?<!京都)大学|高等学校|中学/)  # FIXME
       end
 
       def kyotou_department(u)
-        case u['x-kmc-UniversityDepartment'].first
-        when nil
-          ''
-        when /\A(?:京都大学[[:space:]]*(?:大学院[[:space:]]*)?)?(.*(?:学部|研究科|研究所|センター))/
-          $1
+        is_ku_member=u['x-kmc-isKUMember'].first == "TRUE"
+        if is_ku_member
+          case u['x-kmc-KUDepartment'].first
+            when nil
+            ''
+            when /\A(.*(?:学部|研究科))/
+              $1
+            else
+              u['x-kmc-KUDepartment'].first
+            end
+        else
+          case u['x-kmc-UniversityDepartment'].first
+          when nil
+            ''
+          when /\A(?:京都大学[[:space:]]*(?:大学院[[:space:]]*)?)?(.*(?:学部|研究科|研究所|センター))/
+            $1
+          end
         end
       end
 
