@@ -34,6 +34,10 @@ module GuildBook
       def kyotou_grade(u)
         (u['x-kmc-UniversityStatus'].first || '').sub(/\AB/, '')
       end
+      
+      def kyotou_student_number(u)
+        u['x-kmc-KUStudentNumber'].first || ''
+      end
 
       def name(u)
         "#{u['sn;lang-ja'].first} #{u['givenName;lang-ja'].first}"

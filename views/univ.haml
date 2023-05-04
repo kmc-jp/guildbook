@@ -13,6 +13,7 @@
           %th.title 役職
           %th.department 学部
           %th.grade 回生
+          %th.student-number 学生番号
           %th.name 氏名
           %th.contacts 現住所及び電話番号
           %th.lodging 下宿・自宅の別
@@ -27,6 +28,7 @@
                 %div.yomi #{::GuildBook::UnivHelper.yomi(u)}
                 %div= ::GuildBook::UnivHelper.name(u)
                 %div.uid #{::GuildBook::UnivHelper.uid(u)}
+              %td.student-number= ::GuildBook::UnivHelper.kyotou_student_number(u)
               %td.contacts
                 %div
                   %span.label 現住所:
