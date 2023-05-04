@@ -12,6 +12,7 @@ require_relative 'date_ext'
 require_relative 'user'
 require_relative 'utils'
 require_relative 'webpack_helpers'
+require_relative 'ku_departments_helpers'
 
 module GuildBook
   class App < Sinatra::Base
