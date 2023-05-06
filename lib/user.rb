@@ -5,6 +5,19 @@ require_relative 'string_ext'
 module GuildBook
   class UserRepo < LdapRepo
     def search(query = nil, include_inactive = true)
+      filter = search_get_filter(query, include_inactive)
+
+      return do_search(filter)
+    end
+
+    def search_auth(bind_uid, bind_password, query = nil, include_inactive = true)
+      attributes=['*']
+      filter = search_get_filter(query, include_inactive)
+
+      return do_search_auth(bind_uid, bind_uid, bind_password, filter, attributes)
+    end
+
+    private def search_get_filter(query, include_inactive)
       filter = Net::LDAP::Filter.present('uid')
 
       if query and (query = query.strip) and !query.empty?
@@ -14,8 +27,7 @@ module GuildBook
       if !include_inactive
         filter &= ~Net::LDAP::Filter.present('shadowExpire')
       end
-
-      return do_search(filter)
+      return filter
     end
 
     def get(uid)
@@ -23,19 +35,9 @@ module GuildBook
     end
 
     def get_auth(uid, bind_uid, bind_password)
-      attributes = ['*']
       filter = Net::LDAP::Filter.eq('uid', uid)
 
-      # or raise Sinatra::NotFound
-      Net::LDAP.open_uri(uri) do |conn|
-        dn = Net::LDAP::DN.new('uid', uid, conn.base)
-        bind_dn = Net::LDAP::DN.new('uid', bind_uid, conn.base)
-
-        if !conn.bind(method: :simple, username: bind_dn, password: bind_password)
-          raise Error, conn.get_operation_result.message
-        end
-        conn.search(filter: filter, attributes: attributes)
-      end.collect(&:fix_encoding!).first or raise Sinatra::NotFound
+      do_search_auth(uid, bind_uid, bind_password, filter).first or raise Sinatra::NotFound
     end
 
     def get_many(uids)

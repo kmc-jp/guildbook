@@ -2,8 +2,8 @@
   %p.alert.alert-danger
     = error
 
-%form.edit-form.needs-validation{action: absolute_uri(user['uid'].first, :edit), method: :POST}
-  %h2 ユーザー情報の編集にはパスワードが必要です
+%form.edit-form.needs-validation{action: action_url || absolute_uri(user['uid'].first, :edit), method: :POST}
+  %h2 パスワードが必要です
   %fieldset
     %legend.col-md-12.col-sm-12
       アカウント情報を入力してください

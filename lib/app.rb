@@ -69,7 +69,7 @@ module GuildBook
 
     get '/:uid/edit' do |uid|
       pass if uid =~ /^!/
-      haml :editauth, locals: {user: user_repo.get(uid), error: nil}
+      haml :auth, locals: {action_url: nil, user: user_repo.get(uid), error: nil}
     end
 
     post '/:uid/edit' do |uid|
@@ -86,7 +86,7 @@ module GuildBook
           params.each do |k, v|
             user[k] = [v]
           end
-          haml :editauth, locals: {user: user, error: $!}
+          haml :auth, locals: {action_url: nil, user: user, error: $!}
         end
       else
         begin
