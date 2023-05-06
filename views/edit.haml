@@ -109,7 +109,7 @@
           学生番号
           %span.form-required *京大所属者は必須
         %div
-          - input_userattr user, 'x-kmc-KUStudentNumber', id: 'edit-ku-student-number', type: :text, required: true, placeholder: 'XXXX-YY-ZZZZ', pattern: '\d+-\d+-\d+'
+          - input_userattr user, 'x-kmc-KUStudentNumber', id: 'edit-ku-student-number', type: :text, required: true, placeholder: 'XXXX-YY-ZZZZ', pattern: '[A-Z0-9]+-[A-Z0-9]+-[A-Z0-9]+'
       %div.col-12.col-lg-2.mb-2.is-ku
         %label{for: 'edit-university-status'}
           学年
