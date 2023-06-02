@@ -98,29 +98,29 @@
           %span.form-required *
           %div
           - select_userattr user, 'x-kmc-IsKUMember', {"TRUE" => "京都大学", "FALSE" => "その他"} , false, id: 'edit-is-kyoto-university'
+      %div.col-12.col-lg-7.mb-2.not-ku.not-required{hidden: "hidden"}
+        %label{for: 'edit-university-department'}
+          所属組織・学部・学科
+        %div
+          - input_userattr user, 'x-kmc-UniversityDepartment', id: 'edit-university-department', placeholder: '千葉電波大学理学部, 社会人'
       %div.col-12.col-lg-4.mb-2.is-ku
         %label{for: 'edit-ku-department'}
           学部・学科
           %span.form-required *京大所属者は必須
         %div
           - select_userattr user, 'x-kmc-KUDepartment', ku_departments, true, id: 'edit-ku-department', required: true
-      %div.col-12.col-lg-4.mb-2.is-ku
+      %div.col-12.col-lg-3.mb-2.is-ku
         %label{for: 'edit-ku-student-number'}
           学生番号
           %span.form-required *京大所属者は必須
         %div
           - input_userattr user, 'x-kmc-KUStudentNumber', id: 'edit-ku-student-number', type: :text, required: true, placeholder: 'XXXX-YY-ZZZZ', pattern: '[A-Z0-9]+-[A-Z0-9]+-[A-Z0-9]+'
-      %div.col-12.col-lg-2.mb-2.is-ku
+      %div.col-12.col-lg-3.mb-2.grade.not-required
         %label{for: 'edit-university-status'}
           学年
           %span.form-required *京大所属者は必須
         %div
           - input_userattr user, 'x-kmc-UniversityStatus', id: 'edit-university-status', required: true, placeholder: '1, M2, D3, 教授'
-      %div.col-12.col-lg-10.mb-2.not-ku.not-required{hidden: "hidden"}
-        %label{for: 'edit-university-department'}
-          所属組織・学部・学科
-        %div
-          - input_userattr user, 'x-kmc-UniversityDepartment', id: 'edit-university-department', placeholder: '千葉電波大学理学部, 社会人'
     %div.row
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-university-matric-year'}

@@ -219,10 +219,25 @@ document.addEventListener('DOMContentLoaded', () => {
           div.hidden = isKUMember;
         })
         form.querySelectorAll<HTMLInputElement>('form div.is-ku:not(.not-required) .form-control, form div.is-ku:not(.not-required) .form-select').forEach(input => {
-          input.required=isKUMember;
+          if (isKUMember) {
+            input.setAttribute("required", "true");
+          } else {
+            input.removeAttribute("required");
+          }
+        })
+        form.querySelectorAll<HTMLInputElement>('form div.grade .form-control, form div.grade .form-select').forEach(input => {
+          if (isKUMember) {
+            input.setAttribute("required", "true");
+          } else {
+            input.removeAttribute("required");
+          }
         })
         form.querySelectorAll<HTMLInputElement>('form div.not-ku:not(.not-required) .form-control, form div.not-ku:not(.not-required) .form-select').forEach(input => {
-          input.required=!isKUMember;
+          if (!isKUMember) {
+            input.setAttribute("required", "true");
+          } else {
+            input.removeAttribute("required");
+          }
         })
       }
       rewrite();
