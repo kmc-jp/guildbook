@@ -219,10 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
           div.hidden = isKUMember;
         })
         form.querySelectorAll<HTMLInputElement>('form div.is-ku:not(.not-required) .form-control, form div.is-ku:not(.not-required) .form-select').forEach(input => {
-          input.required=isKUMember;
+          input.required = isKUMember;
+        })
+        form.querySelectorAll<HTMLInputElement>('form div.grade .form-control, form div.grade .form-select').forEach(input => {
+          input.required = isKUMember;
         })
         form.querySelectorAll<HTMLInputElement>('form div.not-ku:not(.not-required) .form-control, form div.not-ku:not(.not-required) .form-select').forEach(input => {
-          input.required=!isKUMember;
+          input.required = !isKUMember;
         })
       }
       rewrite();
