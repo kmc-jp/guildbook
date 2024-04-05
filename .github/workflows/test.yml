@@ -38,6 +38,9 @@ jobs:
     - test
     runs-on: ubuntu-latest
     steps:
+    - id: time
+      run: |
+        echo "time=$(TZ=UTC date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
     - id: meta
       name: Docker meta
       uses: docker/metadata-action@v5
@@ -45,7 +48,15 @@ jobs:
         images: |
           ghcr.io/${{ github.repository_owner }}/guildbook
         tags: |
-          type=raw,value={{sha}}-{{date 'YYYYMMDDHHmmss'}}
+          type=raw,value={{sha}}-${{ steps.time.outputs.time }}
+    - id: meta-assets
+      name: Docker meta for assets
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          ghcr.io/${{ github.repository_owner }}/guildbook-assets
+        tags: |
+          type=raw,value={{sha}}-${{ steps.time.outputs.time }}
     - uses: docker/setup-buildx-action@v3
     - uses: docker/login-action@v2
       with:
@@ -54,6 +65,17 @@ jobs:
         password: ${{ github.token }}
     - uses: docker/build-push-action@v5
       with:
+        target: app
         push: ${{ github.ref == 'refs/heads/master' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - uses: docker/build-push-action@v5
+      with:
+        target: assets
+        push: ${{ github.ref == 'refs/heads/master' }}
+        tags: ${{ steps.meta-assets.outputs.tags }}
+        labels: ${{ steps.meta-assets.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
