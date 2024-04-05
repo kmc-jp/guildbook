@@ -1,6 +1,7 @@
 ARG RUBY=public.ecr.aws/sorah/ruby:3.2-bookworm
 ARG RUBYDEV=public.ecr.aws/sorah/ruby:3.2-dev-bookworm
 ARG NODE=public.ecr.aws/docker/library/node:lts-bookworm-slim
+ARG NGINX=public.ecr.aws/docker/library/nginx:1.24
 
 ###
 FROM $RUBYDEV as bundle
@@ -26,7 +27,12 @@ COPY . .
 RUN npm run build
 
 ###
-FROM $RUBY
+FROM $NGINX as assets
+
+COPY --from=webpack /app/public/ /usr/share/nginx/html/
+
+###
+FROM $RUBY as app
 
 RUN apt-get update -qq && \
     apt-get install -y dumb-init && \
@@ -35,8 +41,8 @@ RUN apt-get update -qq && \
 WORKDIR /app
 
 COPY . .
-COPY --from=bundle /app/vendor /app/vendor
-COPY --from=bundle /app/.bundle /app/.bundle
-COPY --from=webpack /app/node_modules /app/node_modules
+COPY --from=bundle /app/vendor/ /app/vendor/
+COPY --from=bundle /app/.bundle/ /app/.bundle/
+COPY --from=webpack /app/public/assets/assets-manifest.json /app/public/assets/assets-manifest.json
 
 ENTRYPOINT ["/app/docker/entrypoint.sh"]
