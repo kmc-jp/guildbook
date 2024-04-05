@@ -27,7 +27,7 @@ module MD4
     a, b, c, d = 0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476
 
     (0 ... s.bytesize).step(64) do |offset|
-      x = s.unpack('V16', offset: offset)
+      x = s.unpack('V16', offset:)
       aa, bb, cc, dd = a, b, c, d
 
       [0, 4, 8, 12].each do |k|
