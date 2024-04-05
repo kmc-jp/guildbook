@@ -1,7 +1,6 @@
 import fs from 'fs';
 import glob from 'glob';
 import path from 'path';
-import yaml from 'js-yaml';
 
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
@@ -22,14 +21,8 @@ declare module 'webpack' {
 }
 
 
-const loadSettings = (mode: string): Record<string, any> => {
-  const data: any = yaml.load(fs.readFileSync(path.join(__dirname, 'config/guildbook.yml'), 'utf-8'));
-  return (data.production || data.development) ? data[mode] : data;
-}
-
 const genConfig: webpack.ConfigurationFactory = (_env, argv) => {
   const isProduction = argv.mode === 'production';
-  const settings = loadSettings(argv.mode || 'development');
 
   const context = path.join(__dirname, 'javascript')
   const entry = glob.sync(path.join(context, 'packs/*')).reduce((entry, pack) => {
@@ -40,7 +33,7 @@ const genConfig: webpack.ConfigurationFactory = (_env, argv) => {
     };
   }, {});
 
-  const publicPath = process.env.WEBPACK_DEV_SERVER_URL || settings.assets_uri || '/assets/';
+  const publicPath = process.env.WEBPACK_DEV_SERVER_URL || '/assets/';
 
   const plugins: webpack.Configuration['plugins'] = [
     new WebpackAssetsManifest({
