@@ -1,5 +1,5 @@
-ARG RUBY=public.ecr.aws/sorah/ruby:3.2.3-bookworm
-ARG RUBYDEV=public.ecr.aws/sorah/ruby:3.2.3-dev-bookworm
+ARG RUBY=public.ecr.aws/sorah/ruby:3.2-bookworm
+ARG RUBYDEV=public.ecr.aws/sorah/ruby:3.2-dev-bookworm
 ARG NODE=public.ecr.aws/docker/library/node:lts-bookworm-slim
 
 ###
@@ -28,10 +28,15 @@ RUN npm run build
 ###
 FROM $RUBY
 
+RUN apt-get update -qq && \
+    apt-get install -y dumb-init && \
+    rm -rf /var/apt/lists/*
+
 WORKDIR /app
 
 COPY . .
 COPY --from=bundle /app/vendor /app/vendor
+COPY --from=bundle /app/.bundle /app/.bundle
 COPY --from=webpack /app/node_modules /app/node_modules
 
-RUN ls -al >&2 ; false
+ENTRYPOINT ["/app/docker/entrypoint.sh"]

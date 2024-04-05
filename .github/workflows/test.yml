@@ -1,48 +1,59 @@
-name: Test
+name: Test & Build
 
 on:
   push:
     branches:
       - master
   pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-ruby@v1
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.0'
-    - uses: actions/setup-node@v1
+        ruby-version: .ruby-version
+        bundler-cache: true
+    - uses: actions/setup-node@v4
       with:
-        node-version: '14'
-    - uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gem-
-    - uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-npm-
-    - name: bundle install
+        node-version: lts/*
+        cache: npm
+    - name: Install npm modules
       run: |
-        bundle config set path vendor/bundle
-        bundle config set deployment true
-        bundle install -j3
-    - name: npm install
-      run: |
-        npm install
+        npm ci
     - name: Copy config
       run: |
         sed 's/development:/production:/' config/guildbook.yml.example > config/guildbook.yml
-    - name: Build
+    - name: Build assets
       run: |
         npm run build
     - name: Test
       run: |
         bundle exec rspec
+
+  build:
+    needs:
+    - test
+    runs-on: ubuntu-latest
+    steps:
+    - id: meta
+      name: Docker meta
+      uses: docker/metadata-action@v5
+      with:
+        images: |
+          ghcr.io/${{ github.repository_owner }}/guildbook
+        tags: |
+          type=raw,value={{sha}}-{{date 'YYYYMMDDHHmmss'}}
+    - uses: docker/setup-buildx-action@v3
+    - uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ github.token }}
+    - uses: docker/build-push-action@v5
+      with:
+        push: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
+        tags: ${{ steps.meta.output.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
