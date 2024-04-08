@@ -41,7 +41,7 @@ module WebpackHelpers
   end
 
   def assets_base_uri
-    @assets_base_uri ||= ENV.fetch('WEBPACK_DEV_SERVER_URL', settings.assets_uri)
+    @assets_base_uri ||= ENV.fetch('WEBPACK_DEV_SERVER_URL', '/assets/')
   end
 
   def format_attrs(attrs)
