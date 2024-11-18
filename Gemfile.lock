@@ -1,18 +1,24 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    base64 (0.2.0)
     diff-lcs (1.5.0)
     haml (5.2.2)
       temple (>= 0.8.0)
       tilt
     kgio (2.11.4)
+    logger (1.6.1)
     multi_json (1.15.0)
-    mustermann (2.0.2)
+    mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
     net-ldap (0.17.1)
-    rack (2.2.8.1)
-    rack-protection (2.2.4)
-      rack
+    rack (3.1.8)
+    rack-protection (4.1.0)
+      base64 (>= 0.1.0)
+      logger (>= 1.6.0)
+      rack (>= 3.0.0, < 4)
+    rack-session (2.0.0)
+      rack (>= 3.0.0)
     raindrops (0.20.1)
     rake (13.0.6)
     rspec (3.12.0)
@@ -29,19 +35,21 @@ GEM
       rspec-support (~> 3.12.0)
     rspec-support (3.12.0)
     ruby2_keywords (0.0.5)
-    sinatra (2.2.4)
-      mustermann (~> 2.0)
-      rack (~> 2.2)
-      rack-protection (= 2.2.4)
+    sinatra (4.1.0)
+      logger (>= 1.6.0)
+      mustermann (~> 3.0)
+      rack (>= 3.0.0, < 4)
+      rack-protection (= 4.1.0)
+      rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
-    sinatra-contrib (2.2.4)
-      multi_json
-      mustermann (~> 2.0)
-      rack-protection (= 2.2.4)
-      sinatra (= 2.2.4)
+    sinatra-contrib (4.1.0)
+      multi_json (>= 0.0.2)
+      mustermann (~> 3.0)
+      rack-protection (= 4.1.0)
+      sinatra (= 4.1.0)
       tilt (~> 2.0)
     temple (0.10.0)
-    tilt (2.1.0)
+    tilt (2.4.0)
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -56,7 +64,7 @@ DEPENDENCIES
   rack
   rake
   rspec
-  sinatra (~> 2.2)
+  sinatra (~> 4.1)
   sinatra-contrib
   unicorn
   webrick
