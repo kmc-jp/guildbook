@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'rack'
 
-gem 'sinatra', '~> 2.2'
+gem 'sinatra', '~> 4.1'
 gem 'sinatra-contrib'
 
 gem 'haml', '~> 5.0'
