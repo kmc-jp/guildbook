@@ -10,7 +10,7 @@ GEM
     mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
     net-ldap (0.17.1)
-    rack (2.2.13)
+    rack (2.2.14)
     rack-protection (2.2.4)
       rack
     raindrops (0.20.1)
