@@ -1,7 +1,0 @@
-tmp/
-node_modules/
-vendor/
-.bundle/
-.git/
-
-Dockerfile*
