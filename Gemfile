@@ -6,8 +6,8 @@ gem 'rack'
 gem 'sinatra', '~> 2.2'
 gem 'sinatra-contrib'
 
+gem 'base64'
 gem 'haml', '~> 5.0'
-
 gem 'net-ldap'
 
 group :test do

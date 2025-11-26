@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    base64 (0.3.0)
     diff-lcs (1.5.0)
     haml (5.2.2)
       temple (>= 0.8.0)
@@ -43,9 +44,10 @@ GEM
     webrick (1.8.2)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
+  base64
   haml (~> 5.0)
   net-ldap
   rack
