@@ -12,6 +12,10 @@
       %th 別名
       %td
         = user['x-kmc-Alias'].first
+  - if user['x-kmc-Generation'].first
+    %tr
+      %th 代
+      %td= "#{user['x-kmc-Generation'].first}代"
   %tr
     %th メールアドレス
     %td
