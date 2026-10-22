@@ -1,0 +1,17 @@
+name: guildbook-integration
+
+services:
+  ldap:
+    build:
+      context: ../..
+      dockerfile: spec/integration/slapd.dockerfile
+    ports:
+      - target: 389
+        host_ip: 127.0.0.1
+    tmpfs:
+      - /var/lib/ldap
+    healthcheck:
+      test: ["CMD", "ldapwhoami", "-x", "-H", "ldap://localhost", "-D", "uid=komachi,ou=users,dc=example,dc=test", "-w", "integration-password"]
+      interval: 1s
+      timeout: 5s
+      retries: 30

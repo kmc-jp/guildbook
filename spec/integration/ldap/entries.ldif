@@ -1,0 +1,90 @@
+dn: dc=example,dc=test
+objectClass: dcObject
+objectClass: organization
+dc: example
+o: Example organization
+
+dn: ou=users,dc=example,dc=test
+objectClass: organizationalUnit
+ou: users
+
+dn: ou=groups,dc=example,dc=test
+objectClass: organizationalUnit
+ou: groups
+
+dn: uid=komachi,ou=users,dc=example,dc=test
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: x-kmc-Person
+objectClass: ldapPublicKey
+uid: komachi
+uidNumber: 1001
+gidNumber: 200
+homeDirectory: /home/komachi
+cn: Komachi Karasuma
+sn: Karasuma
+givenName: Komachi
+sn;lang-ja:: 54OP5Li4
+givenName;lang-ja:: 44GT44G+44Gh
+x-kmc-PhoneticSurname:: 44GL44KJ44GZ44G+
+x-kmc-PhoneticGivenName:: 44GT44G+44Gh
+userPassword: integration-password
+mail: komachi@example.test
+telephoneNumber: 000-0000-0000
+postalCode: 000-0000
+postalAddress:: 44OG44K544OI55So5L2P5omA
+description: Integration test member
+x-kmc-Generation: 42
+x-kmc-IsKUMember: FALSE
+x-kmc-UniversityDepartment:: 44OG44K544OI5aSn5a2mIOODhuOCueODiOWtpumDqA==
+x-kmc-UniversityStatus: B2
+x-kmc-UniversityMatricYear: 2018
+x-kmc-Lodging: FALSE
+x-kmc-AddressIsPublic: TRUE
+x-kmc-LastModified: 20240401000000Z
+
+dn: uid=chie,ou=users,dc=example,dc=test
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: x-kmc-Person
+objectClass: ldapPublicKey
+uid: chie
+uidNumber: 1002
+gidNumber: 200
+homeDirectory: /home/chie
+cn: Mary Chie Kondo
+sn: Kondo
+givenName: Mary Chie
+sn;lang-ja:: 6L+R6Jek
+givenName;lang-ja:: 44Oh44Ki44Oq44O844Gh44GI
+x-kmc-PhoneticSurname:: 44GT44KT44Gp44GG
+x-kmc-PhoneticGivenName:: 44KB44GC44KK44O844Gh44GI
+userPassword: integration-password
+x-kmc-Generation: 40
+
+dn: uid=combat,ou=users,dc=example,dc=test
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: x-kmc-Person
+objectClass: ldapPublicKey
+uid: combat
+uidNumber: 1003
+gidNumber: 200
+homeDirectory: /home/combat
+cn: Kousuke Echizen
+sn: Echizen
+givenName: Kousuke
+sn;lang-ja:: 6LaK5YmN
+givenName;lang-ja:: 5bq35LuL
+x-kmc-PhoneticSurname:: 44GI44Gh44Gc44KT
+x-kmc-PhoneticGivenName:: 44GT44GG44GZ44GR
+shadowExpire: 1
+
+dn: cn=admin,ou=groups,dc=example,dc=test
+objectClass: posixGroup
+cn: admin
+gidNumber: 200
+memberUid: komachi
