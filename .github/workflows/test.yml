@@ -11,24 +11,35 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: ruby/setup-ruby@v1
+    - uses: actions/checkout@v4.4.0
+    - uses: ruby/setup-ruby@v1.332.0
       with:
         ruby-version: .ruby-version
         bundler-cache: true
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v4.4.0
       with:
         node-version: lts/*
         cache: npm
     - name: Install npm modules
       run: |
         npm ci
-    - name: Copy config
-      run: |
-        sed 's/development:/production:/' config/guildbook.yml.example > config/guildbook.yml
     - name: Build assets
       run: |
         npm run build
+    - name: Start LDAP
+      run: docker compose -f spec/integration/compose.yml up --build --wait --wait-timeout 60
     - name: Test
       run: |
         bundle exec rspec
+    - name: Collect Compose logs
+      if: always()
+      run: docker compose -f spec/integration/compose.yml logs --no-color > "$RUNNER_TEMP/compose.log" 2>&1
+    - name: Upload Compose logs
+      if: always()
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: compose-logs
+        path: ${{ runner.temp }}/compose.log
+    - name: Stop LDAP
+      if: always()
+      run: docker compose -f spec/integration/compose.yml down

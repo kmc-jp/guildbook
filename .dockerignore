@@ -1,0 +1,8 @@
+.git
+.agents
+.aws
+.codex
+node_modules
+vendor
+public/assets
+config/guildbook.yml

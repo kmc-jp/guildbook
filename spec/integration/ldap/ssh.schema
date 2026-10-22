@@ -1,0 +1,13 @@
+# OpenSSH LPK schema used by the application's profile editor.
+attributetype ( 1.3.6.1.4.1.24552.500.1.1.1.13
+  NAME 'sshPublicKey'
+  DESC 'MANDATORY: OpenSSH Public key'
+  EQUALITY octetStringMatch
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )
+
+objectclass ( 1.3.6.1.4.1.24552.500.1.1.2.0
+  NAME 'ldapPublicKey'
+  SUP top
+  AUXILIARY
+  MUST uid
+  MAY sshPublicKey )
