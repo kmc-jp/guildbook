@@ -31,7 +31,7 @@ GEM
     ostruct (0.6.3)
     public_suffix (7.0.5)
     racc (1.8.1)
-    rack (2.2.24)
+    rack (2.2.25)
     rack-protection (2.2.4)
       rack
     rack-test (2.3.0)
@@ -102,7 +102,7 @@ CHECKSUMS
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
   public_suffix (7.0.5) sha256=1a8bb08f1bbea19228d3bed6e5ed908d1cb4f7c2726d18bd9cadf60bc676f623
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
-  rack (2.2.24) sha256=ef16526a0d871c43753452338c754040a664c8b41bf0dd7450b85f7772adca5f
+  rack (2.2.25) sha256=a5b3cd8f2df29c36ede21aa797c21e643f06792fae7487926102e06abe6da0b8
   rack-protection (2.2.4) sha256=82663dceaacffadd31a2936fdead448b8fd8e324891d52c38b2482faa2ced1b4
   rack-test (2.3.0) sha256=b118d177cc002c572fc1b6fd8d19c9ed5881a36e8d6f689f9e618f9f861241e8
   rake (13.4.2) sha256=cb825b2bd5f1f8e91ca37bddb4b9aaf345551b4731da62949be002fa89283701
