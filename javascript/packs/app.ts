@@ -81,13 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const strength = zxcvbn(password, dictionary);
         strengthMeter.value = strength.score;
 
-        if (20 <= strength.guesses_log10) {
-          input.setCustomValidity('');
+        if (password.length < input.minLength) {
+          input.setCustomValidity(`パスワードは${input.minLength}文字以上必要です`);
           return;
         }
 
-        if (password.length < 8) {
-          input.setCustomValidity('パスワードは8文字以上必要です');
+        if (20 <= strength.guesses_log10) {
+          input.setCustomValidity('');
           return;
         }
 

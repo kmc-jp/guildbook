@@ -11,6 +11,8 @@ module GuildBook
     class PasswordRestrictionError < StandardError; end
     class UidRestrictionError < StandardError; end
 
+    MIN_PASSWORD_LENGTH = 15
+
     configure do
       @@locker = Mutex.new
     end
@@ -176,8 +178,8 @@ module GuildBook
       unless /\A[\x20-\x7e]+\z/.match?(password)
         raise PasswordRestrictionError, "Your password contains invalid letters"
       end
-      if password.length < 8
-        raise PasswordRestrictionError, "Your password is too short. You need at least 8 letters."
+      if password.length < MIN_PASSWORD_LENGTH
+        raise PasswordRestrictionError, "Your password is too short. You need at least #{MIN_PASSWORD_LENGTH} letters."
       end
       if password.length > 127  # Windows restriction
         raise PasswordRestrictionError, "Your password is too long. You can use at most 127 letters."
