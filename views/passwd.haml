@@ -16,7 +16,7 @@
           新しいパスワード
           %span.form-required *
         %div
-          %input#edit-password.form-control.password{type: :password, name: 'password', required: true, autocomplete: 'new-password', placeholder: 'Password', minlength: 8, maxlength: 127, data: {'password-strength-meter': '#edit-password-strength'}}
+          %input#edit-password.form-control.password{type: :password, name: 'password', required: true, autocomplete: 'new-password', placeholder: 'Password', minlength: GuildBook::App::MIN_PASSWORD_LENGTH, maxlength: 127, data: {'password-strength-meter': '#edit-password-strength'}}
           %meter#edit-password-strength.password-strength.small{min: 0, max: 4}
       %div.col-12.col-lg-6.mb-2
         %label{for: 'edit-password-confirm'}

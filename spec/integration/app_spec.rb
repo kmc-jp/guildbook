@@ -90,9 +90,10 @@ RSpec.describe 'GuildBook integration tests', type: :feature do
     visit '/!adduser'
     expect(page.status_code).to eq(200)
     expect(page).to have_css('form[action$="/!adduser"]')
+    expect(page).to have_css('#edit-password[minlength="15"]')
     visit '/!passwd/komachi'
     expect(page.status_code).to eq(200)
-    expect(page).to have_field('edit-password')
+    expect(page).to have_css('#edit-password[minlength="15"]')
     expect(page).to have_field('edit-password-confirm')
   end
 
